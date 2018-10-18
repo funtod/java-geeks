@@ -8,6 +8,7 @@
     <modules>
         <module>modules/examples</module>
         <module>modules/alex-n</module>
+        <module>modules/vlada-m</module>
     </modules>
 
 

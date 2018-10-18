@@ -8,6 +8,7 @@
     <modules>
         <module>modules/examples</module>
         <module>modules/dir2000</module>
+        <module>modules/alex-n</module>
     </modules>
 
 

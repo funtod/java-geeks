@@ -7,6 +7,7 @@
 
     <modules>
         <module>modules/examples</module>
+        <module>modules/lyapotaoleg</module>
         <module>modules/alex-n</module>
     </modules>
 

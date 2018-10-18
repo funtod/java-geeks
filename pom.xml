@@ -9,13 +9,9 @@
         <module>modules/examples</module>
         <module>modules/dir2000</module>
         <module>modules/alex-n</module>
-<<<<<<< HEAD
         <module>modules/ruslan</module>
-=======
         <module>modules/oleksandry</module>
->>>>>>> 9a43b73494632b36fd4fe48923c7f626cc4d27d0
     </modules>
-
 
     <dependencies>
         <dependency>

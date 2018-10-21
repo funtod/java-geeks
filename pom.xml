@@ -16,11 +16,7 @@
         <module>modules/ruslan</module>
         <module>modules/oleksandry</module>
         <module>modules/nickolai-k</module>
-<<<<<<< HEAD
-=======
 	<module>modules/vlada-m</module>
->>>>>>> be3c0e4a98f24765b79d0ae2afbbcfd8a7cec99f
-
     </modules>
 
     <dependencies>

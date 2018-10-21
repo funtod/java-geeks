@@ -4,6 +4,7 @@
     <groupId>com.hillel.elementary.java-geeks</groupId>
     <artifactId>alex-n</artifactId>
     <version>0.0.1</version>
+    <description></description>
 
     <parent>
         <groupId>com.hillel.elementary</groupId>

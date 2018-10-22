@@ -36,10 +36,7 @@ public class Main {
                 System.out.println("Saturday");
                 break;
             default:
-                System.out.println("test");
-                //  Calendar aDate = new GregorianCalendar(y, (m - 1), d);
-                //  int dayOfWeek = aDate.get(Calendar.DAY_OF_WEEK);
-                //  System.out.println(dayOfWeek);
+                System.out.println("Not a valid day");
                 sc.close();
         }
     }

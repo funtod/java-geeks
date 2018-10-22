@@ -7,7 +7,6 @@
 
     <modules>
         <module>modules/examples</module>
-
         <module>modules/mostipan</module>
         <module>modules/vitaliy</module>
         <module>modules/dir2000</module>
@@ -17,8 +16,7 @@
         <module>modules/ruslan</module>
         <module>modules/oleksandry</module>
         <module>modules/nickolai-k</module>
-	<module>modules/vlada-m</module>
-
+	    <module>modules/vlada-m</module>
     </modules>
 
 

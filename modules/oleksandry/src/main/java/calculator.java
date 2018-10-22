@@ -4,7 +4,7 @@ public class calculator {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Input numbers from 0 to 1000");
-        String txt = scan.nextLine();
+        String txt = String.valueOf(scan.nextInt());
         char [] array = txt.toCharArray();
         int sum = 0;
         for (char c : array)

@@ -2,9 +2,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hillel.elementary.java-geeks</groupId>
-    <artifactId>alex-n</artifactId>
+    <artifactId>vlada-m</artifactId>
     <version>0.0.1</version>
-
 
     <parent>
         <groupId>com.hillel.elementary</groupId>

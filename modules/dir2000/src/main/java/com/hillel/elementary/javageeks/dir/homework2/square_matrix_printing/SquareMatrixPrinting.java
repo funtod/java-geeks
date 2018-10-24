@@ -3,6 +3,8 @@ package com.hillel.elementary.javageeks.dir.homework2.square_matrix_printing;
 /*Ввести n чисел с консоли.
 Вывести числа от 1 до k в виде матрицы N x N слева направо и сверху вниз
 */
+/* As the teacher explained to me, the task is simple - to request a sequence of numbers from the user
+ and output them in the form of a square matrix.*/
 
 import java.util.Scanner;
 
@@ -29,19 +31,24 @@ public class SquareMatrixPrinting {
 
     char [] charArray = Long.toString(input).toCharArray();
     if (charArray.length < 3) {
+      //no need to transform something if input data is too small
       System.out.println(input);
       return;
     }
 
     int length = charArray.length;
+    //determining the size of the future matrix
     int sideSize = (int) Math.sqrt(length);
     if ((sideSize * sideSize) < length) {
+      //if input data doesn't fit the matrix of such size - increasing the size by 1
       sideSize++;
     }
 
     for (int i = 0; i < length; i++) {
-      if (i != 0 && i % sideSize == 0)
+      if (i != 0 && i % sideSize == 0) {
+        //output line ending after every sideSize values
         System.out.println();
+      }
       System.out.print(charArray[i]);
     }
   }

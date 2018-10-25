@@ -5,6 +5,13 @@
     <version>0.0.1</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <junit.version>5.0.0</junit.version>
+        <assertj.version>3.10.0</assertj.version>
+        <forms_rt.version>6.0.5</forms_rt.version>
+    </properties>
+
     <modules>
         <module>modules/examples</module>
         <module>modules/mostipan</module>
@@ -22,9 +29,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

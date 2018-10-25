@@ -16,9 +16,9 @@
         <module>modules/ruslan</module>
         <module>modules/oleksandry</module>
         <module>modules/nickolai-k</module>
-	    <module>modules/vlada-m</module>
+        <module>modules/vlada-m</module>
+	      <module>modules/vlada-m</module>
     </modules>
-
 
     <dependencies>
         <dependency>

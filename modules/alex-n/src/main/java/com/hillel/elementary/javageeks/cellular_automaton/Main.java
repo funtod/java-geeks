@@ -18,14 +18,14 @@ public class Main {
                 columns = scanner.nextInt();
             } else {
                 System.out.printf("wrong data. Exit");
-                System.exit(0);
+                System.exit(1);
             }
             System.out.printf("Please enter number of rows: ");
             if (scanner.hasNextInt()) {
                 rows = scanner.nextInt();
             } else {
                 System.out.printf("wrong data. Exit");
-                System.exit(0);
+                System.exit(1);
             }
             if (columns <= 0 || rows <= 0){
                 System.out.println("Error. Can't sat matrix: " + columns + " x " + rows + ". Dimensions must be grater than 0. Try again.");

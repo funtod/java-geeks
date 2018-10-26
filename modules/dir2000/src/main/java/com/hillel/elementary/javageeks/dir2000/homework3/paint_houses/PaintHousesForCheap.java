@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 public class PaintHousesForCheap {
   private static int[] houses;
+  private static int[] housesForCheap;
   private static int minCost;
   private static int housePointer;
   private static String[] colours = {"red", "blue", "green"};
@@ -27,6 +28,7 @@ public class PaintHousesForCheap {
     int[][] costs = getCosts(houseQuantity);
     minCost(costs);
     System.out.println("THE MINIMAL COST: " + minCost);
+    System.out.println("THE CHEAPEST COMBINATION: " + Arrays.toString(housesForCheap));
   }
 
   private static int askAboutQuantity() {
@@ -80,10 +82,11 @@ public class PaintHousesForCheap {
     minCost = Integer.MAX_VALUE;
     int housesCount = costs.length;
     houses = new int[housesCount];
+    housesForCheap = new int[housesCount];
     for (int colourIndex = 0; colourIndex < colours.length; colourIndex++) {
       paintAHouse(colourIndex, costs);
     }
-    return houses; //for testing purposes
+    return housesForCheap; //for testing purposes
   }
 
   private static void paintAHouse(int colourIndex, int[][] costs) {
@@ -110,6 +113,7 @@ public class PaintHousesForCheap {
     int prevMinCost = minCost;
     if (currCost < minCost) {
       minCost = currCost;
+      System.arraycopy(houses, 0, housesForCheap, 0, houses.length);
     }
 
     if (debugMode) {

@@ -28,7 +28,12 @@ public class PaintHousesForCheap {
     int[][] costs = getCosts(houseQuantity);
     minCost(costs);
     System.out.println("THE MINIMAL COST: " + minCost);
-    System.out.println("THE CHEAPEST COMBINATION: " + Arrays.toString(housesForCheap));
+
+    String housesForCheapStr = Arrays.toString(housesForCheap);
+    for (int i = 0; i < colours.length; i++) {
+      housesForCheapStr = housesForCheapStr.replace(Integer.toString(i), colours[i]);
+    }
+    System.out.println("THE CHEAPEST COMBINATION: " + housesForCheapStr);
   }
 
   private static int askAboutQuantity() {
@@ -70,6 +75,7 @@ public class PaintHousesForCheap {
       }
     }
     housePointer = 0;
+    //System.out.println(Arrays.deepToString(costs));
     return costs;
   }
 

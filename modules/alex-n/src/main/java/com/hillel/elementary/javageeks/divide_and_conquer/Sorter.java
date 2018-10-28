@@ -24,19 +24,15 @@ public class Sorter {
                 for (int k = 0; k < rightHalf.length + leftHalf.length; k++) {
                     if (i < leftHalf.length && j < rightHalf.length) {
                         if (leftHalf[i] < rightHalf[j]) {
-                            array[k] = leftHalf[i];
-                            i++;
+                            array[k] = leftHalf[i++];
                         } else {
-                            array[k] = rightHalf[j];
-                            j++;
+                            array[k] = rightHalf[j++];
                         }
                     } else {
                         if (i < j) {
-                            array[k] = leftHalf[i];
-                            i++;
+                            array[k] = leftHalf[i++];
                         } else {
-                            array[k] = rightHalf[j];
-                            j++;
+                            array[k] = rightHalf[j++];
                         }
                     }
                 }

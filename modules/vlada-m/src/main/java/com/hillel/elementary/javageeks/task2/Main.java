@@ -1,5 +1,9 @@
 package com.hillel.elementary.javageeks.task2;
+/*
+Ввести с консоли n-размерность матрицы a [n] [n]. Задать значения элементов матрицы в интервале значений от -n до n с помощью датчика случайных чисел.
 
+Выполнить циклический сдвиг заданной матрицы на k позиций вправо (влево, вверх, вниз).
+ */
 
 import java.util.InputMismatchException;
 import java.util.Random;

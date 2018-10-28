@@ -3,7 +3,7 @@ package com.hillel.elementary.javageeks.dir2000.homework3.paint_houses;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PaintHousesForCheapTest {
+public class PaintHousesForCheapProcessorTest {
   @Test
   public void shouldReturnDefiniteCostsForTenHouses(){
     //given
@@ -11,7 +11,7 @@ public class PaintHousesForCheapTest {
     int housesCount = 10;
 
     //when
-    int [][] result = PaintHousesForCheap.getCosts(housesCount);
+    int [][] result = PaintHousesForCheapProcessor.getCosts(housesCount);
 
     //then
     assertThat(result).isEqualTo(costs);
@@ -24,7 +24,7 @@ public class PaintHousesForCheapTest {
     int housesCount = 10;
 
     //when
-    int result = PaintHousesForCheap.minCost(PaintHousesForCheap.getCosts(housesCount));
+    int result = new PaintHousesForCheapProcessor().minCost(PaintHousesForCheapProcessor.getCosts(housesCount));
 
     //then
     assertThat(result).isEqualTo(minCost);
@@ -37,7 +37,7 @@ public class PaintHousesForCheapTest {
     int housesCount = 10;
 
     //when
-    int [] result = PaintHousesForCheap.calculateHouses(PaintHousesForCheap.getCosts(housesCount));
+    int [] result = new PaintHousesForCheapProcessor().calculateHouses(PaintHousesForCheapProcessor.getCosts(housesCount));
 
     //then
     assertThat(result).isEqualTo(housesForCheap);

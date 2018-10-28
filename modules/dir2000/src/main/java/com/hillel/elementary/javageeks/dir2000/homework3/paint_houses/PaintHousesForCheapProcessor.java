@@ -15,21 +15,22 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-public class PaintHousesForCheap {
-  private static int[] houses;
-  private static int[] housesForCheap;
-  private static int minCost;
-  private static int housePointer;
+public class PaintHousesForCheapProcessor {
+  private int[] houses;
+  private int[] housesForCheap;
+  private int minCost;
+  private int housePointer;
   private static String[] colours = {"red", "blue", "green"};
-  private static boolean debugMode = false;
+  private boolean debugMode = false;
 
   public static void main(String[] args) {
     int houseQuantity = askAboutQuantity();
     int[][] costs = getCosts(houseQuantity);
-    minCost(costs);
-    System.out.println("THE MINIMAL COST: " + minCost);
+    PaintHousesForCheapProcessor paintHousesProcessor = new PaintHousesForCheapProcessor();
+    int minimalCost = paintHousesProcessor.minCost(costs);
+    System.out.println("THE MINIMAL COST: " + minimalCost);
 
-    String housesForCheapStr = Arrays.toString(housesForCheap);
+    String housesForCheapStr = Arrays.toString(paintHousesProcessor.getHousesForCheap());
     for (int i = 0; i < colours.length; i++) {
       housesForCheapStr = housesForCheapStr.replace(Integer.toString(i), colours[i]);
     }
@@ -69,22 +70,20 @@ public class PaintHousesForCheap {
   public static int[][] getCosts(int houseQuantity) {
     Random random = new Random(1984);
     int[][] costs = new int[houseQuantity][colours.length];
-    for (housePointer = 0; housePointer < houseQuantity; housePointer++) {
+    for (int houseIndex = 0; houseIndex < houseQuantity; houseIndex++) {
       for (int colourIndex = 0; colourIndex < colours.length; colourIndex++) {
-        costs[housePointer][colourIndex] = 100 + random.nextInt(9) * 100; //100, 200, 300...900
+        costs[houseIndex][colourIndex] = 100 + random.nextInt(9) * 100; //100, 200, 300...900
       }
     }
-    housePointer = 0;
-    //System.out.println(Arrays.deepToString(costs));
     return costs;
   }
 
-  public static int minCost(int[][] costs) {
+  public int minCost(int[][] costs) {
     calculateHouses(costs);
     return minCost;
   }
 
-  public static int[] calculateHouses(int[][] costs) {
+  public int[] calculateHouses(int[][] costs) {
     minCost = Integer.MAX_VALUE;
     int housesCount = costs.length;
     houses = new int[housesCount];
@@ -95,7 +94,7 @@ public class PaintHousesForCheap {
     return housesForCheap; //for testing purposes
   }
 
-  private static void paintAHouse(int colourIndex, int[][] costs) {
+  private void paintAHouse(int colourIndex, int[][] costs) {
     houses[housePointer] = colourIndex;
     if (housePointer == houses.length - 1) {
       //It's the last house in current paint combination
@@ -110,7 +109,7 @@ public class PaintHousesForCheap {
     }
   }
 
-  private static void calculateSequence(int[][] costs){
+  private void calculateSequence(int[][] costs){
     int currCost = 0;
     for (int i = 0; i < houses.length; i++) {
       currCost += costs[i][houses[i]];
@@ -133,5 +132,9 @@ public class PaintHousesForCheap {
       System.out.println(currCost);
       System.out.println(Arrays.toString(houses));
     }
+  }
+
+  int [] getHousesForCheap() {
+    return housesForCheap;
   }
 }

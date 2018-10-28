@@ -3,20 +3,13 @@ package com.hillel.elementary.javageeks.dir.homework3.merge_sort;
 import java.util.Arrays;
 
 public class MergeSort {
-    static int [] arrayToSort;
 
-    public static void main(String[] args) {
-        mergeSort(new  int[] {5, 4, -1, 12, 3, 7, 78});
-        System.out.println(Arrays.toString(arrayToSort));
+    public static int[] mergeSort(int [] array) {
+        mergeSortRange(array, 0, array.length - 1);
+        return array;
     }
 
-    public static int[] mergeSort(int [] source) {
-        arrayToSort = source;
-        mergeSortRange(0, arrayToSort.length - 1);
-        return arrayToSort;
-    }
-
-    private static void mergeSortRange(int leftBound, int rightBound){
+    private static void mergeSortRange(int [] array, int leftBound, int rightBound){
         if (leftBound == rightBound)
             return;
 
@@ -25,8 +18,8 @@ public class MergeSort {
         int leftBoundArrayTwo = rightBoundArrayOne + 1;
         int rightBoundArrayTwo = rightBound;
         if (rightBound - leftBound > 1) {
-            mergeSortRange(leftBoundArrayOne, rightBoundArrayOne);
-            mergeSortRange(leftBoundArrayTwo, rightBound);
+            mergeSortRange(array, leftBoundArrayOne, rightBoundArrayOne);
+            mergeSortRange(array, leftBoundArrayTwo, rightBound);
         }
 
         int [] merged = new int [rightBound - leftBound + 1];
@@ -36,20 +29,20 @@ public class MergeSort {
         int valueOne, valueTwo;
         while (pointer < merged.length) {
             if (pointertArrayOne > rightBoundArrayOne) {
-                merged[pointer] = arrayToSort[pointerArrayTwo++];
+                merged[pointer] = array[pointerArrayTwo++];
             } else if (pointerArrayTwo > rightBoundArrayTwo){
-                merged[pointer] = arrayToSort[pointertArrayOne++];
+                merged[pointer] = array[pointertArrayOne++];
             } else {
-                valueOne = arrayToSort[pointertArrayOne];
-                valueTwo = arrayToSort[pointerArrayTwo];
+                valueOne = array[pointertArrayOne];
+                valueTwo = array[pointerArrayTwo];
                 if (valueOne > valueTwo) {
-                    merged[pointer] = arrayToSort[pointerArrayTwo++];
+                    merged[pointer] = array[pointerArrayTwo++];
                 } else {
-                    merged[pointer] = arrayToSort[pointertArrayOne++];
+                    merged[pointer] = array[pointertArrayOne++];
                 }
             }
             pointer++;
         }
-        System.arraycopy(merged, 0, arrayToSort, leftBound, merged.length);
+        System.arraycopy(merged, 0, array, leftBound, merged.length);
     }
 }

@@ -9,7 +9,6 @@
         <groupId>com.hillel.elementary</groupId>
         <artifactId>java-geeks</artifactId>
         <version>0.0.1</version>
-        <relativePath>../..</relativePath>
+        <relativePath>../../</relativePath>
     </parent>
-
 </project>

@@ -2,9 +2,8 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hillel.elementary.java-geeks</groupId>
-    <artifactId>alex-n</artifactId>
+    <artifactId>vlada-m</artifactId>
     <version>0.0.1</version>
-
 
     <parent>
         <groupId>com.hillel.elementary</groupId>
@@ -12,12 +11,4 @@
         <version>0.0.1</version>
         <relativePath>../../</relativePath>
     </parent>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.intellij</groupId>
-            <artifactId>forms_rt</artifactId>
-            <version>${forms_rt.version}</version>
-        </dependency>
-    </dependencies>
 </project>

@@ -20,23 +20,23 @@ public class Sorter {
                 }
                 int i = 0;
                 int j = 0;
-                array = new int[leftHalf.length + rightHalf.length];
+                int[] resultArray = new int[leftHalf.length + rightHalf.length];
                 for (int k = 0; k < rightHalf.length + leftHalf.length; k++) {
                     if (i < leftHalf.length && j < rightHalf.length) {
                         if (leftHalf[i] < rightHalf[j]) {
-                            array[k] = leftHalf[i++];
+                            resultArray[k] = leftHalf[i++];
                         } else {
-                            array[k] = rightHalf[j++];
+                            resultArray[k] = rightHalf[j++];
                         }
                     } else {
                         if (i < j) {
-                            array[k] = leftHalf[i++];
+                            resultArray[k] = leftHalf[i++];
                         } else {
-                            array[k] = rightHalf[j++];
+                            resultArray[k] = rightHalf[j++];
                         }
                     }
                 }
-                return array;
+                return resultArray;
             }
         }
     }

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class calculator {
+public class Calculator {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Input numbers from 0 to 1000");

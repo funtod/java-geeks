@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class intIntoSequence {
+public class IntIntoSequence {
 
     public static void main(String[] args)
     {

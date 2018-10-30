@@ -62,7 +62,9 @@ public class Triangle {
     this.vertexC = vertexC;
   }
 
-  public Triangle(Vertex vertexA, Vertex vertexB, Vertex vertexC) {
+  public Triangle(Vertex vertexA, Vertex vertexB, Vertex vertexC) throws VertexOverlapException{
+    if (vertexA.equals(vertexB) || vertexB.equals(vertexC) || vertexC.equals(vertexA))
+      throw new VertexOverlapException();
     this.vertexA = vertexA;
     this.vertexB = vertexB;
     this.vertexC = vertexC;

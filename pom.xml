@@ -46,6 +46,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <argLine>-Xms2024m</argLine>
+                    <forkCount>0</forkCount>
                 </configuration>
             </plugin>
         </plugins>

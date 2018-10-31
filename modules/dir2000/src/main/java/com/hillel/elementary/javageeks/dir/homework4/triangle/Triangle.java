@@ -14,6 +14,24 @@ public class Triangle {
   private Vertex vertexB;
   private Vertex vertexC;
 
+  private double area;
+  private double perimeter;
+
+  private boolean isEquilateral; //равносторонний
+  private boolean isIsosceles; //равнобедренный
+  private boolean isRectangular; //прямоугольный
+  private boolean isArbitrary; //произвольный
+
+  public Triangle(Vertex vertexA, Vertex vertexB, Vertex vertexC) throws VertexOverlapException{
+    checkForVertexOverlap(vertexA, vertexB, vertexC);
+
+    this.vertexA = vertexA;
+    this.vertexB = vertexB;
+    this.vertexC = vertexC;
+
+    calculateProperties();
+  }
+
   @Override
   public String toString() {
     return "Triangle{" +
@@ -42,50 +60,81 @@ public class Triangle {
     return vertexA;
   }
 
-  public void setVertexA(Vertex vertexA) {
+  public void setVertexA(Vertex vertexA) throws VertexOverlapException{
+    checkForVertexOverlap(vertexA, vertexB, vertexC);
     this.vertexA = vertexA;
+    calculateProperties();
   }
 
   public Vertex getVertexB() {
     return vertexB;
   }
 
-  public void setVertexB(Vertex vertexB) {
+  public void setVertexB(Vertex vertexB)  throws VertexOverlapException{
+    checkForVertexOverlap(vertexA, vertexB, vertexC);
     this.vertexB = vertexB;
+    calculateProperties();
   }
 
   public Vertex getVertexC() {
     return vertexC;
   }
 
-  public void setVertexC(Vertex vertexC) {
+  public void setVertexC(Vertex vertexC)  throws VertexOverlapException{
+    checkForVertexOverlap(vertexA, vertexB, vertexC);
     this.vertexC = vertexC;
+    calculateProperties();
   }
 
-  public Triangle(Vertex vertexA, Vertex vertexB, Vertex vertexC) throws VertexOverlapException{
-    if (vertexA.equals(vertexB) || vertexB.equals(vertexC) || vertexC.equals(vertexA))
-      throw new VertexOverlapException();
-    this.vertexA = vertexA;
-    this.vertexB = vertexB;
-    this.vertexC = vertexC;
+  public boolean isEquilateral() {
+    return isEquilateral;
+  }
+
+  public boolean isIsosceles() {
+    return isIsosceles;
+  }
+
+  public boolean isRectangular() {
+    return isRectangular;
+  }
+
+  public boolean isArbitrary() {
+    return isArbitrary;
   }
 
   public double getArea(){
-    return 0.5 * Math.abs((vertexA.getX()-vertexC.getX())*(vertexB.getY()-vertexC.getY()) -
-            (vertexB.getX()-vertexC.getX())*(vertexA.getY()-vertexC.getY()));
+    return area;
   }
 
   public double getPerimeter(){
-    /*АВ (с) = √((Хв-Ха)²+(Ув-Уа)²) = √4 = 2.
-    BC (а)= √((Хc-Хв)²+(Ус-Ув)²) = √37 ≈ 6,08276253.
-    AC (в) = √((Хc-Хa)²+(Ус-Уa)²) = √37 ≈ 6,08276253.*/
-    double ab = Math.sqrt(Math.pow(vertexB.getX()-vertexA.getX(), 2) +
-            Math.pow(vertexB.getY()-vertexA.getY(), 2));
-    double bc = Math.sqrt(Math.pow(vertexC.getX()-vertexB.getX(), 2) +
-            Math.pow(vertexC.getY()-vertexB.getY(), 2));
-    double ac = Math.sqrt(Math.pow(vertexC.getX()-vertexA.getX(), 2) +
-            Math.pow(vertexC.getY()-vertexA.getY(), 2));
+    return perimeter;
+  }
 
-    return ab + bc + ac;
+  private void calculateProperties() {
+    area = 0.5 * Math.abs((vertexA.getX()-vertexC.getX())*(vertexB.getY()-vertexC.getY()) -
+            (vertexB.getX()-vertexC.getX())*(vertexA.getY()-vertexC.getY()));
+
+    double ab =  calculateLineLength(vertexA, vertexB);
+    double bc =  calculateLineLength(vertexB, vertexC);
+    double ac =  calculateLineLength(vertexA, vertexC);
+
+    perimeter = ab + bc + ac;
+
+    isEquilateral = ab == bc && bc == ac && ac == ab; //равносторонний
+    isIsosceles = ab == bc || bc == ac ||  ac == ab; //равнобедренный
+    isRectangular = (Math.pow(ab, 2) + Math.pow(bc, 2) == Math.pow(ac, 2)) //прямоугольный
+            || (Math.pow(bc, 2) + Math.pow(ac, 2) == Math.pow(ab, 2))
+            || (Math.pow(ac, 2) + Math.pow(ab, 2) == Math.pow(bc, 2));
+    isArbitrary = !isEquilateral && !isIsosceles && !isRectangular; //произвольный
+  }
+
+  private double calculateLineLength(Vertex vOne, Vertex vTwo){
+    return Math.sqrt(Math.pow(vOne.getX()-vTwo.getX(), 2) +
+            Math.pow(vOne.getY()-vTwo.getY(), 2));
+  }
+
+  private void checkForVertexOverlap(Vertex vertexA, Vertex vertexB, Vertex vertexC) throws  VertexOverlapException{
+    if (vertexA.equals(vertexB) || vertexB.equals(vertexC) || vertexC.equals(vertexA))
+      throw new VertexOverlapException();
   }
 }

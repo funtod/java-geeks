@@ -1,10 +1,12 @@
 package com.hillel.elementary.javageeks.classwork;
 
 import com.hillel.elementary.javageeks.nickolai.classwork.InsertionSort;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled
 public class InsertionSortTest {
 
     @Test

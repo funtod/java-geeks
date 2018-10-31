@@ -1,18 +1,11 @@
 package com.hillel.elementary.javageeks.dir.homework4.triangle;
 
 public class TriangleSearch {
+  private int count;
   private Triangle minTriangle;
   private Triangle maxTriangle;
 
-  @Override
-  public String toString() {
-    return "TriangleSearch{" +
-            "minTriangle=" + minTriangle +
-            ", maxTriangle=" + maxTriangle +
-            '}';
-  }
-
-  public static TriangleSearch performeSearch(Triangle [] array, TriangleSelector selector){
+  public static TriangleSearch performSearch(Triangle [] array, TriangleSelector selector){
     double minValue = Double.MAX_VALUE;
     double maxValue = Double.MIN_VALUE;
 
@@ -20,6 +13,8 @@ public class TriangleSearch {
 
     for (Triangle triangle: array) {
       if (selector.isSuitable(triangle)) {
+        search.count++;
+
         double value = selector.getValue(triangle);
 
         if (value < minValue) {
@@ -35,5 +30,26 @@ public class TriangleSearch {
     }
 
     return search;
+  }
+
+  public Triangle getMaxTriangle() {
+    return maxTriangle;
+  }
+
+  public Triangle getMinTriangle() {
+    return minTriangle;
+  }
+
+  @Override
+  public String toString() {
+    return "TriangleSearch{" +
+            "count=" + count +
+            ", minTriangle=" + minTriangle +
+            ", maxTriangle=" + maxTriangle +
+            '}';
+  }
+
+  public int getCount() {
+    return count;
   }
 }

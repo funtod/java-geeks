@@ -4,6 +4,12 @@ import java.util.Objects;
 
 public class Vertex {
   private int x;
+  private int y;
+
+  Vertex(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
 
   @Override
   public String toString() {
@@ -27,8 +33,6 @@ public class Vertex {
     return Objects.hash(x, y);
   }
 
-  private int y;
-
   public int getX() {
     return x;
   }
@@ -42,11 +46,6 @@ public class Vertex {
   }
 
   public void setY(int y) {
-    this.y = y;
-  }
-
-  Vertex(int x, int y) {
-    this.x = x;
     this.y = y;
   }
 }

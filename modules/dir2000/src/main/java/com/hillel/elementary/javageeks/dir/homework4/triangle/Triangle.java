@@ -135,6 +135,6 @@ public class Triangle {
 
   private void checkForVertexOverlap(Vertex vertexA, Vertex vertexB, Vertex vertexC) throws  VertexOverlapException{
     if (vertexA.equals(vertexB) || vertexB.equals(vertexC) || vertexC.equals(vertexA))
-      throw new VertexOverlapException();
+      throw new VertexOverlapException(vertexA, vertexB, vertexC);
   }
 }

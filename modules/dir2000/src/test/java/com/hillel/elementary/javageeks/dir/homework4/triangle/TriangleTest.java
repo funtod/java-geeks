@@ -33,12 +33,12 @@ public class TriangleTest {
   }
 
   @Test
-  void shouldCalculateStatistics() {
+  void shouldTriangleSearch() throws VertexOverlapException {
     //given
     Triangle[] triangles = getTestedArray();
 
     //when
-    TriangleSelector selector = new TriangleSelector() {
+    TriangleSelector rectangularAreaSelector = new TriangleSelector() {
       @Override
       public boolean isSuitable(Triangle triangle) {
         return triangle.isRectangular();
@@ -49,25 +49,30 @@ public class TriangleTest {
       }
     };
 
-    TriangleSearch search = TriangleSearch.performeSearch(triangles, selector);
+    TriangleSearch search = TriangleSearch.performSearch(triangles, rectangularAreaSelector);
+    Triangle minTriangle = new Triangle(new Vertex(44, 34), new Vertex(71, 11), new Vertex(44, 11));
+    Triangle maxTriangle = new Triangle(new Vertex(19, 79), new Vertex(83, 47), new Vertex(63, 7));
 
     //then
-    System.out.println(search);
-    //    assertEquals(perimeter, 14.16, 0.01);
+    assertEquals(search.getMinTriangle(), minTriangle);
+    assertEquals(search.getMaxTriangle(), maxTriangle);
+    assertEquals(search.getCount(), 8);
   }
 
   Triangle[] getTestedArray() {
-    Triangle[] triangles = new Triangle[100];
+    Triangle[] triangles = new Triangle[10000];
     Random random = new Random(1984);
-    int counetr = 0;
-    while (counetr < triangles.length) {
+    int counter = 0;
+    int upBound = 101;
+    while (counter < triangles.length) {
       try {
-        Triangle triangle = new Triangle(new Vertex(random.nextInt(), random.nextInt()),
-                new Vertex(random.nextInt(), random.nextInt()),
-                new Vertex(random.nextInt(), random.nextInt()));
-        triangles [counetr] = triangle;
-        counetr++;
+        Triangle triangle = new Triangle(new Vertex(random.nextInt(upBound), random.nextInt(upBound)),
+                new Vertex(random.nextInt(upBound), random.nextInt(upBound)),
+                new Vertex(random.nextInt(upBound), random.nextInt(upBound)));
+        triangles [counter] = triangle;
+        counter++;
       } catch (VertexOverlapException e) {
+        //it's not critical
       }
     }
     return triangles;

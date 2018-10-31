@@ -1,4 +1,4 @@
-package com.hillel.elementary.javageeks.vlada;
+package com.hillel.elementary.javageeks.task1;
 
 import java.util.Scanner;
 

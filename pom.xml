@@ -10,6 +10,7 @@
         <junit.version>5.0.0</junit.version>
         <assertj.version>3.10.0</assertj.version>
         <forms_rt.version>6.0.5</forms_rt.version>
+        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
     </properties>
 
     <modules>
@@ -23,8 +24,8 @@
         <module>modules/ruslan</module>
         <module>modules/oleksandry</module>
         <module>modules/nickolai-k</module>
-	    <module>modules/vlada-m</module>
-        <module>modules/sasha</module>
+	      <module>modules/sasha</module>
+        <module>modules/vlada-m</module>
     </modules>
 
     <build>
@@ -38,6 +39,15 @@
                     <source>1.8</source>
                     <encoding>UTF-8</encoding>
                     <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <argLine>-Xms2024m</argLine>
+                    <forkCount>0</forkCount>
                 </configuration>
             </plugin>
         </plugins>

@@ -2,9 +2,9 @@ package com.hillel.elementary.javageeks.dir.homework4.triangle;
 
 import java.util.Objects;
 
-public class Vertex {
-  private int x;
-  private int y;
+public final class Vertex {
+  private final int x;
+  private final int y;
 
   Vertex(int x, int y) {
     this.x = x;
@@ -37,15 +37,7 @@ public class Vertex {
     return x;
   }
 
-  public void setX(int x) {
-    this.x = x;
-  }
-
   public int getY() {
     return y;
-  }
-
-  public void setY(int y) {
-    this.y = y;
   }
 }

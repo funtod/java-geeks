@@ -63,7 +63,6 @@ public class Triangle {
   public void setVertexA(Vertex vertexA) throws VertexOverlapException{
     checkForVertexOverlap(vertexA, vertexB, vertexC);
     this.vertexA = vertexA;
-    calculateProperties();
   }
 
   public Vertex getVertexB() {
@@ -73,7 +72,6 @@ public class Triangle {
   public void setVertexB(Vertex vertexB)  throws VertexOverlapException{
     checkForVertexOverlap(vertexA, vertexB, vertexC);
     this.vertexB = vertexB;
-    calculateProperties();
   }
 
   public Vertex getVertexC() {
@@ -83,7 +81,6 @@ public class Triangle {
   public void setVertexC(Vertex vertexC)  throws VertexOverlapException{
     checkForVertexOverlap(vertexA, vertexB, vertexC);
     this.vertexC = vertexC;
-    calculateProperties();
   }
 
   public boolean isEquilateral() {
@@ -110,7 +107,7 @@ public class Triangle {
     return perimeter;
   }
 
-  private void calculateProperties() {
+  public void calculateProperties() {
     area = 0.5 * Math.abs((vertexA.getX()-vertexC.getX())*(vertexB.getY()-vertexC.getY()) -
             (vertexB.getX()-vertexC.getX())*(vertexA.getY()-vertexC.getY()));
 

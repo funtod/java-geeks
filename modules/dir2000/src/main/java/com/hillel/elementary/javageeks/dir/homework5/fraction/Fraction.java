@@ -14,7 +14,7 @@ public class Fraction {
 
   public Fraction(int numerator, int denominator){
     if (denominator == 0)
-      throw new ArithmeticException("/ by zero");
+      throw new IllegalArgumentException("/ by zero");
     this.numerator = numerator;
     this.denominator = denominator;
   }
@@ -60,7 +60,7 @@ public class Fraction {
 
   public void setDenominator(int denominator){
     if (denominator == 0)
-      throw new ArithmeticException("/ by zero");
+      throw new IllegalArgumentException("/ by zero");
     this.denominator = denominator;
   }
 
@@ -68,7 +68,7 @@ public class Fraction {
     return ((double) numerator) / denominator;
   }
 
-  public void add(Fraction other) {
+  public void addValues(Fraction other) {
     numerator = numerator * other.denominator + denominator * other.numerator;
     denominator = denominator * other.denominator;
 

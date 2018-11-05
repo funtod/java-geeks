@@ -12,6 +12,6 @@ public class Calculator {
                 sum = sum + Character.getNumericValue(c);
             }
         System.out.println ("Sum = " + sum);
-
+        scan.close();
     }
 }

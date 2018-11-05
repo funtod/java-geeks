@@ -35,7 +35,7 @@ public class Sample {
     public ArrayList<Train> getTrainsByDestinationByTime (Date time, String destination) {
         ArrayList<Train> sortedTrains = new ArrayList<Train>();
         for (Train train : trains) {
-            if (train.getTrainTime().equals(time) & train.getTrainDestination().equals(destination)){
+            if (train.getTrainTime().equals(time) && train.getTrainDestination().equals(destination)){
                 sortedTrains.add(train);
             }
         }
@@ -44,7 +44,7 @@ public class Sample {
     public ArrayList<Train> getTrainsByDestinationBySeats (Date time, int number) {
         ArrayList<Train> sortedTrains = new ArrayList<Train>();
         for (Train train : trains) {
-            if (train.getTrainTime().equals(time) & train.getTrainNumber() == (number)){
+            if (train.getTrainTime().equals(time) && train.getTrainNumber() == (number)){
                 sortedTrains.add(train);
             }
         }

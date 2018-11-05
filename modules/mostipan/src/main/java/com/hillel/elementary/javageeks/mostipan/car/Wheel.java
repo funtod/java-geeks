@@ -14,6 +14,11 @@ public class Wheel {
         this.amounntWheels = amounntWheels;
     }
 
+    public void changeWheel(){
+
+        System.out.print("You chenged wheel");
+
+    }
 
 
 }

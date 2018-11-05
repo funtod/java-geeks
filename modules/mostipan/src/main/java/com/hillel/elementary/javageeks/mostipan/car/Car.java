@@ -9,8 +9,20 @@ public class Car {
     private int maxSpeed;
     public Wheel wheel;
     public Engine engine;
+
+    public Car(String model, int gasTank, int maxSpeed , Wheel wheel , Engine engine) {
+        this.model = model;
+        this.gasTank = gasTank;
+        this.maxSpeed = maxSpeed;
+        this.wheel = wheel;
+        this.engine=engine;
+
+    }
     public Wheel getWheel() {
         return wheel;
+    }
+    public String getModel() {
+        return model;
     }
 
     public  Engine getEngine(){
@@ -22,10 +34,6 @@ public class Car {
     public void setEngine(Engine engine){
        this.engine=engine;
     }
-    public void getEngine(Engine engine){
-        this.engine=engine;
-    }
-
     public int getMaxSpeed() {
         return maxSpeed;
     }
@@ -42,17 +50,6 @@ public class Car {
         this.gasTank = gasTank;
     }
 
-    public String getModel() {
-        return model;
-    }
-        public Car(String model, int gasTank, int maxSpeed , Wheel wheel , Engine engine) {
-            this.model = model;
-            this.gasTank = gasTank;
-            this.maxSpeed = maxSpeed;
-            this.wheel = wheel;
-            this.engine=engine;
-
-   }
 
     public void setModel(String model) {
         this.model = model;
@@ -64,19 +61,18 @@ public class Car {
 
         if (getGasTank()==0)
         System.out.println("Stop!The tank is empty");
+        if (engine.isEngineWorking()==false){
+            System.out.print("Engine is broken!");
+        }
 
 
 
     }
     public  void move (){
-        if (getGasTank()==0){
+        if (getGasTank()==0 || getWheel().getAmounntWheels()<4 || !engine.isEngineWorking()){
             stop();
-        }
-        if (getWheel().getAmounntWheels()<4){
-            stop();
-
-        }
-      else {  System.out.print("Car is moves");
+        }else {
+            System.out.print("Car is moves");
       }
     }
 
@@ -90,10 +86,6 @@ public class Car {
         }
 
     }
-    public void changeWheels(){
 
-        System.out.print("You chenged wheel");
-
-    }
     }
 

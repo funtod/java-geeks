@@ -33,6 +33,7 @@ public class CarTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(out);
         System.setOut(printStream);
+        lada.engine.setEngineIsWorking(true);
         lada.move();
         assertThat(new String(out.toByteArray())).isEqualTo("Car is moves");
     }
@@ -42,7 +43,7 @@ public class CarTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(out);
         System.setOut(printStream);
-        lada.changeWheels();
+        lada.wheel.changeWheel();
         assertThat(new String(out.toByteArray())).isEqualTo("You chenged wheel");
     }
 
@@ -54,6 +55,16 @@ public class CarTest {
         lada.fillTheTank(10);
         assertThat(new String(out.toByteArray())).isEqualTo("You filled up the tank:" + 10);
     }
+    @Test
+    public void shouldEngineisBroken() {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PrintStream printStream = new PrintStream(out);
+        System.setOut(printStream);
+        lada.engine.setEngineIsWorking(false);
+        lada.move();
+        assertThat(new String(out.toByteArray())).isEqualTo("Engine is broken!");
+    }
+
 
 
 }

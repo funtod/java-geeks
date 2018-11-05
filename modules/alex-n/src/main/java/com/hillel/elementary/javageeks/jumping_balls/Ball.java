@@ -15,8 +15,6 @@ public class Ball {
         this.x = x;
         this.y = y;
         this.radius = radius;
-        double radians = Math.toRadians(direction);
-        double cosinus = Math.cos(radians);
         deltaX = Math.round(Math.cos(Math.toRadians(direction)) * speed * 1000.0)/1000.0;
         deltaY = Math.round(Math.sin(Math.toRadians(direction)) * speed * 1000.0)/1000.0;
     }

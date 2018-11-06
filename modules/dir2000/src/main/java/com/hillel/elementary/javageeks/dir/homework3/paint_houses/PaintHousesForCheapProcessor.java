@@ -9,7 +9,7 @@
  Найдите минимальное значение затрат на покраску всех домов.
  метод будет иметь сигнатуру типа:  public int minCost(int[][] costs)*/
 
-package com.hillel.elementary.javageeks.dir2000.homework3.paint_houses;
+package com.hillel.elementary.javageeks.dir.homework3.paint_houses;
 
 import java.util.Arrays;
 import java.util.Random;

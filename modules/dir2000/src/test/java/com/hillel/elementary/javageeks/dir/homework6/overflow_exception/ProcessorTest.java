@@ -15,15 +15,8 @@ public class ProcessorTest {
     ThrowableAssert.ThrowingCallable callable = new ThrowableAssert.ThrowingCallable(){
       @Override
       public void call() throws Throwable {
-        //...Метод, который вызывает calculateSum(), дожен перехватывать исключение,
-        // и писать в консоль об ошибке.
-        try {
-          Processor.calculateSum(array);
-        } catch (ArithmeticException e){
-          System.out.println("An ArithmeticException is detected.");
-          throw e;
-        }
-      }
+        Processor.calculateSumExcessLayer(array);
+     }
     };
 
     //then
@@ -36,6 +29,6 @@ public class ProcessorTest {
     int [] array = {1, 2};
 
     //then
-    assertThat(Processor.calculateSum(array)).isEqualTo(3);
+    assertThat(Processor.calculateSumExcessLayer(array)).isEqualTo(3);
   }
 }

@@ -15,4 +15,15 @@ public class Processor {
     }
     return sum;
   }
+
+  public static int calculateSumExcessLayer(int[] numbers){
+    int sum = 0;
+    try {
+      sum = Processor.calculateSum(numbers);
+    } catch (ArithmeticException e){
+      System.out.println("An ArithmeticException is detected.");
+      throw e;
+    }
+    return  sum;
+   }
 }

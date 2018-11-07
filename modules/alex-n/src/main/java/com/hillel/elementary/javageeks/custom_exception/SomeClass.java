@@ -2,15 +2,6 @@ package com.hillel.elementary.javageeks.custom_exception;
 
 public class SomeClass {
 
-    public static void main(String[] args) {
-        SomeClass someClass = new SomeClass();
-        try {
-            someClass.second();
-        } catch (SpecificException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void first() throws GlobalException {
         throw new GlobalException("Some of possible reasons cause an exception");
     }

@@ -1,5 +1,4 @@
 package com.hillel.elementary.javageeks.artem;
-
 public class Engine{
     private int power;
     private String name;
@@ -23,4 +22,4 @@ public class Engine{
     public String toString() {
         return "  power="+this.power+", name="+this.name;
     }
-}
+} 

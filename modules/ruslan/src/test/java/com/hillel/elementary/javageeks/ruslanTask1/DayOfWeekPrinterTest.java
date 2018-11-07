@@ -12,38 +12,24 @@ class DayOfWeekPrinterTest {
     private DayOfWeekPrinter dayOfWeekPrinter = new DayOfWeekPrinter();
 
     @Test
-
     public void shouldReadNumberFromOnetoSeven () {
 
-//given
-
+    //given
         String input = "5";
-
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(input.getBytes());
-
         System.setIn(byteArrayInputStream);
 
 
-
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-
         PrintStream printStream = new PrintStream(out);
-
         System.setOut(printStream);
 
-
-
-//when
-
+    //when
         dayOfWeekPrinter.printDayOfWeek();
 
-
-
-//then
-
+    //then
         assertThat(new String(out.toByteArray())).contains("Thursday");
 
     }
-
 }
 

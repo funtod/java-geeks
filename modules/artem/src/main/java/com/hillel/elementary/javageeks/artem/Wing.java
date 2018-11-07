@@ -7,6 +7,8 @@ public class Wing  {
         this.quantity = quantity;
         this.name = name;
     }
+
+
     public int getQuantity() {
         return quantity;
     }
@@ -19,6 +21,8 @@ public class Wing  {
     public void setName(String name) {
         this.name = name;
     }
+
+
     @Override
     public String toString() {
         return "  quantity="+this.quantity+", name="+this.name;

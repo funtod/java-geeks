@@ -1,5 +1,6 @@
 package com.hillel.elementary.javageeks.artem;
 public class Chassis {
+
     private int quantity;
     public Chassis(int quantity) {
         this.quantity = quantity;

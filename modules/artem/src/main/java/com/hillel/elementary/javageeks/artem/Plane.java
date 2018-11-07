@@ -33,6 +33,6 @@ public class Plane {
                 ", name='" + name + '\'' +
                 "\nWing:" + wing +
                 ",\nChassis:" + chassis +
-                ",\nEngine:" + engine;
+                 ",\nEngine:" + engine;
     }
 }

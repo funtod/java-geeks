@@ -1,4 +1,4 @@
-package Train;
+package train;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,20 +19,16 @@ public class Sample {
         trains.add(new Train("Luhansk", new Date(2018, 10, 12, 6, 10), 9900, 86));
     }
 
-    public void addTrain(Train train) {
-        trains.add(train);
-    }
-
     public ArrayList<Train> getTrainsByDestination(String destination) {
         ArrayList<Train> sortedTrains = new ArrayList<Train>();
         for (Train train : trains) {
             if (train.getTrainDestination().equals(destination)) {
-                sortedTrains.add(train);
+                sortedTrains.add(train) ;
             }
         }
         return sortedTrains;
     }
-    public ArrayList<Train> getTrainsByDestinationByTime (Date time, String destination) {
+    public ArrayList<Train> getTrainsByTimeByDestination (Date time, String destination) {
         ArrayList<Train> sortedTrains = new ArrayList<Train>();
         for (Train train : trains) {
             if (train.getTrainTime().equals(time) && train.getTrainDestination().equals(destination)){
@@ -41,10 +37,10 @@ public class Sample {
         }
         return sortedTrains;
     }
-    public ArrayList<Train> getTrainsByDestinationBySeats (Date time, int number) {
+    public ArrayList<Train> getTrainsByDestinationBySeats (String destinations, int number) {
         ArrayList<Train> sortedTrains = new ArrayList<Train>();
         for (Train train : trains) {
-            if (train.getTrainTime().equals(time) && train.getTrainNumber() == (number)){
+            if (train.getTrainDestination().equals(destinations) && train.getTrainNumberOfSeats() == (number)){
                 sortedTrains.add(train);
             }
         }

@@ -16,23 +16,24 @@ public class BizzareComparator implements Comparator<String> {
   }
 
   @Override
-  public int compare(String o1, String o2) {
-    if (o1 == null && o2 == null)
+  public int compare(String stringOne, String stringTwo) {
+    if (stringOne == null && stringTwo == null)
       return 0;
-    if (o1 == null)
+    if (stringOne == null)
       return -1;
-    if (o1.equals(o2))
+    if (stringOne.equals(stringTwo))
       return 0;
 
-    if (o1.length() != o2.length())
-            return o1.compareTo(o2);
-    int vowelsCountO1 = vowelLettersCount(o1);
-    int vowelsCountO2 = vowelLettersCount(o2);
+    int oneLenght = stringOne.length();
+    int twoLenght = stringTwo.length();
 
-    if (vowelsCountO1 == vowelsCountO2)
-      return o1.compareTo(o2);
-    else
-      return vowelsCountO1 - vowelsCountO2;
+    if (oneLenght != twoLenght)
+            return twoLenght - oneLenght;
+
+    int vowelsCountOne = vowelLettersCount(stringOne);
+    int vowelsCountTwo = vowelLettersCount(stringTwo);
+
+    return vowelsCountOne - vowelsCountTwo;
   }
 
   @Override

@@ -9,6 +9,16 @@ class BizzareComparatorTest {
 
   @Test
   void compare() {
+    //given
+    BizzareComparator comparator = new BizzareComparator();
+    String stringOne = "foo";
+    String stringTwo = "bar";
+
+    //when
+    int result = comparator.compare(stringOne, stringTwo);
+
+    //then
+    assertThat(result).isPositive();
   }
 
   @Test

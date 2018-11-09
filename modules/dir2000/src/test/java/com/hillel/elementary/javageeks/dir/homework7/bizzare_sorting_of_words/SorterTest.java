@@ -17,7 +17,7 @@ class SorterTest {
     String [] array = Sorter.sortWords(phrase);
 
     //then
-    System.out.println(Arrays.deepToString(array));
-    //assertThat()
+    //System.out.println(Arrays.deepToString(array));
+    assertThat(array[3]).isEqualTo("queen");
   }
 }

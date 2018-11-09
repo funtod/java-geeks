@@ -1,6 +1,5 @@
-package com.hillel.elementary.javageeks;
+package com.hillel.elementary.javageeks.divide_and_conquer;
 
-import com.hillel.elementary.javageeks.divide_and_conquer.Sorter;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

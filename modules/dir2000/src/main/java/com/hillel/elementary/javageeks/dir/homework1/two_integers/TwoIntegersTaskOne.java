@@ -1,4 +1,4 @@
-package com.hillel.elementary.javageeks.dir;
+package com.hillel.elementary.javageeks.dir.homework1.two_integers;
 
 import javax.swing.*;
 import java.awt.*;

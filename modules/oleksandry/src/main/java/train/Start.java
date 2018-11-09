@@ -26,18 +26,17 @@ public class Start {
 //        }
 
 
-        System.out.println("Input time in format YYYY/MM/DD hh:mm");
+        System.out.println("Input time in format YYYY-MM-DD hh:mm");
         String time = scanner.next();
-        String pattern = "yyyy-MM-dd HH:mm";
+        String pattern = ("yyyy-MM-dd HH:mm"); //yyyy-MM-dd HH:mm
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-
-
         Date date = null;
         try {
             date = simpleDateFormat.parse(time);
         } catch (ParseException e) {
             e.printStackTrace();
         }
+
 
         System.out.println("Input destination");
         String destination = scanner.next();

@@ -15,15 +15,15 @@ public class Start {
         Scanner scanner = new Scanner(System.in);
 
 
-//        System.out.println("Input train destination");
-//        String destination = scanner.next();
-//        ArrayList<Train> trainsByDestination = sample.getTrainsByDestination(destination);
-//
-//        if (trainsByDestination.isEmpty()) {
-//            System.out.println(fal);
-//        } else {
-//            System.out.println(trainsByDestination.toString());
-//        }
+        System.out.println("Input train destination");
+        String destination = scanner.next();
+        ArrayList<Train> trainsByDestination = sample.getTrainsByDestination(destination);
+
+        if (trainsByDestination.isEmpty()) {
+            System.out.println(fal);
+        } else {
+            System.out.println(trainsByDestination.toString());
+        }
 
 
         System.out.println("Input time in format YYYY-MM-DD hh:mm");
@@ -39,25 +39,25 @@ public class Start {
 
 
         System.out.println("Input destination");
-        String destination = scanner.next();
-        ArrayList<Train> trainByDateByDestination = sample.getTrainsByTimeByDestination(date, destination);
+        String destinationTrain = scanner.next();
+        ArrayList<Train> trainByDateByDestination = sample.getTrainsByTimeByDestination(date, destinationTrain);
         if (trainByDateByDestination.isEmpty()) {
             System.out.println(fal);
         } else {
             System.out.println(trainByDateByDestination.toString());
         }
 
-//        System.out.println("Input train destination");
-//        String destinationSeats= scanner.next();
-//        System.out.println("Input numbers of seats");
-//        int number = scanner.nextInt();
-//        ArrayList<Train> trainsByDestinationSeats = sample.getTrainsByDestinationBySeats(destinationSeats, number);
-//        if (trainsByDestinationSeats.isEmpty()) {
-//            System.out.println(fal);
-//        }
-//        else {
-//            System.out.println(trainsByDestinationSeats.toString());
-//        }
+        System.out.println("Input train destination");
+        String destinationSeats= scanner.next();
+        System.out.println("Input numbers of seats");
+        int number = scanner.nextInt();
+        ArrayList<Train> trainsByDestinationSeats = sample.getTrainsByDestinationBySeats(destinationSeats, number);
+        if (trainsByDestinationSeats.isEmpty()) {
+            System.out.println(fal);
+        }
+        else {
+            System.out.println(trainsByDestinationSeats.toString());
+        }
         scanner.close();
     }
 }

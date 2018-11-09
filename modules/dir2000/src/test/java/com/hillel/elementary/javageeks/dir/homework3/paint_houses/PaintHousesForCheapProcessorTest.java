@@ -1,6 +1,7 @@
-package com.hillel.elementary.javageeks.dir2000.homework3.paint_houses;
+package com.hillel.elementary.javageeks.dir.homework3.paint_houses;
 
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PaintHousesForCheapProcessorTest {
@@ -42,5 +43,4 @@ public class PaintHousesForCheapProcessorTest {
     //then
     assertThat(result).isEqualTo(housesForCheap);
   }
-
 }

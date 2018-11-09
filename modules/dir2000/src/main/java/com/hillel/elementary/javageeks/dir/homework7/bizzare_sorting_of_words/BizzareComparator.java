@@ -12,7 +12,7 @@ public class BizzareComparator implements Comparator<String> {
     int counter = 0;
     while(matcher.find())
       counter++;
-    return  counter;
+    return counter;
   }
 
   @Override

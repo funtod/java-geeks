@@ -18,6 +18,7 @@ class SorterTest {
 
     //then
     //System.out.println(Arrays.deepToString(array));
+    //[exclaimed, pregnant, known, queen, from, whom, God, the, and, not, Oh, my, am, it, is, I]
     assertThat(array[3]).isEqualTo("queen");
   }
 }

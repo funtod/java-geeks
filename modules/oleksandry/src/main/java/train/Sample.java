@@ -1,5 +1,6 @@
 package train;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,7 +9,8 @@ public class Sample {
     ArrayList<Train> trains = new ArrayList<Train>();
 
     {
-        trains.add(new Train("Kyiv", new Date(2018, 10, 12, 12,11), 5200, 50));
+        trains.add(new Train("Kyiv", new Date (2018, 10, 12, 12,11), 5200, 50));
+        trains.add(new Train("Lviv", new Date(2018, 10, 12, 12,11), 5200, 50));
         trains.add(new Train("Lviv", new Date(2018, 10, 12, 22, 13) , 2333, 23));
         trains.add(new Train("Luhansk", new Date(2018, 10, 12, 15, 10), 1200, 36));
         trains.add(new Train("Odesa", new Date(2018, 10, 12, 11, 11), 1836, 20));

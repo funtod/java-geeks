@@ -1,0 +1,16 @@
+package Homework5;
+
+
+public class Convertation {
+
+    public String convertation(double number){
+        try{
+           String str = Double.toString(number);
+           return str;
+        }catch (Exception exception){
+           String str = exception.toString();
+           return str;
+        }
+    }
+
+}

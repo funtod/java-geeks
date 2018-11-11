@@ -13,17 +13,12 @@ public class WingTest {
 
     @BeforeAll
     public void shouldGetWing() {
-        wing = new Wing (4, "long and bright", "aircraft");
+        wing = new Wing ("long and bright", "aircraft");
     }
 
     @Test
     public void ShouldPrintWingModel() {
         assertThat(wing.getName()).isEqualTo("long and bright");
-    }
-
-    @Test
-    public void ShouldPrintWingCount() {
-        assertThat(wing.getCount()).isEqualTo(4);
     }
 
     @Test

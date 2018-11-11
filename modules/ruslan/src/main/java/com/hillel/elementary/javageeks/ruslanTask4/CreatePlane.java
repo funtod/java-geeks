@@ -7,7 +7,7 @@ public class CreatePlane {
 
         Chassis chassis = new Chassis(2, "wheel");
         Engine engine = new Engine(1, "internal combustion");
-        Wing wing = new Wing(4, "long and bright", "aircraft");
+        Wing wing = new Wing("long and bright", "aircraft");
 
         Plane planeAerobus = new Plane("none", "A380", "none", chassis, engine, wing);
 

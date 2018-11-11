@@ -3,22 +3,12 @@ package com.hillel.elementary.javageeks.ruslanTask4;
 
 public class Wing {
 
-    int count;
     String name;
     String manufacturer;
 
-    public Wing(int count, String name, String manufacturer) {
-        this.count = count;
+    public Wing(String name, String manufacturer) {
         this.name = name;
         this.manufacturer = manufacturer;
-    }
-
-    public int getCount() {
-        return count;
-    }
-
-    public void setCount(int count) {
-        this.count = count;
     }
 
     public String getName() {
@@ -39,7 +29,7 @@ public class Wing {
 
     @Override
     public String toString() {
-        return " Wing [count=" + count + ", name=" + name + ", manufacturer=" + manufacturer + "]";
+        return " Wing [name=" + name + ", manufacturer=" + manufacturer + "]";
     }
 
 }

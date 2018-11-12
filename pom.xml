@@ -6,11 +6,17 @@
     <packaging>pom</packaging>
 
     <properties>
-        <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <junit.version>5.0.0</junit.version>
         <assertj.version>3.10.0</assertj.version>
         <forms_rt.version>6.0.5</forms_rt.version>
-        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
+        <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven-pmd-plugin.version>3.9.0</maven-pmd-plugin.version>
     </properties>
 
     <modules>
@@ -24,6 +30,7 @@
         <module>modules/ruslan</module>
         <module>modules/oleksandry</module>
         <module>modules/nickolai-k</module>
+        <module>modules/sasha</module>
         <module>modules/vlada-m</module>
     </modules>
 
@@ -36,7 +43,6 @@
                 <configuration>
                     <target>1.8</target>
                     <source>1.8</source>
-                    <encoding>UTF-8</encoding>
                     <forceJavacCompilerUse>true</forceJavacCompilerUse>
                 </configuration>
             </plugin>
@@ -49,8 +55,102 @@
                     <forkCount>0</forkCount>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${maven-checkstyle-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <configuration>
+                            <configLocation>checkstyle/checkstyle.xml</configLocation>
+                            <failsOnError>false</failsOnError>
+                            <failOnViolation>false</failOnViolation>
+                            <consoleOutput>true</consoleOutput>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>xml-maven-plugin</artifactId>
+            <version>1.0.2</version>
+            <executions>
+                <execution>
+                    <phase>process-classes</phase>
+                    <goals>
+                        <goal>transform</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <transformationSets>
+                    <transformationSet>
+                        <dir>target/</dir>
+                        <stylesheet>checkstyle/checkstyle-author.xsl</stylesheet>
+                        <includes>checkstyle-result.xml</includes>
+                        <fileMappers>
+                            <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
+                                <pattern>\.xml$</pattern>
+                                <replacement>.html</replacement>
+                            </fileMapper>
+                        </fileMappers>
+                    </transformationSet>
+                </transformationSets>
+            </configuration>
+        </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven-pmd-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>check</goal>
+                            <goal>cpd-check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failOnViolation>false</failOnViolation>
+                    <rulesets>
+                        <ruleset>${basedir}/../../checkstyle/pmd-rules.xml</ruleset>
+                    </rulesets>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.0.0</version>
+                <reportSets>
+                    <reportSet>
+                        <reports>
+                            <report>checkstyle</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>${maven-pmd-plugin.version}</version>
+                <configuration>
+                    <sourceEncoding>utf-8</sourceEncoding>
+                    <targetJdk>1.8</targetJdk>
+                    <format>html</format>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <dependencies>
         <dependency>

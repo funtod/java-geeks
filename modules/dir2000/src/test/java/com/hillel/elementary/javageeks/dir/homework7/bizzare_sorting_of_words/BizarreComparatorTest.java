@@ -3,14 +3,13 @@ package com.hillel.elementary.javageeks.dir.homework7.bizzare_sorting_of_words;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
-class BizzareComparatorTest {
+class BizarreComparatorTest {
 
   @Test
   void compare() {
     //given
-    BizzareComparator comparator = new BizzareComparator();
+    BizarreComparator comparator = new BizarreComparator();
     String stringOne = "foo";
     String stringTwo = "bar";
 
@@ -24,8 +23,8 @@ class BizzareComparatorTest {
   @Test
   void equals() {
     //given
-    BizzareComparator comparatorOne = new BizzareComparator();
-    BizzareComparator comparatorTwo = new BizzareComparator();
+    BizarreComparator comparatorOne = new BizarreComparator();
+    BizarreComparator comparatorTwo = new BizarreComparator();
 
     //when
     boolean result = comparatorOne.equals(comparatorTwo);
@@ -40,7 +39,7 @@ class BizzareComparatorTest {
     String word = "ULTRaREVOLUTioNARIE";
 
     //when
-    int result = BizzareComparator.vowelLettersCount(word);
+    int result = BizarreComparator.vowelLettersCount(word);
 
     //then
     assertThat(result).isEqualTo(10);

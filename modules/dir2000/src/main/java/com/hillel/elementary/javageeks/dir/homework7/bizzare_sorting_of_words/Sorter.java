@@ -16,7 +16,7 @@ public class Sorter {
     while (tokenizer.hasMoreTokens())
       array [counter++] = tokenizer.nextToken();
 
-    Arrays.sort(array, new BizzareComparator());
+    Arrays.sort(array, new BizarreComparator());
     return array;
   }
 }

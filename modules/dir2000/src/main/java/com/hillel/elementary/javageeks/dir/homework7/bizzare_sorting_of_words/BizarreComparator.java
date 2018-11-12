@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BizzareComparator implements Comparator<String> {
+public class BizarreComparator implements Comparator<String> {
   private static Pattern pattern = Pattern.compile("[aeiouyAEIOUY]{1}");
 
   public static int vowelLettersCount(String word){
@@ -39,7 +39,6 @@ public class BizzareComparator implements Comparator<String> {
   @Override
   public boolean equals(Object obj) {
     if (this == obj) return true;
-    if (obj == null || getClass() != obj.getClass()) return false;
-    return true;
+    return obj != null && getClass() == obj.getClass();
   }
 }

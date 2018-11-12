@@ -17,7 +17,7 @@ class SorterTest {
     String [] array = Sorter.sortWords(phrase);
 
     //then
-    //System.out.println(Arrays.deepToString(array));
+    //System.out.println(Arrays.toString(array));
     //[exclaimed, pregnant, known, queen, from, whom, God, the, and, not, Oh, my, am, it, is, I]
     assertThat(array[3]).isEqualTo("queen");
   }

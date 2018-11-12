@@ -5,7 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BizarreComparator implements Comparator<String> {
-  private static Pattern pattern = Pattern.compile("[aeiouyAEIOUY]{1}");
+  private static final Pattern pattern = Pattern.compile("[aeiouyAEIOUY]");
 
   public static int vowelLettersCount(String word){
     Matcher matcher = pattern.matcher(word);
@@ -24,11 +24,11 @@ public class BizarreComparator implements Comparator<String> {
     if (stringOne.equals(stringTwo))
       return 0;
 
-    int oneLenght = stringOne.length();
-    int twoLenght = stringTwo.length();
+    int oneLength = stringOne.length();
+    int twoLength = stringTwo.length();
 
-    if (oneLenght != twoLenght)
-            return twoLenght - oneLenght;
+    if (oneLength != twoLength)
+            return twoLength - oneLength;
 
     int vowelsCountOne = vowelLettersCount(stringOne);
     int vowelsCountTwo = vowelLettersCount(stringTwo);

@@ -29,7 +29,6 @@ class DayOfWeekPrinterTest {
 
     //then
         assertThat(new String(out.toByteArray())).contains("Thursday");
-
     }
 }
 

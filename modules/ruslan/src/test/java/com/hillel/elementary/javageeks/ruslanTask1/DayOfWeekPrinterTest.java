@@ -19,7 +19,6 @@ class DayOfWeekPrinterTest {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(input.getBytes());
         System.setIn(byteArrayInputStream);
 
-
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(out);
         System.setOut(printStream);

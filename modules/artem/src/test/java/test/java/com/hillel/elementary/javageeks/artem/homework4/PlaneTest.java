@@ -1,4 +1,4 @@
-package Homework4;
+package test.java.com.hillel.elementary.javageeks.artem.homework4;
 
 import com.hillel.elementary.javageeks.artem.homework4.Chassis;
 import com.hillel.elementary.javageeks.artem.homework4.Engine;

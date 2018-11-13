@@ -12,13 +12,12 @@ class SorterTest {
   void sortWords() {
     //given
     String phrase = "Oh my God! - exclaimed the queen. - I am pregnant, and it is not known from whom!";
+    String [] expected = {"exclaimed", "pregnant", "known", "queen", "from", "whom", "God", "the", "and", "not", "Oh", "my", "am", "it", "is", "I"};
 
     //when
-    String [] array = Sorter.sortWords(phrase);
+    String [] result = Sorter.sortWords(phrase);
 
     //then
-    //System.out.println(Arrays.toString(array));
-    //[exclaimed, pregnant, known, queen, from, whom, God, the, and, not, Oh, my, am, it, is, I]
-    assertThat(array[3]).isEqualTo("queen");
+    assertThat(result).isEqualTo(expected);
   }
 }

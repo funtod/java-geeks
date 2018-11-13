@@ -6,27 +6,35 @@ import java.util.regex.Pattern;
 public class TextFormatter {
 
     public String reformatLineFeedsByMaxWidth(String txt, int lineWidth){
-        String textInOneLine = deleteNewLineCharacters(txt);
-        Pattern pattern = Pattern.compile("(.{0," + lineWidth +"}\\b?\\.?)");
-        Matcher matcher = pattern.matcher(textInOneLine);
-        StringBuffer stringBuffer = new StringBuffer();
-        while (matcher.find()){
-            if (matcher.end() < textInOneLine.length()) {
-                stringBuffer.append(matcher.group().trim() + "\n");
-            }else {
-                stringBuffer.append(matcher.group().trim());
+        if(txt != null && !txt.isEmpty()) {
+            String textInOneLine = deleteNewLineCharacters(txt);
+            Pattern pattern = Pattern.compile("(.{0," + lineWidth + "}\\b?\\.?)");
+            Matcher matcher = pattern.matcher(textInOneLine);
+            StringBuffer stringBuffer = new StringBuffer();
+            while (matcher.find()) {
+                if (matcher.end() < textInOneLine.length()) {
+                    stringBuffer.append(matcher.group().trim() + "\n");
+                } else {
+                    stringBuffer.append(matcher.group().trim());
+                }
             }
+            return stringBuffer.toString();
+        }else {
+            return txt;
         }
-        return stringBuffer.toString();
     }
 
     public String textAlignCenter(String txt, int lineWidth){
-        String[] linesArray = txt.split("[\n\r]");
-        StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < linesArray.length; i++) {
-            stringBuilder.append(addSpacesToStretchWidth(linesArray[i], lineWidth));
+        if (txt != null && !txt.isEmpty()) {
+            String[] linesArray = txt.split("[\n\r]");
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < linesArray.length; i++) {
+                stringBuilder.append(addSpacesToStretchWidth(linesArray[i], lineWidth));
+            }
+            return stringBuilder.toString().trim();
+        }else {
+            return txt;
         }
-        return stringBuilder.toString();
     }
 
     private String addSpacesToStretchWidth(String line, int lineWidth){

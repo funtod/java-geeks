@@ -39,4 +39,40 @@ class TextFormatterTest {
         String givenStr = "word1, word2>\nword3. word4!\nword5$ word6.";
         assertThat(textFormatter.textAlignCenter(givenStr, 20)).contains("word5$", "word2>", "word3.", "word4!", "word5$", "word6.");
     }
+
+    @Test
+    void shouldDealWithAligningEmptyString() {
+        String str = "";
+        assertThat(textFormatter.textAlignCenter(str,10)).isEqualTo(str);
+    }
+
+    @Test
+    void shouldDealWithReformattingEmptyString() {
+        String str = "";
+        assertThat(textFormatter.reformatLineFeedsByMaxWidth(str,10)).isEqualTo(str);
+    }
+
+    @Test
+    void shouldDealWithAligningNull() {
+        String str = null;
+        assertThat(textFormatter.textAlignCenter(str,10)).isNull();
+    }
+
+    @Test
+    void shouldDealWithReformattingNull() {
+        String str = null;
+        assertThat(textFormatter.reformatLineFeedsByMaxWidth(str,10)).isNull();
+    }
+
+    @Test
+    void shouldReformatOneSymbolString() {
+        String str = "a";
+        assertThat(textFormatter.reformatLineFeedsByMaxWidth(str,10)).isEqualTo("a");
+    }
+
+    @Test
+    void shouldAlignOneSymbolString() {
+        String str = "a";
+        assertThat(textFormatter.textAlignCenter(str,1)).isEqualTo("a");
+    }
 }

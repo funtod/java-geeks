@@ -6,18 +6,22 @@ import java.util.regex.Pattern;
 public class TextFormatter {
 
     public String reformatLineFeedsByMaxWidth(String txt, int lineWidth){
-        txt = deleteNewLineCharacters(txt);
-        Pattern pattern = Pattern.compile("(.{0," + lineWidth +"}\\b\\.?)");
-        Matcher matcher = pattern.matcher(txt);
+        String textInOneLine = deleteNewLineCharacters(txt);
+        Pattern pattern = Pattern.compile("(.{0," + lineWidth +"}\\b?\\.?)");
+        Matcher matcher = pattern.matcher(textInOneLine);
         StringBuffer stringBuffer = new StringBuffer();
         while (matcher.find()){
-            stringBuffer.append(matcher.group().trim()+"\n");
+            if (matcher.end() < textInOneLine.length()) {
+                stringBuffer.append(matcher.group().trim() + "\n");
+            }else {
+                stringBuffer.append(matcher.group().trim());
+            }
         }
         return stringBuffer.toString();
     }
 
     public String textAlignCenter(String txt, int lineWidth){
-        String[] linesArray = txt.split("\n");
+        String[] linesArray = txt.split("[\n\r]");
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < linesArray.length; i++) {
             stringBuilder.append(addSpacesToStretchWidth(linesArray[i], lineWidth));
@@ -65,6 +69,6 @@ public class TextFormatter {
     }
 
     private String deleteNewLineCharacters(String txt){
-        return txt.replaceAll("\n", " ");
+        return txt.replaceAll("[\n\r]", " ");
     }
 }

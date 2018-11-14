@@ -1,4 +1,4 @@
-package test.java.com.hillel.elementary.javageeks.artem.homework5;
+package com.hillel.elementary.javageeks.artem.homework5;
 
 
 public class Convertation {

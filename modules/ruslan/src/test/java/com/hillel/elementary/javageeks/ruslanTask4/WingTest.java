@@ -18,12 +18,12 @@ public class WingTest {
 
     @Test
     public void ShouldPrintWingModel() {
-        assertThat(wing.getName()).isEqualTo("long and bright");
+        assertThat(wing.getTypeOfWing()).isEqualTo("long and bright");
     }
 
     @Test
     public void ShouldPrintWingManufacturer() {
-        assertThat(wing.getManufacturer()).isEqualTo("aircraft");
+        assertThat(wing.getManufacture()).isEqualTo("aircraft");
     }
 
 }

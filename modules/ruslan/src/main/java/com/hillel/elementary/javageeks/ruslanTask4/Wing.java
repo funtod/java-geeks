@@ -1,34 +1,53 @@
 package com.hillel.elementary.javageeks.ruslanTask4;
 
-
 public class Wing {
+    String typeOfWing;
+    String manufacture;
+    Engine engine;
 
-    String name;
-    String manufacturer;
-
-    public Wing(String name, String manufacturer) {
-        this.name = name;
-        this.manufacturer = manufacturer;
+    public Wing(String typeOfWing, String manufacture, Engine engine) {
+        this.typeOfWing = typeOfWing;
+        this.manufacture = manufacture;
+        this.engine = engine;
     }
 
-    public String getName() {
-        return name;
+    public Wing(String typeOfWing, String manufacture) {
+        this.typeOfWing = typeOfWing;
+        this.manufacture = manufacture;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Wing() {
+
     }
 
-    public String getManufacturer() {
-        return manufacturer;
+    public String getTypeOfWing() {
+        return typeOfWing;
     }
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
+
+    public void setTypeOfWing(String typeOfWing) {
+        this.typeOfWing = typeOfWing;
+    }
+
+    public String getManufacture() {
+        return manufacture;
+    }
+
+    public void setManufacture(String manufacture) {
+        this.manufacture = manufacture;
+    }
+
+    public Engine getEngine() {
+        return engine;
+    }
+
+    public void setEngine(Engine engine) {
+        this.engine = engine;
     }
 
     @Override
     public String toString() {
-        return " Wing [name=" + name + ", manufacturer=" + manufacturer + "]";
+        return "Wing [typeOfWing=" + typeOfWing + ", manufacture=" + manufacture + ", engine=" + engine + "]";
     }
+
 
 }

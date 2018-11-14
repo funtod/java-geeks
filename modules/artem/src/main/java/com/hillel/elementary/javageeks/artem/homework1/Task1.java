@@ -1,4 +1,4 @@
-package com.hillel.elementary.javageeks.artem;
+package com.hillel.elementary.javageeks.artem.homework1;
 import java.util.Scanner;
 
 public class Task1 {

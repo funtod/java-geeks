@@ -13,11 +13,11 @@ import java.util.regex.Pattern;
 
 //checkstyle: Class Processor should be declared as final
 public final class Processor {
+  private static final Pattern PATTERN = Pattern.compile("(.*?)(\\w+)((.*?\\s+.*?)+)(\\w+)(.*?)");
+
   //checkstyle: Utility classes should not have a public or default constructor.
   private Processor() {
   }
-
-  private static final Pattern PATTERN = Pattern.compile("(.*?)(\\w+)((.*?\\s+.*?)+)(\\w+)(.*?)");
 
   public static File process(URL inputURL) throws Exception {
     File inputFile = new File(inputURL.getFile());

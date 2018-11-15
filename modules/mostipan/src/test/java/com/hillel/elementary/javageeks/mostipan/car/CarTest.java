@@ -1,11 +1,9 @@
 package com.hillel.elementary.javageeks.mostipan.car;
 
-import com.hillel.elementary.javageeks.mostipan.car.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -18,7 +16,7 @@ public class CarTest {
 
     @BeforeAll
     public void initialiseNewCar() {
-        lada = new Car("Lada", 10, 100, new Wheel(4), new Engine(2.0));
+        lada = new Car("Lada", 10, 100, new Wheels(4), new Engine(2.0));
 
     }
 
@@ -43,8 +41,8 @@ public class CarTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(out);
         System.setOut(printStream);
-        lada.wheel.changeWheel();
-        assertThat(new String(out.toByteArray())).isEqualTo("You chenged wheel");
+        lada.wheels.changeWheel();
+        assertThat(new String(out.toByteArray())).isEqualTo("You chenged wheels");
     }
 
     @Test

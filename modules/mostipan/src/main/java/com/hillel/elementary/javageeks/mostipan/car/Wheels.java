@@ -1,7 +1,8 @@
 package com.hillel.elementary.javageeks.mostipan.car;
 
-public class Wheel {
+public class Wheels {
     private int amounntWheels;
+
     public int getAmounntWheels() {
         return amounntWheels;
     }
@@ -10,15 +11,21 @@ public class Wheel {
         this.amounntWheels = amounntWheels;
     }
 
-    public Wheel(int amounntWheels) {
+    public Wheels(int amounntWheels) {
         this.amounntWheels = amounntWheels;
     }
 
-    public void changeWheel(){
+    public void changeWheel() {
 
-        System.out.print("You chenged wheel");
+        System.out.print("You chenged wheels");
 
     }
 
-
+    public boolean isWheelsEnough() {
+        if (getAmounntWheels() < 4) {
+            return false;
+        }
+        else return true;
+    }
 }
+

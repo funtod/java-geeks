@@ -7,19 +7,19 @@ public class Car {
     private String model;
     private int gasTank;
     private int maxSpeed;
-    public Wheel wheel;
+    public Wheels wheels;
     public Engine engine;
 
-    public Car(String model, int gasTank, int maxSpeed , Wheel wheel , Engine engine) {
+    public Car(String model, int gasTank, int maxSpeed , Wheels wheels, Engine engine) {
         this.model = model;
         this.gasTank = gasTank;
         this.maxSpeed = maxSpeed;
-        this.wheel = wheel;
+        this.wheels = wheels;
         this.engine=engine;
 
     }
-    public Wheel getWheel() {
-        return wheel;
+    public Wheels getWheels() {
+        return wheels;
     }
     public String getModel() {
         return model;
@@ -28,8 +28,8 @@ public class Car {
     public  Engine getEngine(){
         return engine;
     }
-    public void setWheel(Wheel wheel) {
-        this.wheel = wheel;
+    public void setWheels(Wheels wheels) {
+        this.wheels = wheels;
     }
     public void setEngine(Engine engine){
        this.engine=engine;
@@ -55,10 +55,6 @@ public class Car {
         this.model = model;
     }
     public void stop(){
-        if (getWheel().getAmounntWheels()<4){
-            System.out.println("Stop!Wheel is broken ,please change it");
-        }
-
         if (getGasTank()==0)
         System.out.println("Stop!The tank is empty");
         if (engine.isEngineWorking()==false){
@@ -69,11 +65,12 @@ public class Car {
 
     }
     public  void move (){
-        if (getGasTank()==0 || getWheel().getAmounntWheels()<4 || !engine.isEngineWorking()){
+        if (getGasTank()==0 || !wheels.isWheelsEnough() || !engine.isEngineWorking()){
             stop();
         }else {
             System.out.print("Car is moves");
       }
+
     }
 
 

@@ -75,33 +75,36 @@
                 </executions>
             </plugin>
             <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>xml-maven-plugin</artifactId>
-            <version>1.0.2</version>
-            <executions>
-                <execution>
-                    <phase>process-classes</phase>
-                    <goals>
-                        <goal>transform</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <transformationSets>
-                    <transformationSet>
-                        <dir>target/</dir>
-                        <stylesheet>checkstyle/checkstyle-author.xsl</stylesheet>
-                        <includes>checkstyle-result.xml</includes>
-                        <fileMappers>
-                            <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
-                                <pattern>\.xml$</pattern>
-                                <replacement>.html</replacement>
-                            </fileMapper>
-                        </fileMappers>
-                    </transformationSet>
-                </transformationSets>
-            </configuration>
-        </plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <version>1.0.2</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <dir>target/</dir>
+                            <stylesheet>checkstyle/checkstyle-author.xsl</stylesheet>
+                            <includes>
+                                <arg>checkstyle-result.xml</arg>
+                            </includes>
+                            <outputDir>target/reports/</outputDir>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
+                                    <pattern>\.xml$</pattern>
+                                    <replacement>.html</replacement>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -116,6 +119,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <outputDirectory>target/reports/</outputDirectory>
                     <failOnViolation>false</failOnViolation>
                     <rulesets>
                         <ruleset>${basedir}/../../checkstyle/pmd-rules.xml</ruleset>

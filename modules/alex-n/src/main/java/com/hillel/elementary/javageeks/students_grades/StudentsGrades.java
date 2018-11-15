@@ -2,7 +2,7 @@ package com.hillel.elementary.javageeks.students_grades;
 
 import java.util.ArrayList;
 
-public class StudentsList {
+public class StudentsGrades {
 
     private ArrayList<Student> students = new ArrayList<>();
 
@@ -11,7 +11,7 @@ public class StudentsList {
         students.get(students.size()-1).addGrade(grade);
     }
 
-    public int getAvaregeGrade(String surname) {
+    public int getAverageGrade(String surname) {
         ArrayList<Integer> grades = null;
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).getSurname().equals(surname)){
@@ -19,11 +19,11 @@ public class StudentsList {
                 break;
             }
         }
-        int gredesSumm = 0;
+        int gradesSum = 0;
         for (int grade: grades){
-            gredesSumm += grade;
+            gradesSum += grade;
         }
-        return gredesSumm/grades.size();
+        return gradesSum/grades.size();
     }
 
 

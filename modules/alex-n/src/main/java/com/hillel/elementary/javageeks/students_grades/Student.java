@@ -8,6 +8,7 @@ public class Student {
     private ArrayList<Integer> grades;
 
     public Student(String surname) {
+        grades = new ArrayList<>();
         this.surname = surname;
     }
 
@@ -16,7 +17,7 @@ public class Student {
     }
 
     public void addGrade(int grade) {
-        grades.add(grade);
+        this.grades.add(grade);
     }
 
     public ArrayList<Integer> getGrades(){

@@ -5,10 +5,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regexp {
-    public  static String findWorld(String text) {
 
-        //String text = "I would like to find Ruslan Ruslan";
+   public static void main(String[] args) {
 
+        String text = "I would like to find Ruslan Ruslan";
         String[] arr = text.split(" ");
         String[] arrResult = new String[toUniqueArray(arr).length];
 
@@ -16,7 +16,6 @@ public class Regexp {
 
             Pattern pattern = Pattern.compile(arr[i]);
             Matcher matcher = pattern.matcher(text);
-
             int count = 0;
             while(matcher.find()){
                 count++;
@@ -24,25 +23,37 @@ public class Regexp {
             arrResult[i]=arr[i]+":"+count;
         }
         System.out.println(Arrays.toString(arrResult));
+
     }
 
     public static boolean isUnique(String[] array, String value) {
 
         for (int i = 0; i < array.length; i++) {
+
             if (value.equals(array[i])) {
+
                 return false;
+
             }
+
         }
         return true;
     }
 
+
+
     public static String[] toUniqueArray(String[] array) {
+
         String[] temp = new String[array.length];
         int counter = 0;
         for (int i = 0; i < array.length; i++) {
+
             if (isUnique(temp, array[i])) {
+
                 temp[counter++] = array[i];
+
             }
+
         }
 
         String[] uniqueArray = new String[counter];
@@ -50,4 +61,7 @@ public class Regexp {
         return uniqueArray;
 
     }
+
+
+
 }

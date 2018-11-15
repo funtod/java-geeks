@@ -11,7 +11,7 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 class StudentMarkerTest {
 
     @Test
-    void shouldMarkStudentsWithAverageGradeMoreThan() {
+    void shouldMarkStudentsWithAverageGradeMoreThan() throws IOException {
         String input = "Ivanov - 2\n" +
                        "Ivanov - 4\n" +
                        "Petrov - 3\n" +
@@ -23,13 +23,9 @@ class StudentMarkerTest {
                           "SIDOROV - 6\n" +
                           "SIDOROV - 8";
         Path path = null;
-        try {
-            path = Files.createTempFile("tmpGrades",null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        GradesFileReaderWriter.WriteGradesToFile(path.toString(), input);
+        path = Files.createTempFile("tmpGrades",null);
+        GradesFileReaderWriter.writeToFile(path.toString(), input);
         StudentMarker.MarkStudentsInFile(path.toString(), 6);
-        assertThat(GradesFileReaderWriter.ReadGradesFromFile(path.toString())).isEqualTo(expected);
+        assertThat(GradesFileReaderWriter.readFromFile(path.toString())).isEqualTo(expected);
     }
 }

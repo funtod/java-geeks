@@ -13,17 +13,13 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 class GradesFileReaderWriterTest {
 
     @Test
-    void shouldWriteAndReadFile() {
+    void shouldWriteAndReadFile() throws IOException {
         String str = "Ivanov - 1\n" +
                      "Petrov - 2";
         Path path = null;
-        try {
-            path = Files.createTempFile("tmpGrades",null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        GradesFileReaderWriter.WriteGradesToFile(path.toString(), str);
-        assertThat(GradesFileReaderWriter.ReadGradesFromFile(path.toString())).isEqualTo(str);
+        path = Files.createTempFile("tmpGrades",null);
+        GradesFileReaderWriter.writeToFile(path.toString(), str);
+        assertThat(GradesFileReaderWriter.readFromFile(path.toString())).isEqualTo(str);
     }
 
     @Test
@@ -32,22 +28,18 @@ class GradesFileReaderWriterTest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(out);
         System.setOut(printStream);
-        GradesFileReaderWriter.WriteGradesToFile(null, str);
+        GradesFileReaderWriter.writeToFile(null, str);
         assertThat(new String(out.toByteArray())).isEqualTo("Invalid path to file or string");
     }
 
     @Test
-    void shouldOutputMessageIfStringIsNull() {
+    void shouldOutputMessageIfStringIsNull() throws IOException {
         Path path = null;
-        try {
-            path = Files.createTempFile("tmpGrades",null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        path = Files.createTempFile("tmpGrades",null);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream printStream = new PrintStream(out);
         System.setOut(printStream);
-        GradesFileReaderWriter.WriteGradesToFile(path.toString(), null);
+        GradesFileReaderWriter.writeToFile(path.toString(), null);
         assertThat(new String(out.toByteArray())).isEqualTo("Invalid path to file or string");
     }
 }

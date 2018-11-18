@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class MinuteToYear {
     public static void main(String[] args) {
         System.out.println("Enter number of minutes:");
-        Scanner numberOfMinutes= new Scanner(System.in);
-        int minutes=numberOfMinutes.nextInt();
-        numberOfMinutes.close();
+        Scanner countMinutes= new Scanner(System.in);
+        int minutes=countMinutes.nextInt();
+        countMinutes.close();
 
         int year=minutes/(60*24*365);
         int day=(minutes-(year*60*24*365))/60/24;

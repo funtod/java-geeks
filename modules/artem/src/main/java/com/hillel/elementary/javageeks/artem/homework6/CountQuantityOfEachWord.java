@@ -6,11 +6,9 @@ import java.util.StringTokenizer;
 public class CountQuantityOfEachWord {
     public static ArrayList returnQuantityOfEachWord(String fraze){
 
-        ArrayList<String> startListOfWords = new ArrayList<>();
-        ArrayList<String> finalListOfWords = new ArrayList<>();
+        ArrayList<String> startListOfWords =  addToList(fraze);
+        ArrayList<String> finalListOfWords = getInfoAboutEachWord(startListOfWords);
 
-        startListOfWords = addToList(fraze);
-        finalListOfWords = getInfoAboutEachWord(startListOfWords);
         deleteRubish(finalListOfWords);
 
         return finalListOfWords;
@@ -20,8 +18,8 @@ public class CountQuantityOfEachWord {
     int i = 0;
         for (int j = 0; i < finalListOfWords.size();) {
            if (finalListOfWords.get(j).equals(finalListOfWords.get(i))){
-               if (j == i) {}
-               else { finalListOfWords.remove(i); }
+               if (j != i) {
+               finalListOfWords.remove(i); }
            }
            i++;
            if (i == finalListOfWords.size()){
@@ -35,8 +33,7 @@ public class CountQuantityOfEachWord {
         int j = 0, quantity = 1, i = 0, k = 0;
         while (j != listOfWords.size()) {
             if (listOfWords.get(j).equals(listOfWords.get(i))) {
-                if (j == i) {
-                } else {
+                if (j != i) {
                     quantity++;
                 }
             }

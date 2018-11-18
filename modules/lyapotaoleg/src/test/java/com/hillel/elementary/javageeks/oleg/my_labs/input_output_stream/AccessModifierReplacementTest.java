@@ -3,6 +3,7 @@ package com.hillel.elementary.javageeks.oleg.my_labs.input_output_stream;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.net.URL;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -11,7 +12,9 @@ class AccessModifierReplacementTest {
     @Test
     public void shouldResultReadFromFile(){
         //given
-        File file=new File ("D://example.txt");
+        URL resource =AccessModifierReplacementTest.class.getClassLoader ().getResource ("TextForCopy.txt");
+        String fileFrom=resource.getFile ();
+
 
         //when
         String result="public class BinarySearch {\\n\\n" +
@@ -32,11 +35,9 @@ class AccessModifierReplacementTest {
                 "            if (oldIndex == index) break;\\n" +
                 "        }\\n\\n" +
                 "        return -1;\\n" +
-                "    }\\n" +
-                "\\n" +
-                "\\n";
+                "    }\\n";
         //then
-        assertThat(result).isEqualTo (AccessModifierReplacement.readFromFile ("D://example.txt"));
+        assertThat(result).isEqualTo (AccessModifierReplacement.readFromFile (fileFrom));
 
     }
 

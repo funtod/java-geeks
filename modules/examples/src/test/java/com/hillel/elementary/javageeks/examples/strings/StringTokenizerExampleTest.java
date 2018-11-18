@@ -2,12 +2,13 @@ package com.hillel.elementary.javageeks.examples.strings;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
-class StringTokenizerExampleTest {
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class StringTokenizerExampleTest {
 
     @Test
-    void shouldParseStringWithProducts() {
+    void shouldParceProducts() {
         Product[] expectedResult = {
                 new Product(1, 2.0, "Vanya"),
                 new Product(2, 2.1, "Jack"),
@@ -21,7 +22,6 @@ class StringTokenizerExampleTest {
 
         Product[] products = StringTokenizerExample.parseProducts(text);
 
-        assertArrayEquals(expectedResult, products);
-
+        assertThat(products).isEqualTo(expectedResult);
     }
 }

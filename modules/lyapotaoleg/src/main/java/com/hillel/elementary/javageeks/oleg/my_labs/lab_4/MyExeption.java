@@ -9,8 +9,7 @@ public class MyExeption extends Exception {
 
     @Override
     public String toString() {
-        return "MyExeption: fild=" + field + " Length of the entered text is insufficient." +
-                " Minimum length is 10. ";
+        return "MyExeption: fild=" + field + " Length of the entered text is insufficient.";
     }
 }
 

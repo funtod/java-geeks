@@ -30,21 +30,21 @@ public class CountQuantityOfEachWord {
 
     public static ArrayList getInfoAboutEachWord(ArrayList<String> listOfWords){
         ArrayList<String> finalListOfWords = new ArrayList<>();
-        int j = 0, quantity = 1, i = 0, k = 0;
-        while (j != listOfWords.size()) {
-            if (listOfWords.get(j).equals(listOfWords.get(i))) {
-                if (j != i) {
+        int indexOfCheckedItem = 0, quantity = 1, indexOfActualItem = 0;
+        while (indexOfCheckedItem != listOfWords.size()) {
+            if (listOfWords.get(indexOfCheckedItem).equals(listOfWords.get(indexOfActualItem))) {
+                if (indexOfCheckedItem != indexOfActualItem) {
                     quantity++;
                 }
             }
-            i++;
+            indexOfActualItem++;
 
-            if(i == listOfWords.size()){
+            if(indexOfActualItem == listOfWords.size()){
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(listOfWords.get(j)).append(" met ").append(quantity).append(" times");
-                finalListOfWords.add(stringBuilder.toString());
-            k++; j++;
-            i = 0; quantity = 1;
+            stringBuilder.append(listOfWords.get(indexOfCheckedItem)).append(" met ").append(quantity).append(" times");
+            finalListOfWords.add(stringBuilder.toString());
+            indexOfCheckedItem++;
+                indexOfActualItem = 0; quantity = 1;
             }
         }
         return finalListOfWords;

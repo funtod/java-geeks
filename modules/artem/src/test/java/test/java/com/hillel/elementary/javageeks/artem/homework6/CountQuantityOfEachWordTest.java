@@ -15,9 +15,9 @@ class CountQuantityOfEachWordTest {
         for (int i = 0; i < testList.size(); i++) {
         stringBuilder.append(testList.get(i)+" ");
         }
-        String expect = "Hello met 2 times my met 1 times name met 1 times is met 1 times Artem met 2 times";
+        String expect = "Hello met 2 times my met 1 times name met 1 times is met 1 times Artem met 2 times ";
         String actual = stringBuilder.toString();
-        assertThat(expect.equals(actual));
+        assertThat(actual).isEqualTo(expect);
 
     }
 

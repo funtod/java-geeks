@@ -2,7 +2,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hillel.elementary.java-geeks</groupId>
-    <artifactId>oleh_Mod</artifactId>
+    <artifactId>oleh-mod</artifactId>
     <version>0.0.1</version>
 
     <parent>

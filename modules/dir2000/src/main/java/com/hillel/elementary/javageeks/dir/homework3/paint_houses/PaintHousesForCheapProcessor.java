@@ -16,11 +16,11 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class PaintHousesForCheapProcessor {
+  private static String[] colours = {"red", "blue", "green"};
   private int[] houses;
   private int[] housesForCheap;
   private int minCost;
   private int housePointer;
-  private static String[] colours = {"red", "blue", "green"};
   private boolean debugMode = false;
 
   public static void main(String[] args) {
@@ -45,7 +45,9 @@ public class PaintHousesForCheapProcessor {
       System.out.print("How many houses do you want to paint(1-20)?");
       if (scanner.hasNextInt()) {
         houseQuantity = scanner.nextInt();
-        if (houseQuantity <= 0) needToExit = true;
+        if (houseQuantity <= 0) {
+          needToExit = true;
+        }
       } else {
         needToExit = true;
       }
@@ -57,8 +59,8 @@ public class PaintHousesForCheapProcessor {
       System.out.println("It's too complicated.");
       System.exit(1);
     }
-
-    if (houseQuantity > 20) {
+    final int maxHouseQuantity = 100;
+    if (houseQuantity > maxHouseQuantity) {
       System.out.println("You have not so much paint.");
       //It will take too much time
       System.exit(0);
@@ -68,22 +70,25 @@ public class PaintHousesForCheapProcessor {
   }
 
   public static int[][] getCosts(int houseQuantity) {
-    Random random = new Random(1984);
+    final int seed = 1984;
+    Random random = new Random(seed);
     int[][] costs = new int[houseQuantity][colours.length];
+    final int step = 100;
+    final int bound = 9;
     for (int houseIndex = 0; houseIndex < houseQuantity; houseIndex++) {
       for (int colourIndex = 0; colourIndex < colours.length; colourIndex++) {
-        costs[houseIndex][colourIndex] = 100 + random.nextInt(9) * 100; //100, 200, 300...900
+        costs[houseIndex][colourIndex] = step + random.nextInt(bound) * step; //100, 200, 300...900
       }
     }
     return costs;
   }
 
-  public int minCost(int[][] costs) {
+  public final int minCost(int[][] costs) {
     calculateHouses(costs);
     return minCost;
   }
 
-  public int[] calculateHouses(int[][] costs) {
+  public final int[] calculateHouses(int[][] costs) {
     minCost = Integer.MAX_VALUE;
     int housesCount = costs.length;
     houses = new int[housesCount];
@@ -102,14 +107,15 @@ public class PaintHousesForCheapProcessor {
     } else {
       housePointer++;
       for (int newColourIndex = 0; newColourIndex < colours.length; newColourIndex++) {
-        if (colourIndex != newColourIndex) //It's forbidden to paint the next house in the same colour
-        paintAHouse(newColourIndex, costs);
+        if (colourIndex != newColourIndex) { //It's forbidden to paint the next house in the same colour
+          paintAHouse(newColourIndex, costs);
+        }
       }
       housePointer--;
     }
   }
 
-  private void calculateSequence(int[][] costs){
+  private void calculateSequence(int[][] costs) {
     int currCost = 0;
     for (int i = 0; i < houses.length; i++) {
       currCost += costs[i][houses[i]];
@@ -125,8 +131,7 @@ public class PaintHousesForCheapProcessor {
       System.out.println("-----------");
       if (currCost < prevMinCost) {
         System.out.print("Less then current min (" + prevMinCost + "): ");
-      }
-      else {
+      } else {
         System.out.print("Too big or equal: ");
       }
       System.out.println(currCost);
@@ -134,7 +139,7 @@ public class PaintHousesForCheapProcessor {
     }
   }
 
-  int [] getHousesForCheap() {
+  final int[] getHousesForCheap() {
     return housesForCheap;
   }
 }

@@ -6,42 +6,42 @@ public class Region {
     private City regionCenter;
     private City[] cities;
 
-    public Region(String name, City regionCenter, long square, City[] cities) {
-        this.name = name;
-        this.regionCenter = regionCenter;
-        this.square = square;
-        this.cities = cities;
+    public Region(String regionName, City regionCenterCity, long regionSquare, City[] citiesInRegionArray) {
+        this.name = regionName;
+        this.regionCenter = regionCenterCity;
+        this.square = regionSquare;
+        this.cities = citiesInRegionArray;
     }
 
-    public City getRegionCenter() {
+    public final City getRegionCenter() {
         return regionCenter;
     }
 
-    public void setRegionCenter(City regionCenter) {
-        this.regionCenter = regionCenter;
+    public final void setRegionCenter(City regionCenterCity) {
+        this.regionCenter = regionCenterCity;
     }
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public final void setName(String regionName) {
+        this.name = regionName;
     }
 
-    public long getSquare() {
+    public final long getSquare() {
         return square;
     }
 
-    public void setSquare(long square) {
-        this.square = square;
+    public final void setSquare(long regionSquare) {
+        this.square = regionSquare;
     }
 
-    public City[] getCities() {
+    public final City[] getCities() {
         return cities;
     }
 
-    public void setCities(City[] cities) {
-        this.cities = cities;
+    public final void setCities(City[] citiesInRegionArray) {
+        this.cities = citiesInRegionArray;
     }
 }

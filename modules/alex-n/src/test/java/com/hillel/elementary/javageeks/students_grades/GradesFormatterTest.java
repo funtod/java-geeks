@@ -11,13 +11,13 @@ class GradesFormatterTest {
     @Test
     void shouldReturnEmptyString() {
         String text = "";
-        assertThat(gradesFormatter.highlightSurnameIfAverageGradeIsMoreThan(text, 2)).isEqualTo("");
+        assertThat(gradesFormatter.highlightSurnameByAverageGrade(text, 2)).isEqualTo("");
     }
 
     @Test
     void shouldReturnNull() {
         String text = null;
-        assertThat(gradesFormatter.highlightSurnameIfAverageGradeIsMoreThan(text, 2)).isNull();
+        assertThat(gradesFormatter.highlightSurnameByAverageGrade(text, 2)).isNull();
     }
 
     @Test
@@ -28,7 +28,7 @@ class GradesFormatterTest {
         String expected = "Ivanov - 2\n" +
                           "Petrov - 3\n" +
                           "SIDOROV - 8";
-        assertThat(gradesFormatter.highlightSurnameIfAverageGradeIsMoreThan(input, 7)).isEqualTo(expected);
+        assertThat(gradesFormatter.highlightSurnameByAverageGrade(input, 7)).isEqualTo(expected);
     }
 
     @Test
@@ -43,6 +43,6 @@ class GradesFormatterTest {
                           "Petrov - 3\n" +
                           "SIDOROV - 6\n" +
                           "SIDOROV - 8";
-        assertThat(gradesFormatter.highlightSurnameIfAverageGradeIsMoreThan(input, 6)).isEqualTo(expected);
+        assertThat(gradesFormatter.highlightSurnameByAverageGrade(input, 6)).isEqualTo(expected);
     }
 }

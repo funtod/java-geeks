@@ -6,32 +6,29 @@ public class City {
     private String name;
     private District[] districts;
 
-    public String getName() {
+    public final String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public final void setName(String cityName) {
+        this.name = cityName;
     }
 
-    public District[] getDistricts() {
+    public final District[] getDistricts() {
         return districts;
     }
 
-    public void setDistricts(District[] districts) {
-        this.districts = districts;
+    public final void setDistricts(District[] districtsArray) {
+        this.districts = districtsArray;
     }
 
-    public City(String name, District[] districts){
-        this.name = name;
-        this.districts = districts;
+    public City(String cityName, District[] districtsArray) {
+        this.name = cityName;
+        this.districts = districtsArray;
     }
 
     @Override
     public String toString() {
-        return "City{" +
-                "name='" + name + '\'' +
-                ", districts=" + Arrays.toString(districts) +
-                '}';
+        return "City{" + "name='" + name + "\' , districts=" + Arrays.toString(districts) + "}";
     }
 }

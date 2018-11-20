@@ -2,11 +2,11 @@ package com.hillel.elementary.javageeks.custom_exception;
 
 public class SomeClass {
 
-    public void first() throws GlobalException {
+    public final void first() throws GlobalException {
         throw new GlobalException("Some of possible reasons cause an exception");
     }
 
-    public void second() throws SpecificException {
+    public final void second() throws SpecificException {
         try {
             first();
         } catch (GlobalException e) {
@@ -14,14 +14,14 @@ public class SomeClass {
         }
     }
 
-    class GlobalException extends Exception{
-        public GlobalException(String message) {
+    class GlobalException extends Exception {
+        GlobalException(String message) {
             super(message);
         }
     }
 
-    class SpecificException extends GlobalException{
-        public SpecificException(String message) {
+    class SpecificException extends GlobalException {
+        SpecificException(String message) {
             super(message);
         }
     }

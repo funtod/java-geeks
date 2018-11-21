@@ -20,6 +20,11 @@ public class Plane {
         this.wingL = wingL;
         this.wingR = wingR;
     }
+
+    public Plane() {
+
+    }
+
     public String getName() {
         return name;
     }
@@ -38,14 +43,14 @@ public class Plane {
     public void setName(String name) {
         this.name = name;
     }
-    public void getFly() {
-        System.out.println("Fly : " + this.fly);
+    public String getFly() {
+        return this.fly;
     }
     public void setFly(String fly) {
         this.fly = fly;
     }
-    public void getRoute() {
-        System.out.println("Route : " + this.route);
+    public String getRoute() {
+       return this.route;
     }
     public void setRoute(String route) {
         this.route = route;

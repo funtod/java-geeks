@@ -8,13 +8,17 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Sorter {
-  public static String [] sortWords(String source){
+  protected Sorter() {
+  }
+
+  public static String[] sortWords(String source) {
     StringTokenizer tokenizer = new StringTokenizer(source, ".,:-!? \t\n\r\f\"");
-    String [] array = new String [tokenizer.countTokens()];
+    String[] array = new String[tokenizer.countTokens()];
 
     int counter = 0;
-    while (tokenizer.hasMoreTokens())
-      array [counter++] = tokenizer.nextToken();
+    while (tokenizer.hasMoreTokens()) {
+      array[counter++] = tokenizer.nextToken();
+    }
 
     Arrays.sort(array, new BizarreComparator());
     return array;

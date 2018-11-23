@@ -1,6 +1,6 @@
 package com.hillel.elementary.javageeks.dir.homework10.overtaking;
 
-public class Overtaking {
+public class Overtaking implements Comparable<Overtaking>{
   private double time;
   private Car carOne;
   private Car carTwo;
@@ -18,5 +18,10 @@ public class Overtaking {
     this.time = time;
     this.carOne = carOne;
     this.carTwo = carTwo;
+  }
+
+  @Override
+  public int compareTo(Overtaking other) {
+    return Double.compare(time, other.time);
   }
 }

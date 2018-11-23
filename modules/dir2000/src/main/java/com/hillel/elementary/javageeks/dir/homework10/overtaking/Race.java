@@ -1,6 +1,7 @@
 package com.hillel.elementary.javageeks.dir.homework10.overtaking;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class Race {
   private Track track;
@@ -12,7 +13,7 @@ public class Race {
   }
 
   public Iterable getOvertakings(){
-    ArrayList<Overtaking> list = new ArrayList<>();
+    TreeSet<Overtaking> list = new TreeSet<>();
     for (int i = 0; i < cars.length - 1; i++) {
       for (int j = i + 1; j < cars.length; j++) {
         Car carOne = cars[i];

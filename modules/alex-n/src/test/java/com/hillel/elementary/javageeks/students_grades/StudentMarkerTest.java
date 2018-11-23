@@ -25,7 +25,7 @@ class StudentMarkerTest {
         Path path = null;
         path = Files.createTempFile("tmpGrades",null);
         GradesFileReaderWriter.writeToFile(path.toString(), input);
-        StudentMarker.MarkStudentsInFile(path.toString(), 6);
+        StudentMarker.markStudentsInFile(path.toString(), 6);
         assertThat(GradesFileReaderWriter.readFromFile(path.toString())).isEqualTo(expected);
     }
 }

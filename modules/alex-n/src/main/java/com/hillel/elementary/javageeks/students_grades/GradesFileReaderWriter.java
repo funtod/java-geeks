@@ -4,7 +4,9 @@ import java.io.*;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-public class GradesFileReaderWriter {
+public final class GradesFileReaderWriter {
+
+    private GradesFileReaderWriter() { }
 
     public static String readFromFile(String pathToFile) {
         if (pathToFile == null || pathToFile.isEmpty()) {

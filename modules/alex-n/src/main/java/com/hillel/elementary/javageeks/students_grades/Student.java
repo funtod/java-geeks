@@ -7,20 +7,20 @@ public class Student {
     private String surname;
     private ArrayList<Integer> grades;
 
-    public Student(String surname) {
+    public Student(String inputSurname) {
         grades = new ArrayList<>();
-        this.surname = surname;
+        this.surname = inputSurname;
     }
 
-    public String getSurname() {
+    public final String getSurname() {
         return surname;
     }
 
-    public void addGrade(int grade) {
+    public final void addGrade(int grade) {
         this.grades.add(grade);
     }
 
-    public ArrayList<Integer> getGrades(){
+    public final ArrayList<Integer> getGrades() {
         return grades;
     }
 }

@@ -10,13 +10,12 @@ public class Regexp {
     public String[] returnUniqArrayDevide(String str) {
 
 
-        //String str = "When groups are nested inside each other, they Are numbered based on. are";
-
         String[] arr = str.replaceAll("[,.]", "").split(" ");
+
         String[] arrResult = new String[toUniqueArray(arr).length];
-        int countForNewArray=0;
-        for (int i = 0; i < toUniqueArray(arr).length; i++) {
-            Pattern pattern = Pattern.compile(arr[i], Pattern.CASE_INSENSITIVE);
+
+         for (int i = 0; i < toUniqueArray(arr).length; i++) {
+            Pattern pattern = Pattern.compile(" "+arr[i]+" ",Pattern.CASE_INSENSITIVE);
             Matcher matcher = pattern.matcher(str);
 
             int count = 0;
@@ -26,28 +25,13 @@ public class Regexp {
             }
 
             if (count % 2 == 0) {
+
                 arrResult[i] = arr[i] + ":" + count;
             }
 
-
         }
 
-        for (int i = 0; i < arrResult.length; i++) {
-            if(arrResult[i]!=null){
-                countForNewArray++;
-            }
-        }
-
-
-        int f = 0;
-        String[] ars = new String[countForNewArray];
-        for (int i = 0; i < arrResult.length; i++) {
-            if(arrResult[i]!=null){
-              ars[f]=arrResult[i];
-                f++;
-            }
-        }
-        return ars;
+        return notNUllArray(arrResult);
     }
 
 
@@ -71,6 +55,25 @@ public class Regexp {
         String[] uniqueArray = new String[counter];
         System.arraycopy(temp, 0, uniqueArray, 0, uniqueArray.length);
         return uniqueArray;
+    }
+
+    public static String[] notNUllArray(String[] str){
+        int countForNewArray=0;
+        for (int i = 0; i < str.length; i++) {
+            if(str[i]!=null) countForNewArray++;
+        }
+
+        int count = 0;
+        String[] ars = new String[countForNewArray];
+        for (int i = 0; i < str.length; i++) {
+            if(str[i]!=null){
+                ars[count]=str[i];
+                count++;
+            }
+        }
+
+        return ars;
+
     }
 
 }

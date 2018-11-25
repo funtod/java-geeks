@@ -1,6 +1,8 @@
 package com.hillel.elementary.javageeks.oleg.my_labs.input_output_stream;
 
 import java.io.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class AccessModifierReplacement {
@@ -21,7 +23,7 @@ public class AccessModifierReplacement {
                                           new FileInputStream (oldFile)))){
             while ((str=bufferedReader.readLine ())!=null){
                 stringBuilder.append (str);
-                stringBuilder.append ("\\n");
+                stringBuilder.append ("\n");
             }
         }catch (IOException ex){
 
@@ -32,8 +34,17 @@ public class AccessModifierReplacement {
 
 
     public static String convert(String str){
-        String newText=str.replace ("public","private");
-        return newText;
+        Pattern pattern=Pattern.compile ("(public)(\\s+(static|final)?\\s*?(static|final)?\\s*?\\w+\\s+\\w+((\\s" +
+                "?(;|=\\s*.+?;)[\\s\\S]*?)|(\\(.*?\\).*)))");
+        Matcher matcher=pattern.matcher (str);
+        StringBuffer stringBuffer=new StringBuffer ();
+        while (matcher.find ()){
+            matcher.appendReplacement (stringBuffer, "private$2");
+        }
+        matcher.appendTail (stringBuffer);
+        System.out.println (stringBuffer.toString ());
+
+        return stringBuffer.toString ();
     }
 
 
@@ -57,9 +68,11 @@ public class AccessModifierReplacement {
         }
     }
 
-//    public static void main(String[] args) {
-//        writeToFile ("D://example2.txt",convert (readFromFile ("D://example.txt")));
-//
-//    }
+    public static void main(String[] args) {
+
+convert ("public static int find(int numberToFind, int[] array)");
+convert ("public final int startAge = 0;");
+convert ("public class BinarySearch");
+    }
 
 }

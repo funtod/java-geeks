@@ -1,6 +1,7 @@
 package com.hillel.elementary.javageeks.examples.io;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class BufferedReaderExample {
@@ -23,8 +24,14 @@ public class BufferedReaderExample {
 
             writer.println("Line input:");
 
-            for (String line = reader.readLine(); !line.equals("q"); line = reader.readLine())
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (String line = reader.readLine(); line != null && !line.equals("q"); line = reader.readLine()) {
+                stringBuilder.append(line);
                 writer.println(line);
+            }
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -38,5 +45,14 @@ public class BufferedReaderExample {
             }
             if (writer != null) writer.close();
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        URL resource = BufferedReaderExample.class.getClassLoader().getResource("pride_and_prejudice.txt");
+        run(resource.openStream(), System.out);
+
+        File file = new File(resource.getFile());
+
+
     }
 }

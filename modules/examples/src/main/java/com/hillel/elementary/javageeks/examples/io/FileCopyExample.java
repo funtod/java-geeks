@@ -1,10 +1,18 @@
 package com.hillel.elementary.javageeks.examples.io;
 
 import java.io.*;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 
 public class FileCopyExample {
+
+    public static void main(String[] args) {
+        URL from = BufferedReaderExample.class.getClassLoader().getResource("pride_and_prejudice.txt");
+        File toFile = new File("/home/dev/Downloads/copy.txt");
+
+        copy(from.getFile(), toFile.getAbsolutePath());
+    }
 
     public static void copy(String pathToFileFrom, String pathToFileTo) {
         BufferedReader reader = null;

@@ -8,10 +8,10 @@
     <properties>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <junit.version>5.0.0</junit.version>
+        <junit.version>5.3.1</junit.version>
         <assertj.version>3.10.0</assertj.version>
         <forms_rt.version>6.0.5</forms_rt.version>
-        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M1</maven-surefire-plugin.version>
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
@@ -32,6 +32,7 @@
         <module>modules/nickolai-k</module>
         <module>modules/sasha</module>
         <module>modules/vlada-m</module>
+        <module>modules/oleh-mod</module>
     </modules>
 
     <build>
@@ -52,6 +53,7 @@
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
                     <argLine>-Xms2024m</argLine>
+                    <forkCount>0</forkCount>
                 </configuration>
             </plugin>
             <plugin>
@@ -74,33 +76,36 @@
                 </executions>
             </plugin>
             <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>xml-maven-plugin</artifactId>
-            <version>1.0.2</version>
-            <executions>
-                <execution>
-                    <phase>process-classes</phase>
-                    <goals>
-                        <goal>transform</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <transformationSets>
-                    <transformationSet>
-                        <dir>target/</dir>
-                        <stylesheet>checkstyle/checkstyle-author.xsl</stylesheet>
-                        <includes>checkstyle-result.xml</includes>
-                        <fileMappers>
-                            <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
-                                <pattern>\.xml$</pattern>
-                                <replacement>.html</replacement>
-                            </fileMapper>
-                        </fileMappers>
-                    </transformationSet>
-                </transformationSets>
-            </configuration>
-        </plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <version>1.0.2</version>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>transform</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <dir>target/</dir>
+                            <stylesheet>checkstyle/checkstyle-author.xsl</stylesheet>
+                            <includes>
+                                <arg>checkstyle-result.xml</arg>
+                            </includes>
+                            <outputDir>target/reports/</outputDir>
+                            <fileMappers>
+                                <fileMapper implementation="org.codehaus.plexus.components.io.filemappers.RegExpFileMapper">
+                                    <pattern>\.xml$</pattern>
+                                    <replacement>.html</replacement>
+                                </fileMapper>
+                            </fileMappers>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -115,6 +120,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <outputDirectory>target/reports/</outputDirectory>
                     <failOnViolation>false</failOnViolation>
                     <rulesets>
                         <ruleset>${basedir}/../../checkstyle/pmd-rules.xml</ruleset>

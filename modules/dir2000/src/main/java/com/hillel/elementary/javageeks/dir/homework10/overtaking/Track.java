@@ -1,13 +1,13 @@
 package com.hillel.elementary.javageeks.dir.homework10.overtaking;
 
 public class Track {
-  private int lenght;
+    private final int length;
 
-  public int getLenght() {
-    return lenght;
-  }
+    public Track(int argLength) {
+        this.length = argLength;
+    }
 
-  public Track(int lenght) {
-    this.lenght = lenght;
-  }
+    public final int getLength() {
+        return length;
+    }
 }

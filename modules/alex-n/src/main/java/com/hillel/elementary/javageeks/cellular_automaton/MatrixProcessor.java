@@ -1,58 +1,15 @@
 package com.hillel.elementary.javageeks.cellular_automaton;
 
-import java.util.Scanner;
+public final class MatrixProcessor {
+    public static final int MAX_NEIGHBOURS_TO_STAY_ALIVE = 3;
+    public static final int MIN_NEIGHBOURS_TO_STAY_ALIVE = 2;
+    public static final int NEIGHBOURS_TO_BORN_NEW_LIFE = 3;
 
-import static com.hillel.elementary.javageeks.cellular_automaton.MatrixProcessor.*;
-
-public class Main {
-    public static void main(String[] args){
-
-        int rows = 0;
-        int columns = 0;
-        Scanner scanner = new Scanner(System.in);
-        boolean initializingData = true;
-
-        while (initializingData) {
-            System.out.printf("Please enter number of columns: ");
-            if (scanner.hasNextInt()) {
-                columns = scanner.nextInt();
-            } else {
-                System.out.printf("wrong data. Exit");
-                System.exit(1);
-            }
-            System.out.printf("Please enter number of rows: ");
-            if (scanner.hasNextInt()) {
-                rows = scanner.nextInt();
-            } else {
-                System.out.printf("wrong data. Exit");
-                System.exit(1);
-            }
-            if (columns <= 0 || rows <= 0){
-                System.out.println("Error. Can't sat matrix: " + columns + " x " + rows + ". Dimensions must be grater than 0. Try again.");
-                initializingData = true;
-            }else{
-                initializingData = false;
-            }
-        }
-
-        int[][] matrix = new int[columns][rows];
-
-        matrix = fillMatrix(matrix);
-        System.out.println("Initialized matrix:");
-        printMatrix(matrix);
-
-        matrix = oneLifeCycle(matrix);
-        System.out.println("Matrix after one life cycle:");
-        printMatrix(matrix);
+    private MatrixProcessor() {
     }
-}
-
-
-class MatrixProcessor{
 
     //fill matrix with random 0 or 1
-    public static int[][] fillMatrix(int[][] matrix){
-
+    public static int[][] fillMatrix(int[][] matrix) {
         for (int i = 0; i < matrix[0].length; i++) {
             for (int j = 0; j < matrix.length; j++) {
                 matrix[j][i] = (int) Math.round(Math.random());
@@ -62,8 +19,7 @@ class MatrixProcessor{
     }
 
     //process one life cycle of a matrix
-    public static int[][] oneLifeCycle(int[][] matrix){
-
+    public static int[][] oneLifeCycle(int[][] matrix) {
         int columnsNumber = matrix.length;
         int rowsNumber = matrix[0].length;
         int[][] afterOneCycleMatrix = new int[columnsNumber][rowsNumber];
@@ -101,18 +57,18 @@ class MatrixProcessor{
                 }
 
                 if (j < columnsNumber - 1 && i < rowsNumber - 1) { //bottom right corner
-                    neighbours += matrix[j+1][i+1];
+                    neighbours += matrix[j + 1][i + 1];
                 }
 
 
-                if (matrix[j][i]==1){
-                    if (neighbours > 3 || neighbours < 2){
+                if (matrix[j][i] == 1) {
+                    if (neighbours > MAX_NEIGHBOURS_TO_STAY_ALIVE || neighbours < MIN_NEIGHBOURS_TO_STAY_ALIVE) {
                         afterOneCycleMatrix[j][i] = 0;
-                    }else {
+                    } else {
                         afterOneCycleMatrix[j][i] = 1;
                     }
-                }else {
-                    if(neighbours == 3){
+                } else {
+                    if (neighbours == NEIGHBOURS_TO_BORN_NEW_LIFE) {
                         afterOneCycleMatrix[j][i] = 1;
                     }
                 }
@@ -121,15 +77,17 @@ class MatrixProcessor{
         return afterOneCycleMatrix;
     }
 
-
-    public static void printMatrix(int[][] matrix){
-
+    public static void printMatrix(int[][] matrix) {
         for (int i = 0; i < matrix[0].length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                System.out.printf(String.valueOf(matrix[j][i]) + " ");
+                System.out.printf(String.valueOf(matrix[j][i]));
+                if (j != matrix.length - 1) {
+                    System.out.printf(" ");
+                }
             }
-            System.out.printf("\n");
+            if (i != matrix[0].length - 1) {
+                System.out.printf("\n");
+            }
         }
-        System.out.printf("\n");
     }
 }

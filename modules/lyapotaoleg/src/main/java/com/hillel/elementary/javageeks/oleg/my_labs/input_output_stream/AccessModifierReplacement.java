@@ -23,7 +23,6 @@ public class AccessModifierReplacement {
                                           new FileInputStream (oldFile)))){
             while ((str=bufferedReader.readLine ())!=null){
                 stringBuilder.append (str);
-                stringBuilder.append ("\n");
             }
         }catch (IOException ex){
 

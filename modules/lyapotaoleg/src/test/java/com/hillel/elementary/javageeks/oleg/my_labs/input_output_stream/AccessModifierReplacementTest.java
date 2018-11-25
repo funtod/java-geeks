@@ -16,7 +16,13 @@ class AccessModifierReplacementTest {
 
 
         //when
-        String result="public class BinarySearch";
+        String result="public class BinarySearch {" +
+                "    public String name = \"vasya\";" +
+                "    public int age;" +
+                "    public static final int maxAge = 100;" +
+                "    public final int startAge = 0;" +
+                "    public static int currentMaxAge = 99;" +
+                "    protected long millisecondsToLive;";
 
         //then
         assertThat(result).isEqualTo (AccessModifierReplacement.readFromFile (fileFrom));

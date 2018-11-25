@@ -9,12 +9,11 @@ public class StringMy {
         Matcher matcher = pattern.matcher(str);
 
         StringBuilder stringBuilder = new StringBuilder();
-        StringBuilder stringBuilderOne = new StringBuilder();
-        stringBuilderOne.append("ax" + addedWord);
+
+        String txt = "ax" + addedWord;
 
         while (matcher.find()){
-            stringBuilder.append(matcher.group().replaceAll("ax",
-                    String.valueOf(stringBuilderOne)));
+            stringBuilder.append(matcher.group().replaceAll("ax",txt));
 
         }
         return stringBuilder;

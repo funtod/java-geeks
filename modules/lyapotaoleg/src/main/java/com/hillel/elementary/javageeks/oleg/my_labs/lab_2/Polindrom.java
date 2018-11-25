@@ -19,9 +19,7 @@ public class Polindrom {
         char[] num=String.valueOf (number).toCharArray ();
         boolean result=true;
         for (int i=0, j=num.length-1; i<num.length; i++,j--){
-            if(num[i]==num[j]){
-                result=true;
-            }else {
+            if(num[i]!=num[j]){
                 return false;
             }
         }

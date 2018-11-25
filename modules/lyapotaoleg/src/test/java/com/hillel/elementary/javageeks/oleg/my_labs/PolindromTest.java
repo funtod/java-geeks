@@ -11,7 +11,7 @@ class PolindromTest {
 
         String[] result={"121","32","45","434"};
 
-        Assertions.assertThat(result).isEqualTo (Polindrom.lineSplit (number));
+        Assertions.assertThat(Polindrom.lineSplit (number)).isEqualTo (result);
     }
 
     @Test
@@ -20,7 +20,8 @@ class PolindromTest {
 
         Boolean result=true;
 
-        Assertions.assertThat (result).isEqualTo (Polindrom.isPolindrom (number));
+
+        Assertions.assertThat (Polindrom.isPolindrom (number)).isEqualTo (result);
 
     }
 
@@ -30,7 +31,7 @@ class PolindromTest {
 
         Boolean result=false;
 
-        Assertions.assertThat (result).isEqualTo (Polindrom.isPolindrom (number));
+        Assertions.assertThat (Polindrom.isPolindrom (number)).isEqualTo (result);
 
     }
 }

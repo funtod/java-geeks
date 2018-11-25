@@ -9,7 +9,7 @@ class RunnerTest {
     void shouldGiveArithmeticException(){
 
 
-        assertThrows(ArithmeticException.class, () -> Runner.run());
+        assertThrows(LowerException.class, () -> Runner.run());
     }
 
 }

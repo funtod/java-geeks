@@ -67,11 +67,6 @@ public class AccessModifierReplacement {
         }
     }
 
-    public static void main(String[] args) {
 
-convert ("public static int find(int numberToFind, int[] array)");
-convert ("public final int startAge = 0;");
-convert ("public class BinarySearch");
-    }
 
 }

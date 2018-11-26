@@ -66,7 +66,6 @@ class AccessModifierReplacementTest {
                 "}";
 
         //then
-//        assertThat (AccessModifierReplacement.convert (AccessModifierReplacement.readFromFile (fileFrom))).isEqualToIgnoringNewLines (result);
         assertThat (AccessModifierReplacement.convert (AccessModifierReplacement.readFromFile (fileFrom))).isNotEqualToIgnoringCase (result);
 
 

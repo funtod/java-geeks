@@ -8,16 +8,14 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class TextPrinterTest {
     @Test
-    public void shouldResultMethodConvert(){
+    public void shouldResultMethodConvert() throws MyExeption{
         String text="Hello my friend";
 
         String result="Hello my friend";
 
-        try {
-            assertThat(result).isEqualTo (TextConvert.convert(text));
-        } catch (MyExeption exeption) {
-            exeption.printStackTrace ();
-        }
+
+        assertThat(result).isEqualTo (TextConvert.convert(text));
+
 
 
     }

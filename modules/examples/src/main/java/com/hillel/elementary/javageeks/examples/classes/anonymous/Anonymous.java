@@ -9,11 +9,21 @@ public class Anonymous {
 
         Animal[] animals = new Animal[1000];
 
-        Arrays.sort(animals, new Comparator<Animal>() {
+        Arrays.sort(animals, new AnimalComparator() {
+            @Override
+            public boolean returnTrue() {
+                return true;
+            }
+
             @Override
             public int compare(Animal o1, Animal o2) {
                 return o1.age - o2.age;
             }
         });
     }
+}
+
+interface AnimalComparator extends Comparator<Animal> {
+
+    public boolean returnTrue();
 }

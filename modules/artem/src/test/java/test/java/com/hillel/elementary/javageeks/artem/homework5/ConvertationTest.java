@@ -1,5 +1,6 @@
 package test.java.com.hillel.elementary.javageeks.artem.homework5;
 
+import com.hillel.elementary.javageeks.artem.homework5.Convertation;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

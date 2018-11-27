@@ -21,7 +21,6 @@ public class DivideAndConquerTest {
         assertThat(Sorter.mergeSort(input)).isEqualTo(shouldGet);
     }
 
-
     @Test
     void shouldReturnNullIfGetsNull() {
         assertThat(Sorter.mergeSort(null)).isNull();

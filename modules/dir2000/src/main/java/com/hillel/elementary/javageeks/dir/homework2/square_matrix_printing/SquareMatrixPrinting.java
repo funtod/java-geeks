@@ -9,6 +9,9 @@ package com.hillel.elementary.javageeks.dir.homework2.square_matrix_printing;
 import java.util.Scanner;
 
 public class SquareMatrixPrinting {
+  protected SquareMatrixPrinting() {
+  }
+
   public static void main(String[] args) {
     long input = 0;
     Scanner scanner = new Scanner(System.in);
@@ -25,12 +28,15 @@ public class SquareMatrixPrinting {
       scanner.close();
     }
 
-    if (input < 0) input = -input;
+    if (input < 0) {
+      input = -input;
+    }
 
     System.out.println("Result:");
 
-    char [] charArray = Long.toString(input).toCharArray();
-    if (charArray.length < 3) {
+    char[] charArray = Long.toString(input).toCharArray();
+    final int minLenghToTransform = 3;
+    if (charArray.length < minLenghToTransform) {
       //no need to transform something if input data is too small
       System.out.println(input);
       return;

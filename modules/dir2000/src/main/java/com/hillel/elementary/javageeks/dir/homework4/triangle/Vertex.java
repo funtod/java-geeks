@@ -6,26 +6,30 @@ public final class Vertex {
   private final int x;
   private final int y;
 
-  Vertex(int x, int y) {
-    this.x = x;
-    this.y = y;
+  Vertex(int argX, int argY) {
+    this.x = argX;
+    this.y = argY;
   }
 
   @Override
   public String toString() {
-    return "Vertex{" +
-            "x=" + x +
-            ", y=" + y +
-            '}';
+    return "Vertex{"
+            + "x=" + x
+            + ", y=" + y
+            + '}';
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Vertex vertex = (Vertex) o;
-    return x == vertex.x &&
-            y == vertex.y;
+    return x == vertex.x
+            && y == vertex.y;
   }
 
   @Override

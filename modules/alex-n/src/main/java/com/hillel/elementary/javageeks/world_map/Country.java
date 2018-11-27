@@ -4,12 +4,12 @@ public class Country {
     private City capital;
     private Region[] regions;
 
-    public Country(City capital, Region[] regions) {
-        this.capital = capital;
-        this.regions = regions;
+    public Country(City capitalName, Region[] regionsArray) {
+        this.capital = capitalName;
+        this.regions = regionsArray;
     }
 
-    public long getSquare(){
+    public final long getSquare() {
         long square = 0;
         for (int i = 0; i < regions.length; i++) {
             square += regions[i].getSquare();
@@ -17,11 +17,11 @@ public class Country {
         return square;
     }
 
-    public int getRegionsNumber(){
+    public final int getRegionsNumber() {
         return regions.length;
     }
 
-    public City[] getRegionCenters(){
+    public final City[] getRegionCenters() {
         City[] regionCenters = new City[regions.length];
         for (int i = 0; i < regions.length; i++) {
             regionCenters[i] = regions[i].getRegionCenter();
@@ -29,19 +29,19 @@ public class Country {
         return regionCenters;
     }
 
-    public City getCapital() {
+    public final City getCapital() {
         return capital;
     }
 
-    public void setCapital(City capital) {
-        this.capital = capital;
+    public final void setCapital(City capitalName) {
+        this.capital = capitalName;
     }
 
-    public Region[] getRegions() {
+    public final Region[] getRegions() {
         return regions;
     }
 
-    public void setRegions(Region[] regions) {
-        this.regions = regions;
+    public final void setRegions(Region[] regionsArray) {
+        this.regions = regionsArray;
     }
 }

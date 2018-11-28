@@ -7,7 +7,7 @@ public class GradesFormatter {
     }
 
     //threshold is not included
-    public String highlightSurnameIfAverageGradeIsMoreThan(String text, int threshold) {
+    public final String highlightSurnameByAverageGrade(String text, int threshold) {
         if (text == null || text.isEmpty() || threshold < 0) {
             return text;
         }
@@ -19,8 +19,8 @@ public class GradesFormatter {
         for (int i = 0; i < lines.length; i++) {
             String name = lines[i].split("-")[0].trim();
             Integer grade = Integer.parseInt(lines[i].split("-")[1].trim());
-            int studentIndex;
-            if ((studentIndex = studentsGrades.getStudentIndex(name)) < 0) {
+            int studentIndex = studentsGrades.getStudentIndex(name);
+            if (studentIndex < 0) {
                 studentsGrades.addStudent(name, grade);
             } else {
                 studentsGrades.addGrade(studentIndex, grade);

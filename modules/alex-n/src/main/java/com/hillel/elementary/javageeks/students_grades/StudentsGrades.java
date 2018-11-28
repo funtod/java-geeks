@@ -6,38 +6,38 @@ public class StudentsGrades {
 
     private ArrayList<Student> students = new ArrayList<>();
 
-    public void addStudent(String name, int grade){
+    public final void  addStudent(String name, int grade) {
         students.add(new Student(name));
-        students.get(students.size()-1).addGrade(grade);
+        students.get(students.size() - 1).addGrade(grade);
     }
 
-    public int getAverageGrade(String surname) {
+    public final int getAverageGrade(String surname) {
         ArrayList<Integer> grades = null;
         for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).getSurname().equals(surname)){
+            if (students.get(i).getSurname().equals(surname)) {
                 grades = students.get(i).getGrades();
                 break;
             }
         }
         int gradesSum = 0;
-        for (int grade: grades){
+        for (int grade: grades) {
             gradesSum += grade;
         }
-        return gradesSum/grades.size();
+        return gradesSum / grades.size();
     }
 
 
     // -1 if there is no such name
-    public int getStudentIndex(String name){
+    public final int getStudentIndex(String name) {
         for (int i = 0; i < students.size(); i++) {
-            if (students.get(i).getSurname().equals(name)){
+            if (students.get(i).getSurname().equals(name)) {
                 return i;
             }
         }
         return -1;
     }
 
-    public void addGrade(int studentIndex, int grade){
+    public final void addGrade(int studentIndex, int grade) {
         students.get(studentIndex).addGrade(grade);
     }
 }

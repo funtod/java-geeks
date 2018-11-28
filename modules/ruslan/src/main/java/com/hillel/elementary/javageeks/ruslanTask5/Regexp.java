@@ -13,24 +13,22 @@ public class Regexp {
         String[] arr = str.replaceAll("[,.]", "").split(" ");
 
         String[] arrResult = new String[toUniqueArray(arr).length];
+        String REGEX_FIND_WORD;
 
          for (int i = 0; i < toUniqueArray(arr).length; i++) {
-            Pattern pattern = Pattern.compile(" "+arr[i]+" ",Pattern.CASE_INSENSITIVE);
-            Matcher matcher = pattern.matcher(str);
+             REGEX_FIND_WORD="\\b"+arr[i]+"\\b";
+             Pattern pattern = Pattern.compile(REGEX_FIND_WORD);
+             Matcher matcher = pattern.matcher(str);
 
             int count = 0;
 
             while (matcher.find()) {
                 count++;
             }
-
             if (count % 2 == 0) {
-
                 arrResult[i] = arr[i] + ":" + count;
             }
-
         }
-
         return notNUllArray(arrResult);
     }
 
@@ -73,7 +71,5 @@ public class Regexp {
         }
 
         return ars;
-
     }
-
 }

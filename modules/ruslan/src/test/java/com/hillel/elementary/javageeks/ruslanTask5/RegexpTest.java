@@ -16,13 +16,13 @@ class RegexpTest {
     public void shouldReadNumberFromOnetoSeven () {
 
         //given
-        String str = "When groups are nested inside each other, they Are numbered based are fdsfsdf dsf f4 dsf2 3 f are";
+        String str = "When groups are nested inside each other, they Are arenumbered based are fdsfsdf dsf f4 dsf2 3 f";
         Regexp reg = new Regexp ();
         String [] ar = reg.returnUniqArrayDevide(str);
 
         //then
-        assertThat(ar.length).isEqualTo(3);
-        assertThat(ar[0]).isEqualTo("are:4");
+        assertThat(ar.length).isEqualTo(2);
+        assertThat(ar[0]).isEqualTo("are:2");
     }
 
     @Test
@@ -37,16 +37,16 @@ class RegexpTest {
         Regexp reg = new Regexp();
         String[] ar = reg.returnUniqArrayDevide(str);
         //then
-//        assertThat(findWordOccurrences("is", ar)).isEqualTo(2);
-//        assertThat(findWordOccurrences("I", ar)).isEqualTo(2);
-//        assertThat(findWordOccurrences("if", ar)).isEqualTo(2);
-//        assertThat(findWordOccurrences("by", ar)).isEqualTo(2);
-        assertThat(findWordOccurrences("the", ar)).isEqualTo(2);
-          assertThat(findWordOccurrences("of", ar)).isEqualTo(2);
-           assertThat(findWordOccurrences("it", ar)).isEqualTo(2);
-           assertThat(findWordOccurrences("a", ar)).isEqualTo(-1);
-           assertThat(findWordOccurrences("chance", ar)).isEqualTo(-1);
-        assertThat(findWordOccurrences("will", ar)).isEqualTo(-1);
+       assertThat(findWordOccurrences("is", ar)).isEqualTo(2);
+       assertThat(findWordOccurrences("I", ar)).isEqualTo(2);
+       assertThat(findWordOccurrences("if", ar)).isEqualTo(2);
+       assertThat(findWordOccurrences("by", ar)).isEqualTo(-1);
+       assertThat(findWordOccurrences("the", ar)).isEqualTo(2);
+       assertThat(findWordOccurrences("of", ar)).isEqualTo(2);
+       assertThat(findWordOccurrences("it", ar)).isEqualTo(2);
+       assertThat(findWordOccurrences("a", ar)).isEqualTo(2);
+       assertThat(findWordOccurrences("chance", ar)).isEqualTo(-1);
+       assertThat(findWordOccurrences("will", ar)).isEqualTo(-1);
     }
 
     @Test

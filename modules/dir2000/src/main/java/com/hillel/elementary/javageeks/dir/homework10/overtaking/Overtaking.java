@@ -1,27 +1,47 @@
 package com.hillel.elementary.javageeks.dir.homework10.overtaking;
 
-public class Overtaking implements Comparable<Overtaking>{
-  private double time;
-  private Car carOne;
-  private Car carTwo;
+import java.util.Objects;
 
-  @Override
-  public String toString() {
-    return "Overtaking{" +
-            "time=" + time +
-            ", carOne=" + carOne +
-            ", carTwo=" + carTwo +
-            '}';
-  }
+public class Overtaking {
+    private final double time;
+    private final int carOneId;
+    private final int carTwoId;
 
-  public Overtaking(double time, Car carOne, Car carTwo) {
-    this.time = time;
-    this.carOne = carOne;
-    this.carTwo = carTwo;
-  }
+    public Overtaking(double argTime, int argCarOneId, int argCarTwoId) {
+        this.time = argTime;
+        this.carOneId = argCarOneId;
+        this.carTwoId = argCarTwoId;
+    }
 
-  @Override
-  public int compareTo(Overtaking other) {
-    return Double.compare(time, other.time);
-  }
+    @Override
+    public final boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Overtaking that = (Overtaking) o;
+        return Double.compare(that.time, time) == 0
+                && carOneId == that.carOneId
+                && carTwoId == that.carTwoId;
+    }
+
+    @Override
+    public final int hashCode() {
+        return Objects.hash(time, carOneId, carTwoId);
+    }
+
+    public final double getTime() {
+        return time;
+    }
+
+    @Override
+    public final String toString() {
+        return "Overtaking{"
+                + "time=" + time
+                + ", carOneId=" + carOneId
+                + ", carTwoId=" + carTwoId
+                + '}';
+    }
 }

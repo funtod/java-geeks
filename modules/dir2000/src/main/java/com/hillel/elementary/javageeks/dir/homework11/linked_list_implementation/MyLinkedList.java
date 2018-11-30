@@ -2,97 +2,11 @@ package com.hillel.elementary.javageeks.dir.homework11.linked_list_implementatio
 
 
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
-import java.util.stream.Stream;
 
 public class MyLinkedList<T> implements List<T> {
-  private final int INITIAL_CAPACITY = 16;
   private int size;
-  private T[] storage;;
-
-  public MyLinkedList() {
-    initStorage(INITIAL_CAPACITY);
-  }
-
-  @SuppressWarnings("unchecked")
-  private void initStorage(int capacity) {
-    storage = (T[])new Object[capacity];
-  }
-
-  @Override
-  public T get(int index) {
-    return null;
-  }
-
-  @Override
-  public T set(int index, T element) {
-    return null;
-  }
-
-  @Override
-  public void add(int index, T element) {
-
-  }
-
-  @Override
-  public T remove(int index) {
-    return null;
-  }
-
-  @Override
-  public int indexOf(Object o) {
-    return 0;
-  }
-
-  @Override
-  public int lastIndexOf(Object o) {
-    return 0;
-  }
-
-  @Override
-  public ListIterator<T> listIterator() {
-    return null;
-  }
-
-  @Override
-  public ListIterator<T> listIterator(int index) {
-    return null;
-  }
-
-  @Override
-  public List<T> subList(int fromIndex, int toIndex) {
-    return null;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    MyLinkedList<?> that = (MyLinkedList<?>) o;
-    return Arrays.equals(storage, that.storage);
-  }
-
-  @Override
-  public int hashCode() {
-    return Arrays.hashCode(storage);
-  }
-
-  @Override
-  protected Object clone() throws CloneNotSupportedException {
-    return super.clone();
-  }
-
-  @Override
-  public String toString() {
-    return super.toString();
-  }
-
-  @Override
-  protected void finalize() throws Throwable {
-    super.finalize();
-  }
+  private Node head;
+  private Node tail;
 
   @Override
   public int size() {
@@ -126,11 +40,30 @@ public class MyLinkedList<T> implements List<T> {
 
   @Override
   public boolean add(T t) {
-    return false;
+    Node newNode = new Node(tail, null, t);
+    if (size == 0) {
+      head = newNode;
+    }
+    tail = newNode;
+
+    size++;
+    return true;
   }
 
   @Override
   public boolean remove(Object o) {
+    Node currentNode = head;
+    while (currentNode != null) {
+      if (o == null ? currentNode.value ==null : o.equals(currentNode.value)) {
+        Node previousNode = currentNode.previous;
+        if (previousNode != null) {
+          previousNode.next = currentNode.next;
+
+        }
+      }
+
+      currentNode = currentNode.next;
+    }
     return false;
   }
 
@@ -160,42 +93,64 @@ public class MyLinkedList<T> implements List<T> {
   }
 
   @Override
-  public void replaceAll(UnaryOperator<T> operator) {
-
-  }
-
-  @Override
-  public void sort(Comparator<? super T> c) {
-
-  }
-
-  @Override
   public void clear() {
 
   }
 
   @Override
-  public boolean removeIf(Predicate<? super T> filter) {
-    return false;
-  }
-
-  @Override
-  public void forEach(Consumer<? super T> action) {
-
-  }
-
-  @Override
-  public Spliterator<T> spliterator() {
+  public T get(int index) {
     return null;
   }
 
   @Override
-  public Stream<T> stream() {
+  public T set(int index, T element) {
     return null;
   }
 
   @Override
-  public Stream<T> parallelStream() {
+  public void add(int index, T element) {
+    //Node new Node
+  }
+
+  @Override
+  public T remove(int index) {
     return null;
+  }
+
+  @Override
+  public int indexOf(Object o) {
+    return 0;
+  }
+
+  @Override
+  public int lastIndexOf(Object o) {
+    return 0;
+  }
+
+  @Override
+  public ListIterator<T> listIterator() {
+    return null;
+  }
+
+  @Override
+  public ListIterator<T> listIterator(int index) {
+    return null;
+  }
+
+  @Override
+  public List<T> subList(int fromIndex, int toIndex) {
+    return null;
+  }
+
+  private static class Node<T> {
+    Node previous;
+    Node next;
+    T value;
+
+    public Node(Node argPrevious, Node argNext, T argValue) {
+      previous = argPrevious;
+      next = argNext;
+      value = argValue;
+    }
   }
 }

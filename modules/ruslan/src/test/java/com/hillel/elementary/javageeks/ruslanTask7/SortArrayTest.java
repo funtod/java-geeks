@@ -22,8 +22,8 @@ public class SortArrayTest {
 
             SortArray sortArray=new SortArray();
 
-            int min = sortArray.getArray(arrayList).get(0);;
-            int max = sortArray.getArray(arrayList).get(arrayList.size()-1);;
+            int min = sortArray.getArray(arrayList).get(0);
+            int max = sortArray.getArray(arrayList).get(arrayList.size()-1);
 
             int expectedMin= 212;
             int expectedMax = -14;

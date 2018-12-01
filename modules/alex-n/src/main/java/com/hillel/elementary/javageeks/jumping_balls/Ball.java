@@ -1,51 +1,52 @@
 package com.hillel.elementary.javageeks.jumping_balls;
 
-import java.math.MathContext;
-
 public class Ball {
     private double x;
     private double y;
     private double radius;
     private double deltaX;
     private double deltaY;
+    public static final double ROUNDING_COEFFICIENT = 1000.0;
 
     //speed in pixels
     //directions in degrees(-180,180)
-    public Ball(int x, int y, int radius, int speed, int direction) {
-        this.x = x;
-        this.y = y;
-        this.radius = radius;
-        deltaX = Math.round(Math.cos(Math.toRadians(direction)) * speed * 1000.0)/1000.0;
-        deltaY = Math.round(Math.sin(Math.toRadians(direction)) * speed * 1000.0)/1000.0;
+    public Ball(int xCoordinate, int yCoordinate, int ballRadius, int ballSpeed, int ballDirection) {
+        this.x = xCoordinate;
+        this.y = yCoordinate;
+        this.radius = ballRadius;
+        deltaX = Math.round(Math.cos(Math.toRadians(ballDirection))
+                * ballSpeed * ROUNDING_COEFFICIENT) / ROUNDING_COEFFICIENT;
+        deltaY = Math.round(Math.sin(Math.toRadians(ballDirection))
+                * ballSpeed * ROUNDING_COEFFICIENT) / ROUNDING_COEFFICIENT;
     }
 
-    public void move(){
+    public final void move() {
         x += deltaX;
         y += deltaY;
     }
 
-    public void reflectVertical(){
+    public final void reflectVertical() {
         deltaY = -deltaY;
     }
 
-    public void reflectHorizontal(){
+    public final void reflectHorizontal() {
         deltaX = -deltaX;
     }
 
-    public double getX() {
+    public final double getX() {
         return x;
     }
 
-    public double getY() {
+    public final double getY() {
         return y;
     }
 
-    public double getRadius() {
+    public final double getRadius() {
         return radius;
     }
 
     @Override
     public String toString() {
-        return "Ball at (" + x +", " + y + ") of velocity (Δ" + deltaX + ", Δ" + deltaY + ")";
+        return "Ball at (" + x + ", " + y + ") of velocity (Δ" + deltaX + ", Δ" + deltaY + ")";
     }
 }

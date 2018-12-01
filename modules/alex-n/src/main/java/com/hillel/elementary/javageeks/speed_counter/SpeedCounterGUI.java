@@ -7,21 +7,23 @@ import java.awt.event.ActionListener;
 import java.text.ParseException;
 
 public class SpeedCounterGUI {
-    public JPanel basePanel;
+    private static final double KILOMETER_PER_HOUR_COEFFICIENT =  3.6;
+    private static final double MILES_PER_HOUR_COEFFICIENT =  2.237;
+    private JPanel basePanel;
     private JSpinner metersInput;
     private JSpinner hoursInput;
     private JSpinner minutesInput;
     private JSpinner secondsInput;
     private JButton clearButton;
     private JButton countButton;
-    public JLabel metersPerSecondOutput;
-    public JLabel kilometersPerHourOutput;
-    public JLabel milesPerHourOutput;
-    float metersPerSecond;
+    private JLabel metersPerSecondOutput;
+    private JLabel kilometersPerHourOutput;
+    private JLabel milesPerHourOutput;
+    private float metersPerSecond;
 
     SpeedCounterGUI() {
-        countButton.setBackground(new Color(38, 200, 105));
-        clearButton.setBackground(new Color(200, 48, 69));
+        countButton.setBackground(Color.CYAN);
+        clearButton.setBackground(Color.orange);
         metersPerSecondOutput.setText("");
         kilometersPerHourOutput.setText("");
         milesPerHourOutput.setText("");
@@ -37,13 +39,15 @@ public class SpeedCounterGUI {
                 } catch (ParseException ex) {
                     ex.printStackTrace();
                 }
-                metersPerSecond = (float) (Integer) metersInput.getModel().getValue() / ((Integer) hoursInput.getModel().getValue() * 3600
-                        + (Integer) minutesInput.getModel().getValue() * 60
-                        + (Integer) secondsInput.getModel().getValue());
+
+                metersPerSecond = SpeedCounter.countSpeedInMetersPerSecond((int) metersInput.getModel().getValue(),
+                        (int) hoursInput.getModel().getValue(),
+                        (int) minutesInput.getModel().getValue(),
+                        (int) secondsInput.getModel().getValue());
 
                 metersPerSecondOutput.setText(String.valueOf(metersPerSecond));
-                kilometersPerHourOutput.setText(String.valueOf(metersPerSecond * 3.6));
-                milesPerHourOutput.setText(String.valueOf(metersPerSecond * 2.237));
+                kilometersPerHourOutput.setText(String.valueOf(metersPerSecond * KILOMETER_PER_HOUR_COEFFICIENT));
+                milesPerHourOutput.setText(String.valueOf(metersPerSecond * MILES_PER_HOUR_COEFFICIENT));
             }
         });
 
@@ -59,6 +63,10 @@ public class SpeedCounterGUI {
                 secondsInput.setValue(0);
             }
         });
+    }
+
+    public final JPanel getBasePanel() {
+        return basePanel;
     }
 
     {

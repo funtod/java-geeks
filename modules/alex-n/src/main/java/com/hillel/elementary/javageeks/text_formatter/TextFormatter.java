@@ -5,8 +5,8 @@ import java.util.regex.Pattern;
 
 public class TextFormatter {
 
-    public String reformatLineFeedsByMaxWidth(String txt, int lineWidth){
-        if(txt != null && !txt.isEmpty()) {
+    public final String reformatLineFeedsByMaxWidth(String txt, int lineWidth) {
+        if (txt != null && !txt.isEmpty()) {
             String textInOneLine = deleteNewLineCharacters(txt);
             Pattern pattern = Pattern.compile("(.{0," + lineWidth + "}\\b?\\.?)");
             Matcher matcher = pattern.matcher(textInOneLine);
@@ -19,12 +19,12 @@ public class TextFormatter {
                 }
             }
             return stringBuffer.toString();
-        }else {
+        } else {
             return txt;
         }
     }
 
-    public String textAlignCenter(String txt, int lineWidth){
+    public final String textAlignCenter(String txt, int lineWidth) {
         if (txt != null && !txt.isEmpty()) {
             String[] linesArray = txt.split("[\n\r]");
             StringBuilder stringBuilder = new StringBuilder();
@@ -32,24 +32,25 @@ public class TextFormatter {
                 stringBuilder.append(addSpacesToStretchWidth(linesArray[i], lineWidth));
             }
             return stringBuilder.toString().trim();
-        }else {
+        } else {
             return txt;
         }
     }
 
-    private String addSpacesToStretchWidth(String line, int lineWidth){
+    private String addSpacesToStretchWidth(String line, int lineWidth) {
         double modifier;
         String[] wordsArray = line.trim().split("(=?<=\\s+)|(?=\\s+)");
+
         if (lineWidth > line.length()) {
             int spacesToAdd = lineWidth - line.length();
             //if we need to add more spaces than already are
             if (spacesToAdd > wordsArray.length) {
-                modifier = (double) spacesToAdd / (double) (wordsArray.length-1);
+                modifier = (double) spacesToAdd / (double) (wordsArray.length - 1);
                 return addSpaces(wordsArray, modifier).toString();
-            }else{ //if there more existing spaces than we want to add
+            } else { //if there more existing spaces than we want to add
                 StringBuilder stringBuilder = new StringBuilder();
-                modifier = (double)(wordsArray.length-1) / (double)spacesToAdd;
-                for (double i = 0; i < wordsArray.length-1; i+=modifier) {
+                modifier = (double) (wordsArray.length - 1) / (double) spacesToAdd;
+                for (double i = 0; i < wordsArray.length - 1; i += modifier) {
                     wordsArray[(int) Math.floor(i)] = wordsArray[(int) Math.floor(i)] + " ";
                 }
                 for (int i = 0; i < wordsArray.length; i++) {
@@ -57,15 +58,15 @@ public class TextFormatter {
                 }
                 return stringBuilder.append("\n").toString();
             }
-        }else{
+        } else {
             return line;
         }
     }
 
-    private StringBuilder addSpaces(String[] wordArray, double spacesNumbers){
+    private StringBuilder addSpaces(String[] wordArray, double spacesNumbers) {
         StringBuilder stringBuilder = new StringBuilder();
         double spaceCounter = 0;
-        for (int j = 0; j < wordArray.length-1; j++) {
+        for (int j = 0; j < wordArray.length - 1; j++) {
             stringBuilder.append(wordArray[j]);
             spaceCounter += spacesNumbers;
             for (int i = 0; i < (int) Math.floor(spaceCounter); i++) {
@@ -73,10 +74,10 @@ public class TextFormatter {
             }
             spaceCounter -= (int) Math.floor(spaceCounter);
         }
-        return stringBuilder.append(wordArray[wordArray.length-1]+"\n");
+        return stringBuilder.append(wordArray[wordArray.length - 1] + "\n");
     }
 
-    private String deleteNewLineCharacters(String txt){
+    private String deleteNewLineCharacters(String txt) {
         return txt.replaceAll("[\n\r]", " ");
     }
 }

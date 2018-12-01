@@ -58,8 +58,18 @@ public class MyLinkedList<T> implements List<T> {
         Node previousNode = currentNode.previous;
         if (previousNode != null) {
           previousNode.next = currentNode.next;
-
+        } else {
+          head = currentNode.next;
         }
+
+        if (tail == currentNode) {
+          tail = currentNode.previous;
+        }
+
+        currentNode.previous = null;
+        currentNode.next = null;
+        size--;
+        return  true;
       }
 
       currentNode = currentNode.next;
@@ -69,7 +79,14 @@ public class MyLinkedList<T> implements List<T> {
 
   @Override
   public boolean containsAll(Collection<?> c) {
-    return false;
+    Iterator iterator = c.iterator();
+    while (iterator.hasNext()) {
+      Object object = iterator.next();
+      if (!contains(object)) {
+        return false;
+      };
+    }
+    return true;
   }
 
   @Override

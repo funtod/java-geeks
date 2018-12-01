@@ -32,6 +32,7 @@
         <module>modules/nickolai-k</module>
         <module>modules/sasha</module>
         <module>modules/vlada-m</module>
+        <module>modules/oleh-mod</module>
     </modules>
 
     <build>

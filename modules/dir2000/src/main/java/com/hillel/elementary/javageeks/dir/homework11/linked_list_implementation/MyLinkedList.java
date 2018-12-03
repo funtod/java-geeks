@@ -38,13 +38,22 @@ public class MyLinkedList<T> implements List<T> {
   @Override
   public Object[] toArray() {
     Object[] array = new Object[size];
-    return new Object[0];
+    Iterator<T> iterator = iterator();
+    int pointer = 0;
+    while (iterator.hasNext()) {
+      array[pointer++] = iterator.next();
+    }
+    return array;
   }
 
   @Override
   public <T1> T1[] toArray(T1[] a) {
     return null;
   }
+
+  //private <T1 super T> T1[] blaBlaBla(T1[] a) {
+  //  return null;
+  //}
 
   @Override
   public boolean add(T t) {
@@ -100,11 +109,30 @@ public class MyLinkedList<T> implements List<T> {
 
   @Override
   public boolean addAll(Collection<? extends T> c) {
-    return false;
+    for (T i: c) {
+      add(i);
+    }
+    return true;
   }
 
   @Override
   public boolean addAll(int index, Collection<? extends T> c) {
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException();
+    }
+
+    if (c.size() == 0) {
+      return true;
+    }
+
+    Node nextNode = getNode(index);
+    Node previousNode = nextNode.previous;
+    for (T value: c) {
+      Node newNode = new Node(previousNode, null, value);
+      previousNode.next = newNode;
+      previousNode = newNode;
+    }
+
     return false;
   }
 
@@ -125,6 +153,22 @@ public class MyLinkedList<T> implements List<T> {
 
   @Override
   public T get(int index) {
+    return null;
+  }
+
+  private Node getNode(int index) {
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException();
+    }
+
+    Node currentNode = head;
+    int pointer = 0;
+    while (currentNode != null) {
+      if (pointer++ == index ) {
+        return  currentNode;
+      }
+      currentNode = currentNode.next;
+    }
     return null;
   }
 

@@ -8,22 +8,25 @@
 package com.hillel.elementary.javageeks.dir.homework6.overflow_exception;
 
 public class Processor {
-  public static int calculateSum(int[] numbers){
+  protected Processor() {
+  }
+
+  public static int calculateSum(int[] numbers) {
     int sum = 0;
-    for (int value: numbers) {
+    for (int value : numbers) {
       sum = Math.addExact(value, sum); //throws ArithmeticException if the result overflows an int
     }
     return sum;
   }
 
-  public static int calculateSumExcessLayer(int[] numbers){
+  public static int calculateSumExcessLayer(int[] numbers) {
     int sum = 0;
     try {
       sum = Processor.calculateSum(numbers);
-    } catch (ArithmeticException e){
+    } catch (ArithmeticException e) {
       System.out.println("An ArithmeticException is detected.");
       throw e;
     }
-    return  sum;
-   }
+    return sum;
+  }
 }

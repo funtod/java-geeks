@@ -2,31 +2,23 @@ package com.hillel.elementary.javageeks.huffman_algorithm;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 class TextCompressorTest {
 
     @Test
-    void shouldReturnMinimumPrefixCodeForMostCommonCharacter() {
-        String txt = "aabbaabbaabbbfftbbbbbteeeeeeeeeeeeeeeeewbbb";
-        assertThat(new TextCompressor().compress(txt)).contains("e:0");
-    }
+    void shouldReturnPrefixForOneLetterText() throws IOException {
 
-    @Test
-    void shouldReturnPrefixForOneLetterText() {
-        String txt = "a";
-        assertThat(new TextCompressor().compress(txt)).contains("a:0");
-    }
+        FileCompressor.compress("/home/alex/IdeaProjects/java-geeks/modules/alex-n/src/fl.txt",
+                "/home/alex/IdeaProjects/java-geeks/modules/alex-n/src/fl_encoded.txt",
+                "/home/alex/IdeaProjects/java-geeks/modules/alex-n/src/fl_key.txt");
 
-    @Test
-    void shouldReturnEmptyString() {
-        String txt = "";
-        assertThat(new TextCompressor().compress(txt)).isEmpty();
-    }
+        FileCompressor.decompress("/home/alex/IdeaProjects/java-geeks/modules/alex-n/src/fl_encoded.txt",
+                "/home/alex/IdeaProjects/java-geeks/modules/alex-n/src/fl_key.txt",
+                "/home/alex/IdeaProjects/java-geeks/modules/alex-n/src/fl_decompressed.txt");
 
-    @Test
-    void shouldReturnNull() {
-        String txt = null;
-        assertThat(new TextCompressor().compress(txt)).isNull();
+        assertThat(1).isEqualTo(1);
     }
 }

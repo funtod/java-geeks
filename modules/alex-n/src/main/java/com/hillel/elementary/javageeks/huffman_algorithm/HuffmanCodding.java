@@ -1,19 +1,16 @@
 package com.hillel.elementary.javageeks.huffman_algorithm;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class HuffmanCodding {
 
-    private class HuffmanNode {
+    private static class HuffmanNode {
         private int value;
-        private char later;
+        private Character later;
         private HuffmanNode left;
         private HuffmanNode right;
 
-        HuffmanNode(int frequency, char character, HuffmanNode leftNode, HuffmanNode rightNode) {
+        HuffmanNode(int frequency, Character character, HuffmanNode leftNode, HuffmanNode rightNode) {
             this.value = frequency;
             this.later = character;
             this.left = leftNode;
@@ -21,15 +18,12 @@ public class HuffmanCodding {
         }
     }
 
-    public final String encode(String word) {
-        if (word.length() == 1) {
-            return word + ":0";
-        }
+    public static final HashMap<Character, String> getCodesForCharsInText(String text) {
 
         HashMap<Character, Integer> charsFrequencyMap = new HashMap<Character, Integer>();
 
-        for (int i = 0; i < word.length(); i++) {
-            char c = word.charAt(i);
+        for (int i = 0; i < text.length(); i++) {
+            Character c = text.charAt(i);
             Integer val = charsFrequencyMap.get(c);
             if (val != null) {
                 charsFrequencyMap.put(c, new Integer(val + 1));
@@ -40,7 +34,7 @@ public class HuffmanCodding {
 
         PriorityQueue<HuffmanNode> queue = new PriorityQueue<>(new HuffmanComparator());
 
-        Object[] chars =  charsFrequencyMap.entrySet().toArray();
+        Object[] chars = charsFrequencyMap.entrySet().toArray();
 
         for (int i = 0; i < chars.length; i++) {
             char currentChar = chars[i].toString().charAt(0);
@@ -58,35 +52,52 @@ public class HuffmanCodding {
             queue.poll();
 
             int sum = firstMin.value + secondMin.value;
-            HuffmanNode newNode = new HuffmanNode(sum, '-', firstMin, secondMin);
+            HuffmanNode newNode = new HuffmanNode(sum, null, firstMin, secondMin);
             root = newNode;
             queue.add(newNode);
         }
 
-        ArrayList<String> codes = new ArrayList<>();
-        getCode(root, "", codes);
+        HashMap<Character, String> codes = new HashMap<>();
+        processCodes(root, "", codes);
+        return codes;
+    }
 
-        String resultCodes = "";
-        for (int i = 0; i < codes.size(); i++) {
-            resultCodes = resultCodes + codes.get(i);
-            if (i != codes.size() - 1) {
-                resultCodes += " ";
+    private static void processCodes(HuffmanNode root, String code, HashMap<Character, String> prefixes) {
+        if (root.left == null && root.right == null && root.later != null) {
+            prefixes.put(root.later, code);
+            return;
+        }
+        processCodes(root.left, code + "0", prefixes);
+        processCodes(root.right, code + "1", prefixes);
+    }
+
+    public static String encodeText(HashMap<Character, String> codes, String txt) {
+        String str = "";
+        for (int i = 0; i < txt.length(); i++) {
+            str += codes.get(txt.charAt(i));
+        }
+        return str;
+    }
+
+    public static String decode(String bits, HashMap<Character, String> charCodes) {
+        StringBuilder stringBuilder = new StringBuilder(bits);
+        Character[] characters = new Character[charCodes.keySet().size()];
+        charCodes.keySet().toArray(characters);
+
+        System.out.println(Arrays.toString(characters));//TODO DELETE
+
+        for (int i = 0; i < stringBuilder.length(); i++) {
+            for (int j = 0; j < characters.length; j++) {
+                if (stringBuilder.indexOf(charCodes.get(characters[j])) == i) {
+                    stringBuilder.replace(i, i + charCodes.get(characters[j]).length(), String.valueOf(characters[j]));
+                }
             }
         }
-
-        return resultCodes;
+        System.out.println(stringBuilder.toString());//todo delete
+        return stringBuilder.toString();
     }
 
-    private void getCode(HuffmanNode root, String code, ArrayList<String> codes) {
-        if (root.left == null && root.right == null && Character.isLetter(root.later)) {
-             codes.add(root.later + ":" + code);
-             return;
-        }
-        getCode(root.left, code + "0", codes);
-        getCode(root.right, code + "1", codes);
-    }
-
-    class HuffmanComparator implements Comparator<HuffmanNode> {
+    static class HuffmanComparator implements Comparator<HuffmanNode> {
         @Override
         public int compare(HuffmanNode node1, HuffmanNode node2) {
             return node1.value - node2.value;

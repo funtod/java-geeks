@@ -3,7 +3,7 @@ package com.hillel.elementary.javageeks.dir.homework11.linked_list_implementatio
 
 import java.util.*;
 
-public class MyLinkedList<T> implements List<T> {
+public class MyLinkedList<T1, T extends T1> implements List<T> {
   private int size;
   private Node head;
   private Node tail;
@@ -47,13 +47,23 @@ public class MyLinkedList<T> implements List<T> {
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public <T1> T1[] toArray(T1[] a) {
-    return null;
-  }
+    if (a.length < size) {
+      a = (T1[]) java.lang.reflect.Array.newInstance(
+              a.getClass().getComponentType(), size);
+    }
+    Iterator<T> iterator = iterator();
+    int pointer = 0;
+    while (iterator.hasNext()) {
+      a[pointer++] = (T1) iterator.next();
+    }
+    if (a.length > size) {
+      a[size] = null;
+    }
 
-  //private <T1 super T> T1[] blaBlaBla(T1[] a) {
-  //  return null;
-  //}
+    return a;
+  }
 
   @Override
   public boolean add(T t) {
@@ -138,12 +148,22 @@ public class MyLinkedList<T> implements List<T> {
 
   @Override
   public boolean removeAll(Collection<?> c) {
-    return false;
+    for (Object i: c) {
+      remove(i);
+    }
+    return true;
   }
 
   @Override
   public boolean retainAll(Collection<?> c) {
-    return false;
+    Iterator iterator = c.iterator();
+    while (iterator.hasNext()) {
+      Object object = iterator.next();
+      if (!c.contains(object)) {
+        iterator.remove();
+      }
+    }
+    return true;
   }
 
   @Override

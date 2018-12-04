@@ -20,9 +20,9 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
 
   @Override
   public boolean contains(Object o) {
-    Node currentNode = head;
+    Node<T> currentNode = head;
     while (currentNode != null) {
-      if (o == null ? currentNode.value ==null : o.equals(currentNode.value)) {
+      if (o == null ? currentNode.value == null : o.equals(currentNode.value)) {
         return  true;
       }
       currentNode = currentNode.next;
@@ -67,9 +67,12 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
 
   @Override
   public boolean add(T t) {
-    Node newNode = new Node(tail, null, t);
+    Node<T> newNode = new Node<>(tail, null, t);
     if (size == 0) {
       head = newNode;
+    }
+    if (tail != null) {
+      tail.next = newNode;
     }
     tail = newNode;
 
@@ -79,9 +82,9 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
 
   @Override
   public boolean remove(Object o) {
-    Node currentNode = head;
+    Node<T> currentNode = head;
     while (currentNode != null) {
-      if (o == null ? currentNode.value ==null : o.equals(currentNode.value)) {
+      if (o == null ? currentNode.value == null : o.equals(currentNode.value)) {
         removeNode(currentNode);
         return  true;
       }
@@ -90,22 +93,7 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
     return false;
   }
 
-  private void removeNode(Node currentNode) {
-    Node previousNode = currentNode.previous;
-    if (previousNode != null) {
-      previousNode.next = currentNode.next;
-    } else {
-      head = currentNode.next;
-    }
-    if (tail == currentNode) {
-      tail = currentNode.next;
-    }
-    currentNode.previous = null;
-    currentNode.next = null;
-    size--;
-  }
-
-  @Override
+ @Override
   public boolean containsAll(Collection<?> c) {
     Iterator iterator = c.iterator();
     while (iterator.hasNext()) {
@@ -132,18 +120,25 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
     }
 
     if (c.size() == 0) {
-      return true;
+      return false;
     }
 
-    Node nextNode = getNode(index);
-    Node previousNode = nextNode.previous;
+    Node<T> nextNode = getNodeByIndex(index);
+    Node<T> previousNode = nextNode.previous;
     for (T value: c) {
-      Node newNode = new Node(previousNode, null, value);
-      previousNode.next = newNode;
+      Node<T> newNode = new Node(previousNode, null, value);
+      if (previousNode == null) {
+        head = newNode;
+      } else {
+        previousNode.next = newNode;
+      }
       previousNode = newNode;
     }
 
-    return false;
+    previousNode.next = nextNode;
+    nextNode.previous = previousNode;
+
+    return true;
   }
 
   @Override
@@ -156,65 +151,95 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
 
   @Override
   public boolean retainAll(Collection<?> c) {
-    Iterator iterator = c.iterator();
-    while (iterator.hasNext()) {
-      Object object = iterator.next();
-      if (!c.contains(object)) {
-        iterator.remove();
+    Node<T> node = head;
+    boolean modified = false;
+    while (node != null) {
+      if (!c.contains(node.value)) {
+        removeNode(node);
+        modified = true;
       }
+      node = node.next;
     }
-    return true;
+    return  modified;
   }
 
   @Override
   public void clear() {
-
+    head = null;
+    tail = null;
+    size = 0;
   }
 
   @Override
   public T get(int index) {
-    return null;
-  }
-
-  private Node getNode(int index) {
-    if (index < 0 || index >= size) {
-      throw new IndexOutOfBoundsException();
-    }
-
-    Node currentNode = head;
-    int pointer = 0;
-    while (currentNode != null) {
-      if (pointer++ == index ) {
-        return  currentNode;
-      }
-      currentNode = currentNode.next;
-    }
-    return null;
+    Node<T> node = getNodeByIndex(index);
+    return node.value;
   }
 
   @Override
   public T set(int index, T element) {
-    return null;
+    Node<T> node = getNodeByIndex(index);
+    T oldValue = node.value;
+    node.value = element;
+    return oldValue;
   }
 
   @Override
   public void add(int index, T element) {
-    //Node new Node
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException();
+    }
+
+    Node<T> nextNode = getNodeByIndex(index);
+    Node<T> previousNode = nextNode.previous;
+
+    Node<T> newNode = new Node(previousNode, nextNode, element);
+    if (previousNode == null) {
+      head = newNode;
+    } else {
+      previousNode.next = newNode;
+    }
+
+    nextNode.previous = newNode;
+    size++;
   }
 
   @Override
   public T remove(int index) {
-    return null;
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException();
+    }
+
+    Node<T> node = getNodeByIndex(index);
+    return removeNode(node);
   }
 
   @Override
   public int indexOf(Object o) {
-    return 0;
+    Node<T> node = head;
+    int index = 0;
+    while (node != null) {
+      if (o == null ? node.value == null : o.equals(node.value)) {
+        return index;
+      }
+      node = node.next;
+      index++;
+    }
+    return -1;
   }
 
   @Override
   public int lastIndexOf(Object o) {
-    return 0;
+    Node<T> node = tail;
+    int index = size - 1;
+    while (node != null) {
+      if (o == null ? node.value == null : o.equals(node.value)) {
+        return index;
+      }
+      node = node.previous;
+      index--;
+    }
+    return -1;
   }
 
   @Override
@@ -230,6 +255,44 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
   @Override
   public List<T> subList(int fromIndex, int toIndex) {
     return null;
+  }
+
+  private Node getNodeByIndex(int index) {
+    if (index < 0 || index >= size) {
+      throw new IndexOutOfBoundsException();
+    }
+
+    Node currentNode = head;
+    int pointer = 0;
+    while (currentNode != null) {
+      if (pointer++ == index ) {
+        return  currentNode;
+      }
+      currentNode = currentNode.next;
+    }
+    return null;
+  }
+
+  private T removeNode(Node<T> node) {
+    Node<T> previousNode = node.previous;
+    if (previousNode == null) {
+      head = node.next;
+    } else {
+      previousNode.next = node.next;
+    }
+
+    Node<T> nextNode = node.next;
+    if (nextNode == null) {
+      tail = node.previous;
+    } else {
+      nextNode.previous = node.previous;
+    }
+
+    node.previous = null;
+    node.next = null;
+    size--;
+
+    return node.value;
   }
 
   private static class Node<T> {

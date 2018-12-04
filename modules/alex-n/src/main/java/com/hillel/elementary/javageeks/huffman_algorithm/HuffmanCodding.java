@@ -33,7 +33,6 @@ public class HuffmanCodding {
         }
 
         PriorityQueue<HuffmanNode> queue = new PriorityQueue<>(new HuffmanComparator());
-
         Object[] chars = charsFrequencyMap.entrySet().toArray();
 
         for (int i = 0; i < chars.length; i++) {
@@ -45,12 +44,8 @@ public class HuffmanCodding {
         HuffmanNode root = null;
 
         while (queue.size() > 1) {
-
-            HuffmanNode firstMin = queue.peek();
-            queue.poll();
-            HuffmanNode secondMin = queue.peek();
-            queue.poll();
-
+            HuffmanNode firstMin = queue.poll();
+            HuffmanNode secondMin = queue.poll();
             int sum = firstMin.value + secondMin.value;
             HuffmanNode newNode = new HuffmanNode(sum, null, firstMin, secondMin);
             root = newNode;
@@ -84,8 +79,6 @@ public class HuffmanCodding {
         Character[] characters = new Character[charCodes.keySet().size()];
         charCodes.keySet().toArray(characters);
 
-        System.out.println(Arrays.toString(characters));//TODO DELETE
-
         for (int i = 0; i < stringBuilder.length(); i++) {
             for (int j = 0; j < characters.length; j++) {
                 if (stringBuilder.indexOf(charCodes.get(characters[j])) == i) {
@@ -93,7 +86,6 @@ public class HuffmanCodding {
                 }
             }
         }
-        System.out.println(stringBuilder.toString());//todo delete
         return stringBuilder.toString();
     }
 

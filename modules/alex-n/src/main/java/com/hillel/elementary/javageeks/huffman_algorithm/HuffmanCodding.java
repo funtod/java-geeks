@@ -2,7 +2,10 @@ package com.hillel.elementary.javageeks.huffman_algorithm;
 
 import java.util.*;
 
-public class HuffmanCodding {
+final class HuffmanCodding {
+
+    private HuffmanCodding() {
+    }
 
     private static class HuffmanNode {
         private int value;
@@ -18,15 +21,15 @@ public class HuffmanCodding {
         }
     }
 
-    public static final HashMap<Character, String> getCodesForCharsInText(String text) {
+    static HashMap<Character, String> getCodesForCharsInText(String text) {
 
-        HashMap<Character, Integer> charsFrequencyMap = new HashMap<Character, Integer>();
+        HashMap<Character, Integer> charsFrequencyMap = new HashMap<>();
 
         for (int i = 0; i < text.length(); i++) {
             Character c = text.charAt(i);
             Integer val = charsFrequencyMap.get(c);
             if (val != null) {
-                charsFrequencyMap.put(c, new Integer(val + 1));
+                charsFrequencyMap.put(c, val + 1);
             } else {
                 charsFrequencyMap.put(c, 1);
             }
@@ -35,8 +38,8 @@ public class HuffmanCodding {
         PriorityQueue<HuffmanNode> queue = new PriorityQueue<>(new HuffmanComparator());
         Object[] chars = charsFrequencyMap.entrySet().toArray();
 
-        for (int i = 0; i < chars.length; i++) {
-            char currentChar = chars[i].toString().charAt(0);
+        for (Object aChar : chars) {
+            char currentChar = aChar.toString().charAt(0);
             HuffmanNode huffmanNode = new HuffmanNode(charsFrequencyMap.get(currentChar), currentChar, null, null);
             queue.add(huffmanNode);
         }
@@ -67,11 +70,11 @@ public class HuffmanCodding {
     }
 
     public static String encodeText(HashMap<Character, String> codes, String txt) {
-        String str = "";
+        StringBuilder str = new StringBuilder();
         for (int i = 0; i < txt.length(); i++) {
-            str += codes.get(txt.charAt(i));
+            str.append(codes.get(txt.charAt(i)));
         }
-        return str;
+        return str.toString();
     }
 
     public static String decode(String bits, HashMap<Character, String> charCodes) {

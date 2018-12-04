@@ -2,29 +2,27 @@ package com.hillel.elementary.javageeks.huffman_algorithm;
 
 import java.util.HashMap;
 
-import static com.hillel.elementary.javageeks.huffman_algorithm.Bits.*;
-import static com.hillel.elementary.javageeks.huffman_algorithm.Bits.binaryStringToByteArray;
-import static com.hillel.elementary.javageeks.huffman_algorithm.FileReaderWriter.*;
-import static com.hillel.elementary.javageeks.huffman_algorithm.HuffmanCodding.*;
+final class FileCompressor {
 
-public class FileCompressor {
-
-    public static final void compress(String inputFilePath, String outputFilePath, String keyPath) {
-
-        String fileText = readStringFromFile(inputFilePath);
-        HashMap<Character, String> codesForCharsInText = getCodesForCharsInText(fileText);
-        String encodedStr = encodeText(codesForCharsInText, fileText);
-        byte[] bytes = binaryStringToByteArray(encodedStr);
-        writeByteArrayToFile(outputFilePath, bytes);
-        writeHashMapToFile(keyPath, codesForCharsInText);
+    private FileCompressor() {
     }
 
-    public static final void decompress(String compressedFilePath, String keyFilePath, String decompressedFilePath) {
+    static void compress(String inputFilePath, String outputFilePath, String keyPath) {
 
-        HashMap<Character, String> codesForChars = readHashMapFromFile(keyFilePath);
-        byte[] bytes = readByteArrayFromFile(compressedFilePath);
-        String bits = byteArrayToBinaryString(bytes);
-        String decodedText = decode(bits, codesForChars);
-        writeStringToFile(decodedText, decompressedFilePath);
+        String fileText = FileReaderWriter.readStringFromFile(inputFilePath);
+        HashMap<Character, String> codesForCharsInText = HuffmanCodding.getCodesForCharsInText(fileText);
+        String encodedStr = HuffmanCodding.encodeText(codesForCharsInText, fileText);
+        byte[] bytes = Bits.binaryStringToByteArray(encodedStr);
+        FileReaderWriter.writeByteArrayToFile(outputFilePath, bytes);
+        FileReaderWriter.writeHashMapToFile(keyPath, codesForCharsInText);
+    }
+
+    static void decompress(String compressedFilePath, String keyFilePath, String decompressedFilePath) {
+
+        HashMap<Character, String> codesForChars = FileReaderWriter.readHashMapFromFile(keyFilePath);
+        byte[] bytes = FileReaderWriter.readByteArrayFromFile(compressedFilePath);
+        String bits = Bits.byteArrayToBinaryString(bytes);
+        String decodedText = HuffmanCodding.decode(bits, codesForChars);
+        FileReaderWriter.writeStringToFile(decodedText, decompressedFilePath);
     }
 }

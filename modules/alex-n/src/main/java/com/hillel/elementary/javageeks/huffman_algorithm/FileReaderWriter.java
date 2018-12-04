@@ -6,9 +6,12 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 
-public class FileReaderWriter {
+final class FileReaderWriter {
 
-    public static String readStringFromFile(String filePath) {
+    private FileReaderWriter() {
+    }
+
+    static String readStringFromFile(String filePath) {
         List<String> lines = null;
         StringBuilder fileText = new StringBuilder();
 
@@ -28,17 +31,15 @@ public class FileReaderWriter {
         return fileText.toString();
     }
 
-    public static void writeStringToFile(String text, String pathToFile) {
+    static void writeStringToFile(String text, String pathToFile) {
         try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(pathToFile)))) {
             writer.write(text);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static byte[] readByteArrayFromFile(String pathToCompressedFile) {
+    static byte[] readByteArrayFromFile(String pathToCompressedFile) {
         try {
             return Files.readAllBytes(new File(pathToCompressedFile).toPath());
         } catch (IOException e) {
@@ -47,7 +48,7 @@ public class FileReaderWriter {
         return null;
     }
 
-    public static void writeByteArrayToFile(String filePath, byte[] data) {
+    static void writeByteArrayToFile(String filePath, byte[] data) {
         try (FileOutputStream fileOutputStream = new FileOutputStream(new File(filePath))) {
             fileOutputStream.write(data);
         } catch (IOException e) {
@@ -55,44 +56,42 @@ public class FileReaderWriter {
         }
     }
 
-    public static HashMap<Character, String> readHashMapFromFile(String filePath) {
+    static HashMap<Character, String> readHashMapFromFile(String filePath) {
         HashMap<Character, String> hashMap = new HashMap<>();
         File file = new File(filePath);
         String line = "";
-        String fileText = "";
+        StringBuilder fileText = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
-            fileText = bufferedReader.readLine();
+            fileText = new StringBuilder(bufferedReader.readLine());
             while (true) {
                 line = bufferedReader.readLine();
                 if (line == null) {
                     break;
                 } else {
-                    fileText += "\n" + line;
+                    fileText.append("\n").append(line);
                 }
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String[] keyValues = fileText.split(";");
-        for (int i = 0; i < keyValues.length; i++) {
-            String[] pair = keyValues[i].split(":");
+        String[] keyValues = fileText.toString().split(";");
+        for (String keyValue : keyValues) {
+            String[] pair = keyValue.split(":");
             hashMap.put(pair[0].charAt(0), pair[1]);
         }
         return hashMap;
     }
 
-    public static void writeHashMapToFile(String filePath, HashMap<Character, String> hashMap) {
-        String fileData = "";
+    static void writeHashMapToFile(String filePath, HashMap<Character, String> hashMap) {
+        StringBuilder fileData = new StringBuilder();
         Character[] characters = new Character[hashMap.keySet().size()];
         hashMap.keySet().toArray(characters);
         for (int i = 0; i < characters.length; i++) {
-            fileData += characters[i] + ":" + hashMap.get(characters[i]);
+            fileData.append(characters[i]).append(":").append(hashMap.get(characters[i]));
             if (i < characters.length - 1) {
-                fileData += ";";
+                fileData.append(";");
             }
         }
-        writeStringToFile(fileData, filePath);
+        writeStringToFile(fileData.toString(), filePath);
     }
 }

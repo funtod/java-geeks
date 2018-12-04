@@ -13,29 +13,26 @@ public class Container {
         this.y2 = y + height;
     }
 
-    public boolean collidesWith(Ball ball){
-        if (ball.getX() + ball.getRadius() > x2 ||
-                ball.getY() + ball.getRadius() > y2 ||
-                ball.getX() - ball.getRadius() < x1 ||
-                ball.getY() - ball.getRadius() < y1){
-            return true;
-        }
-        else return false;
+    public final boolean collidesWith(Ball ball) {
+        return ball.getX() + ball.getRadius() > x2
+                || ball.getY() + ball.getRadius() > y2
+                || ball.getX() - ball.getRadius() < x1
+                || ball.getY() - ball.getRadius() < y1;
     }
 
-    public int getX1() {
+    public final int getX1() {
         return x1;
     }
 
-    public int getX2() {
+    public final int getX2() {
         return x2;
     }
 
-    public int getY1() {
+    public final int getY1() {
         return y1;
     }
 
-    public int getY2() {
+    public final int getY2() {
         return y2;
     }
 }

@@ -3,7 +3,7 @@ package com.hillel.elementary.javageeks.dir.homework11.linked_list_implementatio
 
 import java.util.*;
 
-public class MyLinkedList<T1, T extends T1> implements List<T> {
+public class MyLinkedList<T> implements List<T> {
   private int size;
   private Node head;
   private Node tail;
@@ -133,6 +133,7 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
         previousNode.next = newNode;
       }
       previousNode = newNode;
+      size++;
     }
 
     previousNode.next = nextNode;
@@ -288,8 +289,6 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
       nextNode.previous = node.previous;
     }
 
-    node.previous = null;
-    node.next = null;
     size--;
 
     return node.value;
@@ -300,6 +299,11 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
     Node next;
     T value;
 
+    @Override
+    public String toString() {
+      return "Node(" + value + ")";
+    }
+
     public Node(Node argPrevious, Node argNext, T argValue) {
       previous = argPrevious;
       next = argNext;
@@ -308,15 +312,18 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
   }
 
   private class NodeIterator implements Iterator {
-    private Node currentNode;
-
-    NodeIterator() {
-      this.currentNode = head;
-    }
+    private Node<T> node;
+    private Node<T> nodeToRemove;
 
     @Override
     public boolean hasNext() {
-      return currentNode != null && currentNode.next != null;
+      if (head == null) {
+        return false;
+      }
+      if (node == tail) {
+        return false;
+      }
+      return node == null || node.next != null;
     }
 
     @Override
@@ -324,15 +331,71 @@ public class MyLinkedList<T1, T extends T1> implements List<T> {
       if (!hasNext()) {
         throw new NoSuchElementException();
       }
-      currentNode = currentNode.next;
-      return currentNode;
+      if (node == null) {
+        node = head;
+      } else {
+        node = node.next;
+      }
+      nodeToRemove = node;
+      return node.value;
     }
 
     @Override
     public void remove() {
-      Node nextNode = currentNode.next;
-      removeNode(currentNode);
-      currentNode = nextNode;
+      if (nodeToRemove == null) {
+        throw new IllegalStateException();
+      }
+      Node<T> previousNode = node.previous;
+      removeNode(node);
+      nodeToRemove = null;
+      node = previousNode;
+    }
+  }
+
+  private class NodeListIterator implements ListIterator {
+    @Override
+    public boolean hasNext() {
+      return false;
+    }
+
+    @Override
+    public Object next() {
+      return null;
+    }
+
+    @Override
+    public boolean hasPrevious() {
+      return false;
+    }
+
+    @Override
+    public Object previous() {
+      return null;
+    }
+
+    @Override
+    public int nextIndex() {
+      return 0;
+    }
+
+    @Override
+    public int previousIndex() {
+      return 0;
+    }
+
+    @Override
+    public void remove() {
+
+    }
+
+    @Override
+    public void set(Object argO) {
+
+    }
+
+    @Override
+    public void add(Object argO) {
+
     }
   }
 }

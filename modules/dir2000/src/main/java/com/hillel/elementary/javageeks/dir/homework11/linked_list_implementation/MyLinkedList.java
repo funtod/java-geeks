@@ -258,6 +258,8 @@ public class MyLinkedList<T> implements List<T> {
     return null;
   }
 
+  /*Inner implementation members*/
+
   private Node getNodeByIndex(int index) {
     if (index < 0 || index >= size) {
       throw new IndexOutOfBoundsException();
@@ -349,6 +351,18 @@ public class MyLinkedList<T> implements List<T> {
       removeNode(node);
       nodeToRemove = null;
       node = previousNode;
+    }
+  }
+
+  private class SubList {
+    final MyLinkedList list;
+    final int offset;
+    int size;
+
+    SubList(MyLinkedList list, int fromIndex, int toIndex) {
+      this.list = list;
+      offset = fromIndex;
+      size = toIndex - fromIndex;
     }
   }
 

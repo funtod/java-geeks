@@ -9,17 +9,13 @@ public class MyFile {
         File file = new File(args[0]);
 
         BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader(file));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
 
         String st;
         int count = 0;
         LinkedList<Integer> col = new LinkedList<>();
 
         try {
+            br = new BufferedReader(new FileReader(file));
             while ((st = br.readLine()) != null) {
                 count++;
                 if (st.matches(args[1])) {

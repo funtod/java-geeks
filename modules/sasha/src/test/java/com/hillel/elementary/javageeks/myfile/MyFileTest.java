@@ -12,9 +12,8 @@ class MyFileTest {
     void shouldParseFile(){
 
 
-
         String[] str = new String[2];
-        str[0] = "test.txt";
+        str[0] = "src/test/resources/test.txt";
         str[1] = "fas gd css";
 
         Integer[] nums = {2, 4};

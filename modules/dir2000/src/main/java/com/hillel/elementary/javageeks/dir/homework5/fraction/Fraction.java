@@ -12,63 +12,69 @@ public class Fraction {
   private int numerator;
   private int denominator;
 
-  public Fraction(int numerator, int denominator){
-    if (denominator == 0)
+  public Fraction(int argNumerator, int argDenominator) {
+    if (argDenominator == 0) {
       throw new IllegalArgumentException("/ by zero");
-    this.numerator = numerator;
-    this.denominator = denominator;
+    }
+    this.numerator = argNumerator;
+    this.denominator = argDenominator;
   }
 
-  public Fraction(Fraction other){
+  public Fraction(Fraction other) {
     numerator = other.numerator;
     denominator = other.denominator;
   }
 
   @Override
-  public String toString() {
-    return "Fraction{" +
-            "numerator=" + numerator +
-            ", denominator=" + denominator +
-            '}';
+  public final String toString() {
+    return "Fraction{"
+            + "numerator=" + numerator
+            + ", denominator=" + denominator
+            + '}';
   }
 
   @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+  public final boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
     Fraction fraction = (Fraction) o;
-    return numerator == fraction.numerator &&
-            denominator == fraction.denominator;
+    return numerator == fraction.numerator
+            && denominator == fraction.denominator;
   }
 
   @Override
-  public int hashCode() {
+  public final int hashCode() {
     return Objects.hash(numerator, denominator);
   }
 
-  public int getNumerator() {
+  public final int getNumerator() {
     return numerator;
   }
 
-  public void setNumerator(int numerator) {
-    this.numerator = numerator;
+  public final void setNumerator(int argNumerator) {
+    this.numerator = argNumerator;
   }
 
-  public int getDenominator() {
+  public final int getDenominator() {
     return denominator;
   }
 
-  public void setDenominator(int denominator){
-    if (denominator == 0)
+  public final void setDenominator(int argDenominator) {
+    if (argDenominator == 0) {
       throw new IllegalArgumentException("/ by zero");
-    this.denominator = denominator;
+    }
+    this.denominator = argDenominator;
   }
 
-  public double getDoubleValue() {
+  public final double getDoubleValue() {
     return ((double) numerator) / denominator;
   }
 
-  public void addValues(Fraction other) {
+  public final void addValues(Fraction other) {
     numerator = numerator * other.denominator + denominator * other.numerator;
     denominator = denominator * other.denominator;
 

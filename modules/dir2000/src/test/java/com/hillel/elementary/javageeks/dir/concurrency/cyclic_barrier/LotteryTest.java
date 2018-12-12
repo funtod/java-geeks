@@ -11,7 +11,7 @@ class LotteryTest {
     //given
     int yearOfDrawing = 2018;
     int counts = 4;
-    int possibleCounts = 5;
+    int possibleCounts = 18;
     String[] playersNames = new String[] {"Jack", "Jill", "John"};
 
     //when
@@ -19,7 +19,8 @@ class LotteryTest {
     lottery.play();
 
     //then
-    String expectedWinnersName = "John";
-
+    String expectedWinnersName = "Jill";
+    String winnersName = lottery.getWinnersName();
+    assertEquals(expectedWinnersName, winnersName);
   }
 }

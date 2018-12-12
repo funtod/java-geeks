@@ -15,6 +15,10 @@ public final class Lottery {
   private ExecutorService exec;
   private String winnersName;
 
+  public String getWinnersName() {
+    return winnersName;
+  }
+
   public Lottery(int argYearOfDrawing, int argCounts, int argPossibleCounts, String[] argPlayersNames) {
     yearOfDrawing = argYearOfDrawing;
     counts = argCounts;
@@ -35,6 +39,15 @@ public final class Lottery {
     for (Player player : players) {
       exec.execute(player);
     }
+
+    while (winnersName == null) {
+      int sleepingTime = 500;
+      try {
+        Thread.sleep(sleepingTime);
+      } catch (InterruptedException argE) {
+        argE.printStackTrace();
+      }
+    }
   }
 
   private class EvaluationOfTheResults implements Runnable {
@@ -45,7 +58,6 @@ public final class Lottery {
         Bet playersBet = player.getBet();
         if (winningBet.equals(playersBet)) {
           winnersName = player.getName();
-          System.out.println(winnersName);
           exec.shutdownNow();
           break;
         }

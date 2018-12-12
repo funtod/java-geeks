@@ -40,10 +40,10 @@ public final class Lottery {
   private class EvaluationOfTheResults implements Runnable {
     @Override
     public void run() {
-      Bet winnigBet = new Bet(random, counts, possibleCounts);
+      Bet winningBet = new Bet(random, counts, possibleCounts);
       for (Player player : players) {
         Bet playersBet = player.getBet();
-        if (winnigBet.equals(playersBet)) {
+        if (winningBet.equals(playersBet)) {
           winnersName = player.getName();
           System.out.println(winnersName);
           exec.shutdownNow();

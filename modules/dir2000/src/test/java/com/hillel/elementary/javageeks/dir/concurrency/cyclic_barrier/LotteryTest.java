@@ -12,8 +12,14 @@ class LotteryTest {
     int yearOfDrawing = 2018;
     int counts = 4;
     int possibleCounts = 5;
-    String[] playersNames = new String[] {"Jack, Jill, John"};
+    String[] playersNames = new String[] {"Jack", "Jill", "John"};
+
+    //when
     Lottery lottery = new Lottery(yearOfDrawing, counts, possibleCounts, playersNames);
     lottery.play();
+
+    //then
+    String expectedWinnersName = "John";
+
   }
 }

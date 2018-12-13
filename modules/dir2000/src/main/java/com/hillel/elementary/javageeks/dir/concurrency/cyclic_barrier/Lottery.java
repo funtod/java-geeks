@@ -34,7 +34,7 @@ public final class Lottery {
 
     CyclicBarrier barrier = new CyclicBarrier(argPlayersNames.length, new EvaluationOfTheResults());
     random = new Random(argYearOfDrawing);
-    exec = Executors.newCachedThreadPool();
+    exec = Executors.newFixedThreadPool(argPlayersNames.length);
 
     players = new Player[argPlayersNames.length];
     int index = 0;

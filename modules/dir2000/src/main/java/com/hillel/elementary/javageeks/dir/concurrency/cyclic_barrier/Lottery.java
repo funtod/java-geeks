@@ -13,26 +13,27 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public final class Lottery {
-  private final int yearOfDrawing;
   private final int counts;
   private final int possibleCounts;
-  private final CyclicBarrier barrier;
   private final Random random;
+  private final ExecutorService exec;
   private final Player[] players;
-  private ExecutorService exec;
-  private String winnersName;
+  private volatile String winnersName;
 
   public String getWinnersName() {
     return winnersName;
   }
 
   public Lottery(int argYearOfDrawing, int argCounts, int argPossibleCounts, String[] argPlayersNames) {
-    yearOfDrawing = argYearOfDrawing;
+    if (argCounts <= 0 || argPossibleCounts <= 0 || argCounts > argPossibleCounts
+      || argPlayersNames == null || argPlayersNames.length == 0) {
+        throw new IllegalArgumentException("Wrong counts!");
+    }
     counts = argCounts;
     possibleCounts = argPossibleCounts;
 
-    barrier = new CyclicBarrier(argPlayersNames.length, new EvaluationOfTheResults());
-    random = new Random(yearOfDrawing);
+    CyclicBarrier barrier = new CyclicBarrier(argPlayersNames.length, new EvaluationOfTheResults());
+    random = new Random(argYearOfDrawing);
     exec = Executors.newCachedThreadPool();
 
     players = new Player[argPlayersNames.length];
@@ -48,7 +49,7 @@ public final class Lottery {
     }
 
     while (winnersName == null) {
-      int sleepingTime = 500;
+      final int sleepingTime = 100;
       try {
         Thread.sleep(sleepingTime);
       } catch (InterruptedException argE) {

@@ -3,10 +3,10 @@ package com.hillel.elementary.javageeks.dir.concurrency.cyclic_barrier;
 import java.util.Arrays;
 import java.util.Random;
 
-public class Bet {
-  private int[] numbers;
+final class Bet {
+  private final int[] numbers;
 
-  public Bet(Random random, int counts, int possibleCounts) {
+  Bet(Random random, int counts, int possibleCounts) {
     numbers = new int[counts];
     for (int i = 0; i < counts; i++) {
       numbers[i] = random.nextInt(possibleCounts) + 1;

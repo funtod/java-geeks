@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 
-public class Player implements Runnable {
+final class Player implements Runnable {
   private final String name;
   private final CyclicBarrier barrier;
   private final Random random;
@@ -12,7 +12,7 @@ public class Player implements Runnable {
   private final int possibleCounts;
   private Bet bet;
 
-  public Player(String argName, CyclicBarrier argBarrier, int argCounts, int argPossibleCounts) {
+  Player(String argName, CyclicBarrier argBarrier, int argCounts, int argPossibleCounts) {
     name = argName;
     barrier = argBarrier;
     random = new Random(argName.hashCode());
@@ -20,11 +20,11 @@ public class Player implements Runnable {
     possibleCounts = argPossibleCounts;
   }
 
-  public String getName() {
+  String getName() {
     return name;
   }
 
-  public Bet getBet() {
+  Bet getBet() {
     return bet;
   }
 

@@ -1,7 +1,6 @@
 package com.hillel.elementary.javageeks.myfile;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.LinkedList;
 
 public class MyFile {

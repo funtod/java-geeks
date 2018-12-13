@@ -3,6 +3,16 @@ package com.hillel.elementary.javageeks.mycollection;
 import java.util.LinkedList;
 
 public class MyList {
+
+    public static LinkedList actMatrix(int[][] arrOne,int[][] arrTwo,String argument){
+        LinkedList<Integer> listFist = matrixToList(arrOne);
+        LinkedList<Integer> listSecond = matrixToList(arrTwo);
+
+        LinkedList listResult = actList(listFist, listSecond,argument);
+        return listResult;
+
+    }
+
     private static LinkedList matrixToList(int[][] arr){
         LinkedList list = new LinkedList();
         for (int i = 0;i < arr.length;i++){
@@ -14,7 +24,8 @@ public class MyList {
         }
         return list;
     }
-    private static LinkedList sumList(LinkedList<Integer> listOne,LinkedList<Integer> listTwo){
+    
+    private static LinkedList actList(LinkedList<Integer> listOne,LinkedList<Integer> listTwo,String argument){
         LinkedList list = new LinkedList();
         int minSize = 0;
         if(listOne.size() <= listTwo.size()){
@@ -24,47 +35,19 @@ public class MyList {
             minSize = listTwo.size();
         }
 
-
-        for(int i = 0;i < minSize;i++){
-            list.add(listOne.get(i) + listTwo.get(i));
+        if(argument == "sum") {
+            for (int i = 0; i < minSize; i++) {
+                list.add(listOne.get(i) + listTwo.get(i));
+            }
+            return list;
+        }
+        if(argument == "multiply"){
+            for(int i = 0;i < minSize;i++){
+                list.add(listOne.get(i) * listTwo.get(i));
+            }
+            return list;
         }
         return list;
     }
-    private static LinkedList multiplyList(LinkedList<Integer> listOne,LinkedList<Integer> listTwo){
-        LinkedList list = new LinkedList();
-        int minSize = 0;
-        if(listOne.size() <= listTwo.size()){
-            minSize = listOne.size();
-        }
-        else {
-            minSize = listTwo.size();
-        }
-
-        for(int i = 0;i < minSize;i++){
-            list.add(listOne.get(i) * listTwo.get(i));
-        }
-        return list;
-    }
-
-    public static LinkedList sumMatrix(int[][] arrOne,int[][] arrTwo){
-        LinkedList<Integer> listFist = matrixToList(arrOne);
-        LinkedList<Integer> listSecond = matrixToList(arrTwo);
-
-        LinkedList listResult = sumList(listFist, listSecond);
-
-        return listResult;
-
-    }
-    public static LinkedList multyplyMatrix(int[][] arrOne,int[][] arrTwo){
-        LinkedList<Integer> listFist = matrixToList(arrOne);
-        LinkedList<Integer> listSecond = matrixToList(arrTwo);
-
-        LinkedList listResult = multiplyList(listFist,listSecond);
-
-        return listResult;
-
-    }
-
-
 
 }

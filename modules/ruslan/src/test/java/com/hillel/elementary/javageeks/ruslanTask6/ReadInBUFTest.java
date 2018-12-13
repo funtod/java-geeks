@@ -11,11 +11,9 @@ class ReadInBUFTest {
     public void shouldResultReadFromFile() throws IOException {
 
         //given
-//        URL resource = ReadInBUFTest.class.getClassLoader().getResource("Text.txt");
-//        System.out.println(resource);
-//        String fileFrom = resource.getFile();
-        String fileFrom = "/home/rstepanc/IdeaProjects/java-geeks/modules/ruslan/target/classes/Test";
-
+        URL resource = ReadInBUFTest.class.getClassLoader().getResource("Test");
+        System.out.println(resource);
+        String fileFrom = resource.getFile();
         byte[] arr= ReadInBUF.getFileBytes(new File(fileFrom));
         byte[] arrLower = ReadInBUF.toLow(arr);
         ReadInBUF.writeFile(fileFrom, ReadInBUF.toUp(arrLower));

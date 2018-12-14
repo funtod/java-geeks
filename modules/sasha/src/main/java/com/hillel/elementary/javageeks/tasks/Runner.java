@@ -1,4 +1,4 @@
-package com.hillel.elementary.javageeks.examples.threads.tasks.counter;
+package com.hillel.elementary.javageeks.tasks;
 
 import java.util.ArrayList;
 import java.util.List;

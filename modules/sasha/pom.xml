@@ -4,6 +4,14 @@
     <groupId>com.hillel.elementary.java-geeks</groupId>
     <artifactId>sasha</artifactId>
     <version>0.0.1</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-engine</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
     <parent>
         <groupId>com.hillel.elementary</groupId>

@@ -13,8 +13,7 @@ public class CounterTask {
     private int counter = 0;
 
     class TestTask implements Runnable {
-
-        @Override
+                @Override
         public void run() {
             for (int i = 0; i < 10000; i++) {
                 counter++;

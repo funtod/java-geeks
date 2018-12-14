@@ -18,17 +18,19 @@ public class WaitTask {
   private volatile int barrier;
 
   class TestThread implements Runnable {
-    String threadName;
-    int n;
+    private final String threadName;
+    private final int n;
 
-    public TestThread(String threadName, int n) {
+    TestThread(String threadName, int n) {
       this.threadName = threadName;
       this.n = n;
     }
 
     @Override
     public void run() {
-      for (int i = 0; i < 100; i++) {
+      final int iterations = 100;
+      final int multiplicity = 10;
+      for (int i = 0; i < iterations; i++) {
         System.out.println(threadName + ":" + i);
         synchronized (monitor) {
           try {
@@ -37,7 +39,7 @@ public class WaitTask {
 
             if (n == 1) {
               t1Counter = i;
-              if (t1Counter != 0 && t1Counter % 10 == 0) {
+              if (t1Counter != 0 && t1Counter % multiplicity == 0) {
                 barrier++;
                 while (barrier != 0) {
                   monitor.wait();
@@ -46,7 +48,7 @@ public class WaitTask {
             }
             if (n == 2) {
               t2Counter = i;
-              if (t2Counter != 0 && t2Counter % 10 == 0) {
+              if (t2Counter != 0 && t2Counter % multiplicity == 0) {
                 barrier++;
                 while (barrier != 0) {
                   monitor.wait();

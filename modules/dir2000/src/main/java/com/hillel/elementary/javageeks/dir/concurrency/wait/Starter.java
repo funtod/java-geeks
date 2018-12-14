@@ -1,6 +1,8 @@
 package com.hillel.elementary.javageeks.dir.concurrency.wait;
 
-public class Starter {
+public final class Starter {
+    private Starter() {
+    }
 
     public static void main(String[] args) {
         WaitTask waitTask = new WaitTask();

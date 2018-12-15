@@ -4,29 +4,28 @@ import java.io.*;
 import java.util.LinkedList;
 
 public class MyFile {
-    public static LinkedList parseFile(String[] args) {
-        File file = new File(args[0]);
+    public static LinkedList parseFile(String filePath,String lineSample) {
+        File file;
+        file = new File(filePath);
 
-        BufferedReader br = null;
-
-        String st;
         int count = 0;
-        LinkedList<Integer> col = new LinkedList<>();
+        LinkedList<Integer> collectionNumber = new LinkedList<>();
 
-        try {
-            br = new BufferedReader(new FileReader(file));
-            while ((st = br.readLine()) != null) {
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))){
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
                 count++;
-                if (st.matches(args[1])) {
-                    col.add(count);
+                if (line.matches(lineSample)) {
+                    collectionNumber.add(count);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        catch (IOException e) {
+            return new LinkedList();
         }
 
-
-        return col;
+        return collectionNumber;
     }
 
 

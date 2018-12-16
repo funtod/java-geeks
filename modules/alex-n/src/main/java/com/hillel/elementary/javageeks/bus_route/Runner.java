@@ -1,12 +1,12 @@
 package com.hillel.elementary.javageeks.bus_route;
 
-public class Runner {
+class Runner {
 
     private final Object monitor = new Object();
     private int maxBusesOnStop;
     private int[] stops;
 
-    public Runner(int maxBusesOnStop, int stops) {
+    Runner(int maxBusesOnStop, int stops) {
         this.maxBusesOnStop = maxBusesOnStop;
         this.stops = new int[stops];
     }
@@ -19,7 +19,7 @@ public class Runner {
         private int sleepBetweenStopsTime;
         private boolean isOnStop = false;
 
-        public Bus(int id, int sleepOnStopTime, int sleepBetweenStopsTime) {
+        Bus(int id, int sleepOnStopTime, int sleepBetweenStopsTime) {
             this.id = id;
             this.sleepOnStopTime = sleepOnStopTime;
             this.sleepBetweenStopsTime = sleepBetweenStopsTime;

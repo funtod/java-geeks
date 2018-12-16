@@ -1,6 +1,5 @@
 package com.hillel.elementary.javageeks.oleg.my_labs.Collection_TreeSet;
 
-import java.util.Iterator;
 import java.util.TreeSet;
 
 public class NumnerStorageStructure {

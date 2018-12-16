@@ -4,30 +4,29 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 public class NumnerStorageStructure {
+    TreeSet<Integer> treeSet;
 
-    public NumnerStorageStructure() {
+    public NumnerStorageStructure(TreeSet<Integer> treeSet) {
+        this.treeSet = treeSet;
     }
 
-    public static boolean addElement(TreeSet<Integer> treeSet, Integer element) {
+    public boolean addElement(Integer element) {
         return treeSet.add (element);
     }
 
-    public static boolean deleteElement(TreeSet<Integer> treeSet,Integer element) {
+    public  boolean deleteElement(Integer element) {
         treeSet.remove (element);
         return true;
     }
 
-    public static Integer findElement(TreeSet<Integer> treeSet, Integer element) {
-        Iterator<Integer> iterator=treeSet.iterator ();
-        Integer min=(Integer) iterator.next ();
 
-        while (iterator.hasNext ()) {
-            Integer number=(Integer)iterator.next ();
-            if (Math.abs(number-element)<Math.abs(min-element)){
-                min=number;
-            }
+    public Integer findElement( Integer element) {
+        Integer higherElement=treeSet.higher (element);
+        Integer lowerElement=treeSet.lower (element);
+        if ((higherElement-element)<(element-lowerElement)){
+            return higherElement;
+        }else{
+            return lowerElement;
         }
-        System.out.println (min);
-        return min;
     }
 }

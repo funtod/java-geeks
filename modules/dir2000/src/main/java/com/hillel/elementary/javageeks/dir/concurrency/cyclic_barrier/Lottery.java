@@ -8,7 +8,6 @@
 package com.hillel.elementary.javageeks.dir.concurrency.cyclic_barrier;
 
 import java.util.Random;
-import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -32,7 +31,7 @@ public final class Lottery {
     counts = argCounts;
     possibleCounts = argPossibleCounts;
 
-    CyclicBarrier barrier = new CyclicBarrier(argPlayersNames.length, new EvaluationOfTheResults());
+    MyCyclicBarrier barrier = new MyCyclicBarrier(argPlayersNames.length, new EvaluationOfTheResults());
     random = new Random(argYearOfDrawing);
     exec = Executors.newFixedThreadPool(argPlayersNames.length);
 

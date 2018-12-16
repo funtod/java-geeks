@@ -11,7 +11,7 @@ class LotteryTest {
     //given
     int yearOfDrawing = 2018;
     int counts = 4;
-    int possibleCounts = 18;
+    int possibleCounts = 9;
     String[] playersNames = new String[] {"Jack", "Jill", "John"};
 
     //when

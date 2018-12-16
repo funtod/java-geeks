@@ -15,6 +15,7 @@ package com.hillel.elementary.javageeks.dir.concurrency.termination;
 public class WaitTerminateTask {
     private final Object monitor = new Object();
     private int runningThreadNumber = 1;
+    private boolean independentMode;
 
     class TestThread implements Runnable {
         String threadName;
@@ -29,23 +30,15 @@ public class WaitTerminateTask {
             for (int i = 0; i < 100; i++) {
                 System.out.println(threadName + ":" + i);
                 synchronized (monitor) {
-                    System.out.println(threadName + ":" + i + " is into synch");
                     try {
-                        boolean waited = false;
-                        System.out.println(threadName + ".equals(t" + runningThreadNumber + ")");
-                        while (!threadName.equals("t" + runningThreadNumber)) {
-                            waited = true;
+                        while (!threadName.equals("t" + runningThreadNumber) && !independentMode) {
                             System.out.println("wait for thread " + "t" + runningThreadNumber);
                             monitor.wait();
-                        }
-                        if (waited) {
-                            System.out.println(threadName + " awakened");
                         }
                     } catch (InterruptedException e) {
                         System.out.println("Interrupted " + threadName);
                     }
                     runningThreadNumber++;
-                    System.out.println("runningThreadNumber is now: " + runningThreadNumber);
                     if (runningThreadNumber > 2) runningThreadNumber = 1;
                     try {
                         Thread.sleep(100);
@@ -54,10 +47,10 @@ public class WaitTerminateTask {
                     }
                     monitor.notifyAll();
                     if (shouldTerminate) {
+                        independentMode = true;
                         System.out.println("Terminating " + threadName);
                         return;
                     }
-                    System.out.println(threadName + ":" + i + " is out of synch");
                 }
             }
         }

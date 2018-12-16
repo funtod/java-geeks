@@ -28,7 +28,7 @@ public class Runner {
         });
         terminator.start();
 
-        //System.out.println("Waiting threads to join...");
+        System.out.println("Waiting threads to join...");
         try {
             t1.join();
             t2.join();

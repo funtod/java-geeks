@@ -81,7 +81,7 @@ public class WaitTask {
   class Observer implements Runnable {
     @Override
     public void run() {
-      while (true) {
+      while (!Thread.interrupted()) {
         try {
           synchronized (monitor) {
             while (barrier != 2) {
@@ -97,6 +97,7 @@ public class WaitTask {
           return;
         }
       }
+      System.out.println("Exiting observer");
     }
   }
 

@@ -31,10 +31,13 @@ public class MyCyclicBarrier {
                     thread.join();
                 }
                 synchronized (barrier) {
-                    barrier.notifyAll();
+                    while (counter != capacity) {
+                        //until all tasks go through the barrier (the counter is restored)
+                        barrier.notifyAll();
+                        final int timeout = 100;
+                        barrier.wait(timeout);
+                    }
                 }
-                Thread.yield();
-                counter = capacity;
                 return;
             } else {
                 counter--;
@@ -42,6 +45,8 @@ public class MyCyclicBarrier {
         }
         synchronized (barrier) {
             barrier.wait();
+            counter++;
+            barrier.notifyAll();
         }
     }
 }

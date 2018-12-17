@@ -23,7 +23,7 @@ public class ReadInBUF {
 
         boolean inWord = false;
         for (int i = 0; i< arr.length; i++) {
-            if (arr[i] >= 97 && arr[i] <= 122) {
+            if ((arr[i] >= 97 && arr[i] <= 122) || (arr[i] >= 39 && arr[i] <= 46)) {
                 if (inWord) {
                     continue;
                 }

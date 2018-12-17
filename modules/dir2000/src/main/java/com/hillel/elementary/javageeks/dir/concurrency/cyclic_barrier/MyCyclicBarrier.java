@@ -28,10 +28,7 @@ public class MyCyclicBarrier {
                 if (task != null) {
                     Thread thread = new Thread(task);
                     thread.start();
-                    while (thread.isAlive()) {
-                        int sleepTime = 1;
-                        Thread.sleep(sleepTime);
-                    }
+                    thread.join();
                 }
                 synchronized (barrier) {
                     barrier.notifyAll();

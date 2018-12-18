@@ -15,7 +15,7 @@ package com.hillel.elementary.javageeks.dir.concurrency.termination;
 public class WaitTerminateTask {
     private final Object monitor = new Object();
     private int runningThreadNumber = 1;
-    private boolean independentMode; //NEW LINE
+    private boolean shouldTerminateAll; //NEW LINE
 
     class TestThread implements Runnable {
         String threadName;
@@ -30,8 +30,13 @@ public class WaitTerminateTask {
             for (int i = 0; i < 100; i++) {
                 System.out.println(threadName + ":" + i);
                 synchronized (monitor) {
+                    //NEW "IF" BLOCK
+                    if (shouldTerminateAll) {
+                        System.out.println("Terminating " + threadName);
+                        return;
+                    }
                     try {
-                        while (!threadName.equals("t" + runningThreadNumber) && !independentMode) { //MODIFIED LINE
+                        while (!threadName.equals("t" + runningThreadNumber))  { //MODIFIED LINE
                             System.out.println("wait for thread " + "t" + runningThreadNumber);
                             monitor.wait();
                         }
@@ -47,7 +52,7 @@ public class WaitTerminateTask {
                     }
                     monitor.notifyAll();
                     if (shouldTerminate) {
-                        independentMode = true; //NEW LINE
+                        shouldTerminateAll = true; //NEW LINE
                         System.out.println("Terminating " + threadName);
                         return;
                     }

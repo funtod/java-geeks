@@ -1,47 +1,44 @@
 package com.hillel.elementary.javageeks.ruslanTask6;
 
-import static org.junit.jupiter.api.Assertions.*;
 import java.net.URL;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.io.*;
 
 class ReadInBUFTest {
-    @Test
-    public void shouldResultReadFromFile() throws IOException {
+
+        @Test
+        public void shouldResultReadFromFile() throws IOException {
 
         //given
-        URL resource = ReadInBUFTest.class.getClassLoader().getResource("Test");
-        System.out.println(resource);
+        URL resource = ReadInBUF.class.getClassLoader().getResource("Test");
         String fileFrom = resource.getFile();
-        byte[] arr= ReadInBUF.getFileBytes(new File(fileFrom));
-        byte[] arrLower = ReadInBUF.toLow(arr);
-        ReadInBUF.writeFile(fileFrom, ReadInBUF.toUp(arrLower));
+        File file = new File(fileFrom);
 
-        //when
-        String sCurrentLine =null;
-        try (BufferedReader br = new BufferedReader(new FileReader(fileFrom))) {
-            while ((sCurrentLine = br.readLine()) != null) {
-                String[] parts = sCurrentLine.split(" ");
+        ReadInBUF.WorkWithFile(file);
 
-                int random = (int)(Math.random() * parts.length);
+        String sCurrentLine = null;
+            try (BufferedReader br = new BufferedReader(new FileReader(fileFrom))) {
+                while ((sCurrentLine = br.readLine()) != null) {
+                    String[] parts = sCurrentLine.split(" ");
 
-                String lineOutput = "";
-                String checkResult = null;
+                    int random = (int) (Math.random() * parts.length);
 
-                if (sCurrentLine.length() > 0) {
-                    char letter = parts[random].substring(0,1).charAt(0);
-                    if (letter >= 65 && letter <= 90){
-                        checkResult = "true";
-                    } else {
-                        checkResult = "false";
+                    String lineOutput = "";
+                    String checkResult = null;
+
+                    if (sCurrentLine.length() > 0) {
+                        char letter = parts[random].substring(0, 1).charAt(0);
+                        if (letter >= 65 && letter <= 90) {
+                            checkResult = "true";
+                        } else {
+                            checkResult = "false";
+                        }
                     }
+                    assertThat(checkResult).isEqualTo("true");
                 }
-                assertThat(checkResult).isEqualTo("true");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-    }
 }

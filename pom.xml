@@ -17,6 +17,7 @@
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven-pmd-plugin.version>3.9.0</maven-pmd-plugin.version>
+        <jsoup.version>1.11.3</jsoup.version>
     </properties>
 
     <modules>
@@ -158,6 +159,11 @@
     </reporting>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsoup.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>

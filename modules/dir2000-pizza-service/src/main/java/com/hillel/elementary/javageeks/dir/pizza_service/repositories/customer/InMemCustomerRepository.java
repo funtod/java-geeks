@@ -1,11 +1,16 @@
-package com.hillel.elementary.javageeks.dir.pizza_service.repositories;
+package com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
+import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.CustomerRepository;
+
+import java.util.HashMap;
 
 public class InMemCustomerRepository implements CustomerRepository {
+    HashMap<Long, Customer> customers = new HashMap<>();
+
     @Override
     public Customer findById(Long id) {
-        return null;
+        return customers.get(id);
     }
 
     @Override

@@ -1,8 +1,10 @@
-package com.hillel.elementary.javageeks.dir.pizza_service.services;
+package com.hillel.elementary.javageeks.dir.pizza_service.services.order;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
-import com.hillel.elementary.javageeks.dir.pizza_service.repositories.OrderRepository;
+import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.OrderRepository;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefService;
 
 public class SimpleOrderService implements OrderService {
     private OrderRepository orderRepository;

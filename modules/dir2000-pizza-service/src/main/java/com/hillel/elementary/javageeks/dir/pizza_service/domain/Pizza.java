@@ -1,38 +1,66 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.domain;
 
+import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.PizzaType;
+
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Pizza {
-    private Long id;
-    private String name;
-    private PizzaType pizzaType;
-    private int millisecondsToCook;
-    private BigDecimal price;
+  private final Long id;
+  private final String name;
+  private final PizzaType pizzaType;
+  private final int minutesToCook;
+  private final BigDecimal price;
 
-    public String getName() {
-        return name;
-    }
+  public Pizza(Long argId, String argName, PizzaType argPizzaType, int argMillisecondsToCook, BigDecimal argPrice) {
+    id = argId;
+    name = argName;
+    pizzaType = argPizzaType;
+    minutesToCook = argMillisecondsToCook;
+    price = argPrice;
+  }
 
-    public PizzaType getPizzaType() {
-        return pizzaType;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public int getMillisecondsToCook() {
-        return millisecondsToCook;
+  @Override
+  public boolean equals(Object argO) {
+    if (this == argO) {
+      return true;
     }
+    if (argO == null || getClass() != argO.getClass()) {
+      return false;
+    }
+    Pizza pizza = (Pizza) argO;
+    return Objects.equals(id, pizza.id);
+  }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 
-    @Override
-    public String toString() {
-        return "Pizza{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", pizzaType=" + pizzaType +
-                ", millisecondsToCook=" + millisecondsToCook +
-                ", price=" + price +
-                '}';
-    }
+  public PizzaType getPizzaType() {
+    return pizzaType;
+  }
+
+  public int getMinutesToCook() {
+    return minutesToCook;
+  }
+
+  public BigDecimal getPrice() {
+    return price;
+  }
+
+  @Override
+  public String toString() {
+    return "Pizza{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", pizzaType=" + pizzaType +
+            ", millisecondsToCook=" + minutesToCook +
+            ", price=" + price +
+            '}';
+  }
 }

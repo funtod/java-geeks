@@ -1,4 +1,4 @@
-package com.hillel.elementary.javageeks.dir.pizza_service.services;
+package com.hillel.elementary.javageeks.dir.pizza_service.services.pizza;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 

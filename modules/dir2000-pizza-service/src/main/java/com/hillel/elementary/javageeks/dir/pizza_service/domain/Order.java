@@ -7,59 +7,61 @@ import java.util.Collection;
 import java.util.Objects;
 
 public class Order {
-  private final Customer customer;
-  private final Collection<Pizza> pizzas;
-  private long id;
-  private OrderStatus orderStatus = OrderStatus.NEW;
-  private BigDecimal total;
+    private final Customer customer;
+    private final Collection<Pizza> pizzas;
+    private Long id;
+    private OrderStatus orderStatus = OrderStatus.NEW;
+    private BigDecimal total;
 
-  public Order(Customer argCustomer, Collection<Pizza> argPizzas) {
-    customer = argCustomer;
-    pizzas = argPizzas;
-  }
-
-  @Override
-  public boolean equals(Object argO) {
-    if (this == argO) {
-      return true;
+    public Order(Long argId, Customer argCustomer, Collection<Pizza> argPizzas) {
+        id = argId;
+        customer = argCustomer;
+        pizzas = argPizzas;
+        total = new BigDecimal(0);
     }
-    if (argO == null || getClass() != argO.getClass()) {
-      return false;
+
+    @Override
+    public boolean equals(Object argO) {
+        if (this == argO) {
+            return true;
+        }
+        if (argO == null || getClass() != argO.getClass()) {
+            return false;
+        }
+        Order order = (Order) argO;
+        return id == order.id;
     }
-    Order order = (Order) argO;
-    return id == order.id;
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-  public long getId() {
-    return id;
-  }
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", orderStatus=" + orderStatus +
+                '}';
+    }
 
-  public Customer getCustomer() {
-    return customer;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public Collection<Pizza> getPizzas() {
-    return pizzas;
-  }
+    public Customer getCustomer() {
+        return customer;
+    }
 
-  public OrderStatus getOrderStatus() {
-    return orderStatus;
-  }
+    public Collection<Pizza> getPizzas() {
+        return pizzas;
+    }
 
-  public BigDecimal getTotal() {
-    return total;
-  }
+    public OrderStatus getOrderStatus() {
+        return orderStatus;
+    }
 
-  @Override
-  public String toString() {
-    return "Order{" +
-            "id=" + id +
-            ", orderStatus=" + orderStatus +
-            '}';
-  }
+    public BigDecimal getTotal() {
+        return total;
+    }
 }

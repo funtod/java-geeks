@@ -6,6 +6,8 @@ import java.util.Collection;
 
 public interface PizzaRepository {
     Pizza findById(Long id);
+
     Pizza save(Pizza pizza);
-    Collection<Pizza> findAllPizzas();
+
+    Collection<Pizza> findAll();
 }

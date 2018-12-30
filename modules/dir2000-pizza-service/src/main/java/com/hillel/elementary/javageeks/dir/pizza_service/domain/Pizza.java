@@ -6,61 +6,65 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Pizza {
-  private final Long id;
-  private final String name;
-  private final PizzaType pizzaType;
-  private final int minutesToCook;
-  private final BigDecimal price;
+    private final Long id;
+    private final String name;
+    private final PizzaType pizzaType;
+    private final int millisecondsToCook;
+    private final BigDecimal price;
 
-  public Pizza(Long argId, String argName, PizzaType argPizzaType, int argMillisecondsToCook, BigDecimal argPrice) {
-    id = argId;
-    name = argName;
-    pizzaType = argPizzaType;
-    minutesToCook = argMillisecondsToCook;
-    price = argPrice;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public boolean equals(Object argO) {
-    if (this == argO) {
-      return true;
+    public Pizza(Long argId, String argName, PizzaType argPizzaType, int argMillisecondsToCook, BigDecimal argPrice) {
+        id = argId;
+        name = argName;
+        pizzaType = argPizzaType;
+        millisecondsToCook = argMillisecondsToCook;
+        price = argPrice;
     }
-    if (argO == null || getClass() != argO.getClass()) {
-      return false;
+
+    public String getName() {
+        return name;
     }
-    Pizza pizza = (Pizza) argO;
-    return Objects.equals(id, pizza.id);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(id);
-  }
+    @Override
+    public boolean equals(Object argO) {
+        if (this == argO) {
+            return true;
+        }
+        if (argO == null || getClass() != argO.getClass()) {
+            return false;
+        }
+        Pizza pizza = (Pizza) argO;
+        return Objects.equals(id, pizza.id);
+    }
 
-  public PizzaType getPizzaType() {
-    return pizzaType;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public int getMinutesToCook() {
-    return minutesToCook;
-  }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
-  public BigDecimal getPrice() {
-    return price;
-  }
+    public PizzaType getPizzaType() {
+        return pizzaType;
+    }
 
-  @Override
-  public String toString() {
-    return "Pizza{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            ", pizzaType=" + pizzaType +
-            ", millisecondsToCook=" + minutesToCook +
-            ", price=" + price +
-            '}';
-  }
+    public int getMillisecondsToCook() {
+        return millisecondsToCook;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    @Override
+    public String toString() {
+        return "Pizza{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", pizzaType=" + pizzaType +
+                ", millisecondsToCook=" + millisecondsToCook +
+                ", price=" + price +
+                '}';
+    }
 }

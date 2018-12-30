@@ -3,17 +3,29 @@ package com.hillel.elementary.javageeks.dir.pizza_service.repositories.order;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class InMemOrderRepository implements OrderRepository {
-  HashMap<Long, Order> orders = new HashMap<>();
+    Map<Long, Order> orders = new HashMap<>();
+    Long counter = 0L;
 
-  @Override
-  public Order findById(Long id) {
-    return orders.get(id);
-  }
+    @Override
+    public Order findById(Long id) {
+        return orders.get(id);
+    }
 
-  @Override
-  public Order save(Order order) {
-    return null;
-  }
+    @Override
+    public Order save(Order order) {
+        if (order == null) {
+            throw new NullPointerException();
+        }
+        if (order.getId() == null) {
+            Order orderToSave = new Order(++counter, order.getCustomer(), order.getPizzas());
+            orders.put(orderToSave.getId(), orderToSave);
+            return orderToSave;
+        } else if (orders.get(order.getId()) == null) {
+            throw new IllegalArgumentException();
+        }
+        return order;
+    }
 }

@@ -2,9 +2,11 @@ package com.hillel.elementary.javageeks.dir.pizza_service;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
+import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.CustomerRepository;
+import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.InMemCustomerRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.InMemOrderRepository;
-import com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza.InMemPizzaRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.OrderRepository;
+import com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza.InMemPizzaRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza.PizzaRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefListener;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefService;
@@ -18,13 +20,13 @@ import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaSer
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.SimplePizzaService;
 
 public class AppLauncher {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         System.out.println("-===Pizza service===-");
         System.out.println();
 
-        Customer customer = new Customer("Vanya");
-        CustomerService customerService = new SimpleCustomerService();
-        Customer registeredCustomer = customerService.register(customer);
+        CustomerRepository customerRepository = new InMemCustomerRepository();
+        CustomerService customerService = new SimpleCustomerService(customerRepository);
+        Customer customer = customerService.register(new Customer(null, "Vanya"));
 
         PizzaRepository pizzaRepository = new InMemPizzaRepository();
         PizzaService pizzaService = new SimplePizzaService(pizzaRepository);
@@ -36,7 +38,7 @@ public class AppLauncher {
         OrderService orderService = new SimpleOrderService(orderRepository, pizzaService, chefService);
 
         System.out.println("Available pizzas:");
-        System.out.println(pizzaService.findAllPizzas());
+        System.out.println(pizzaService.getAll());
         System.out.println();
 
         Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);

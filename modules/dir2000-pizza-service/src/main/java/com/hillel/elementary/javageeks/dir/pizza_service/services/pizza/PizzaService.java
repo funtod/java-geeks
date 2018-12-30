@@ -5,5 +5,9 @@ import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import java.util.Collection;
 
 public interface PizzaService {
-    Collection<Pizza> findAllPizzas();
+    Pizza getById(Long id);
+
+    Pizza save(Pizza pizza);
+
+    Collection<Pizza> getAll();
 }

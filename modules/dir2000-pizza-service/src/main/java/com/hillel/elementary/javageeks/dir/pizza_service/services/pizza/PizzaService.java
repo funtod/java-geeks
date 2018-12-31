@@ -7,7 +7,7 @@ import java.util.Collection;
 public interface PizzaService {
     Pizza getById(Long id);
 
-    Pizza save(Pizza pizza);
+    Pizza register(Pizza pizza);
 
     Collection<Pizza> getAll();
 }

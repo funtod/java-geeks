@@ -28,7 +28,9 @@ public class SimpleOrderService implements OrderService {
         if (customer == null) {
             throw new IllegalArgumentException("Customer is null!");
         }
-        ;
+        if (customer.getId() == null) {
+            throw new IllegalArgumentException("Customer is not registered!");
+        }
         if (idsOfPizzas.length == 0) {
             throw new IllegalArgumentException("The identifiers of pizzas is absent!");
         }
@@ -38,7 +40,7 @@ public class SimpleOrderService implements OrderService {
         }
         BigDecimal total = calculateTotal(list);
         Order order = new Order(null, customer, list, total);
-        orderRepository.save(order);
+        order = orderRepository.save(order);
         return order;
     }
 

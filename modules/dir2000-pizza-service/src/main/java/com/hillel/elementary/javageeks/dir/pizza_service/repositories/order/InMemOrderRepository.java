@@ -10,17 +10,17 @@ public class InMemOrderRepository implements OrderRepository {
     Long counter = 0L;
 
     @Override
-    public Order findById(Long id) {
+    public synchronized Order findById(Long id) {
         return orders.get(id);
     }
 
     @Override
-    public Order save(Order order) {
+    public synchronized Order save(Order order) {
         if (order == null) {
             throw new NullPointerException();
         }
         if (order.getId() == null) {
-            Order orderToSave = new Order(++counter, order.getCustomer(), order.getPizzas());
+            Order orderToSave = new Order(++counter, order.getCustomer(), order.getPizzas(), order.getTotal());
             orders.put(orderToSave.getId(), orderToSave);
             return orderToSave;
         } else if (orders.get(order.getId()) == null) {

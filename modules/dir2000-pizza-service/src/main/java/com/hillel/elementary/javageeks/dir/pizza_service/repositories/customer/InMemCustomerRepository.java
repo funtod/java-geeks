@@ -10,12 +10,12 @@ public class InMemCustomerRepository implements CustomerRepository {
     Long counter = 0L;
 
     @Override
-    public Customer findById(Long id) {
+    public synchronized Customer findById(Long id) {
         return customers.get(id);
     }
 
     @Override
-    public Customer save(Customer customer) {
+    public synchronized Customer save(Customer customer) {
         if (customer == null) {
             throw new NullPointerException();
         }
@@ -30,7 +30,7 @@ public class InMemCustomerRepository implements CustomerRepository {
     }
 
     @Override
-    public Customer findByName(String name) {
+    public synchronized Customer findByName(String name) {
         for (Customer customer : customers.values()) {
             if (customer.getName().equals(name)) {
                 return customer;

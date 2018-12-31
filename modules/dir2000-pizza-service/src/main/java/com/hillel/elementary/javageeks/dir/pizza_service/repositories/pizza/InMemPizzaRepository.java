@@ -13,21 +13,21 @@ public class InMemPizzaRepository implements PizzaRepository {
     Long counter = 0L;
 
     public InMemPizzaRepository() {
-        int minutesToCook = 15;
-        save(new Pizza(null, "Barbeque", PizzaType.CLASSIC, minutesToCook, new BigDecimal("153")));
-        minutesToCook = 17;
-        save(new Pizza(null, "Pepperoni spice", PizzaType.EXOTIC, minutesToCook, new BigDecimal("151")));
-        minutesToCook = 14;
-        save(new Pizza(null, "Meat supreme", PizzaType.SUPREME, minutesToCook, new BigDecimal("151")));
+        int millisecondssToCook = 250;
+        save(new Pizza(null, "Barbeque", PizzaType.CLASSIC, millisecondssToCook, new BigDecimal("153")));
+        millisecondssToCook = 340;
+        save(new Pizza(null, "Pepperoni spice", PizzaType.EXOTIC, millisecondssToCook, new BigDecimal("151")));
+        millisecondssToCook = 410;
+        save(new Pizza(null, "Meat supreme", PizzaType.SUPREME, millisecondssToCook, new BigDecimal("152")));
     }
 
     @Override
-    public Pizza findById(Long id) {
+    public synchronized Pizza findById(Long id) {
         return pizzas.get(id);
     }
 
     @Override
-    public Pizza save(Pizza pizza) {
+    public synchronized Pizza save(Pizza pizza) {
         if (pizza == null) {
             throw new NullPointerException();
         }
@@ -42,7 +42,7 @@ public class InMemPizzaRepository implements PizzaRepository {
     }
 
     @Override
-    public Collection<Pizza> findAll() {
+    public synchronized Collection<Pizza> findAll() {
         return pizzas.values();
     }
 }

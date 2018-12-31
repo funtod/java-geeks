@@ -22,6 +22,16 @@ public class SimpleCustomerService implements CustomerService {
 
     @Override
     public Customer register(Customer customer) {
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer is null.");
+        }
+        if (customer.getId() != null) {
+            throw new IllegalArgumentException("Customer should not have id.");
+        }
+        if (getByName(customer.getName()) != null) {
+            throw new IllegalArgumentException(String.format("%s name is taken.", customer.getName()));
+        }
+
         return repository.save(customer);
     }
 }

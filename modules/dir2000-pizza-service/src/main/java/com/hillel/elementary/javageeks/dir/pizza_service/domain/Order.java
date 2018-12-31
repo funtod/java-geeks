@@ -37,14 +37,6 @@ public class Order {
         return Objects.hash(id);
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id=" + id +
-                ", orderStatus=" + orderStatus +
-                '}';
-    }
-
     public Long getId() {
         return id;
     }
@@ -59,6 +51,17 @@ public class Order {
 
     public OrderStatus getOrderStatus() {
         return orderStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", customer=" + customer +
+                ", pizzas=" + pizzas +
+                ", orderStatus=" + orderStatus +
+                ", total=" + total +
+                '}';
     }
 
     public void setOrderStatus(OrderStatus orderStatus) {

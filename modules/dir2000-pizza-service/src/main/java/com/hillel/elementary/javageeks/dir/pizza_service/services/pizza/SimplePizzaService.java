@@ -18,7 +18,14 @@ public class SimplePizzaService implements PizzaService {
     }
 
     @Override
-    public Pizza save(Pizza pizza) {
+    public Pizza register(Pizza pizza) {
+        if (pizza == null) {
+            throw new IllegalArgumentException("Pizza is null.");
+        }
+        if (pizza.getId() != null) {
+            throw new IllegalArgumentException("Pizza should not have id.");
+        }
+
         return pizzaRepository.save(pizza);
     }
 

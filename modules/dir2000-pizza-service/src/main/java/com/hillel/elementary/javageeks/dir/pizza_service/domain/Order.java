@@ -7,17 +7,17 @@ import java.util.Collection;
 import java.util.Objects;
 
 public class Order {
+    private final Long id;
     private final Customer customer;
     private final Collection<Pizza> pizzas;
-    private Long id;
     private OrderStatus orderStatus = OrderStatus.NEW;
-    private BigDecimal total;
+    private final BigDecimal total;
 
-    public Order(Long argId, Customer argCustomer, Collection<Pizza> argPizzas) {
+    public Order(Long argId, Customer argCustomer, Collection<Pizza> argPizzas, BigDecimal argTotal) {
         id = argId;
         customer = argCustomer;
         pizzas = argPizzas;
-        total = new BigDecimal(0);
+        total = argTotal;
     }
 
     @Override
@@ -59,6 +59,10 @@ public class Order {
 
     public OrderStatus getOrderStatus() {
         return orderStatus;
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
     public BigDecimal getTotal() {

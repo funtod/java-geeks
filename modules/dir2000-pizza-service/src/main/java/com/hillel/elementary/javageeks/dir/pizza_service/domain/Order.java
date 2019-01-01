@@ -20,6 +20,13 @@ public class Order {
         total = argTotal;
     }
 
+    public Order(Order anotherOrder) {
+        id = anotherOrder.id;
+        customer = anotherOrder.customer;
+        pizzas = anotherOrder.pizzas;
+        total = anotherOrder.total;
+    }
+
     @Override
     public boolean equals(Object argO) {
         if (this == argO) {
@@ -58,7 +65,7 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", customer=" + customer +
-                ", pizzas=" + pizzas +
+                ", pizzas count =" + pizzas.size() +
                 ", orderStatus=" + orderStatus +
                 ", total=" + total +
                 '}';

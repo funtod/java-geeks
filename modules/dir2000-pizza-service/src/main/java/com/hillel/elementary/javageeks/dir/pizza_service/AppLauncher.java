@@ -42,9 +42,7 @@ public class AppLauncher {
         System.out.println();
 
         Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
-
         System.out.println(order);
-        Thread.sleep(2000);
-        System.out.println(order);
+        chefService.shutdownAndAwaitTermination();
     }
 }

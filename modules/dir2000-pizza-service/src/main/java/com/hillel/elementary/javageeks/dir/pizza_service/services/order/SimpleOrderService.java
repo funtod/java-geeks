@@ -10,6 +10,7 @@ import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaSer
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class SimpleOrderService implements OrderService {
@@ -38,9 +39,11 @@ public class SimpleOrderService implements OrderService {
         for (Long id : idsOfPizzas) {
             list.add(pizzaService.getById(id));
         }
+        list = Collections.unmodifiableList(list);
         BigDecimal total = calculateTotal(list);
         Order order = new Order(null, customer, list, total);
         order = orderRepository.save(order);
+        chefService.cook(order);
         return order;
     }
 

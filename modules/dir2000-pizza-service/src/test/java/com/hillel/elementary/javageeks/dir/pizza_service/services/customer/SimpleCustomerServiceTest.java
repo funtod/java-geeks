@@ -19,38 +19,78 @@ class SimpleCustomerServiceTest {
     private final Customer customerMock = mock(Customer.class);
     private final CustomerService service = new SimpleCustomerService(repositoryMock);
 
-  {
-    MockitoAnnotations.initMocks(SimpleCustomerServiceTest.class);
-  }
+    {
+        MockitoAnnotations.initMocks(SimpleCustomerServiceTest.class);
+    }
 
-  @Test
-  void getById() {
-    //when
-    when(repositoryMock.findById(anyLong())).thenReturn(customerMock);
+    @Test
+    void getById() {
+        //when
+        when(repositoryMock.findById(anyLong())).thenReturn(customerMock);
 
-    //then
-    Customer customer = service.getById(anyLong());
-    assertEquals(customerMock, customer);
-  }
+        //then
+        Customer customer = service.getById(anyLong());
+        assertEquals(customerMock, customer);
+    }
 
-  @Test
-  void getByName() {
-      //given
-      String name = "John";
+    @Test
+    void getByName() {
+        //given
+        String name = "John";
 
-      //when
-      when(repositoryMock.findByName(name)).thenReturn(customerMock);
+        //when
+        when(repositoryMock.findByName(name)).thenReturn(customerMock);
 
-      //then
-      Customer customer = service.getByName(name);
-      assertEquals(customerMock, customer);
-  }
+        //then
+        Customer customer = service.getByName(name);
+        assertEquals(customerMock, customer);
+    }
 
-  @Test
-  void shouldThrowExceptionOnNullCustomer() {
-      //then
-      assertThrows(IllegalArgumentException.class, () ->
-              service.register(null)
-      );
-  }
+    @Test
+    void registerShouldThrowExceptionForNullCustomer() {
+        //then
+        assertThrows(IllegalArgumentException.class, () ->
+                service.register(null)
+        );
+    }
+
+    @Test
+    void registerShouldThrowExceptionForCustomerWithNotNullId() {
+        //given
+        Long someId = 1L;
+
+        //when
+        when(customerMock.getId()).thenReturn(someId);
+
+        //then
+        assertThrows(IllegalArgumentException.class, () ->
+                service.register(customerMock)
+        );
+    }
+
+    @Test
+    void registerShouldThrowExceptionWhenCustomerWithSuchNameExists() {
+        //given
+        String someName = "John";
+
+        //when
+        when(repositoryMock.findByName(someName)).thenReturn(customerMock);
+        when(customerMock.getName()).thenReturn(someName);
+
+        //then
+        assertThrows(IllegalArgumentException.class, () ->
+                service.register(customerMock)
+        );
+    }
+
+    @Test
+    void registerShouldReturnSomeCustomer() {
+        //when
+        when(repositoryMock.save(customerMock)).thenReturn(customerMock);
+        when(customerMock.getId()).thenReturn(null);
+        Customer customer = service.register(customerMock);
+
+        //then
+        assertEquals(customerMock, customer);
+    }
 }

@@ -53,6 +53,7 @@ public class WaitingThreadChefService extends Thread implements ChefService {
     }
 
     public void shutdownAndAwaitTermination() {
-        Utilities.shutdownAndAwaitTermination(pool, 3, TimeUnit.SECONDS);
+        int time = 3;
+        Utilities.shutdownAndAwaitTermination(pool, time, TimeUnit.SECONDS);
     }
 }

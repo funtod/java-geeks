@@ -4,7 +4,7 @@ import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.CustomerRepository;
 
 public class SimpleCustomerService implements CustomerService {
-    CustomerRepository repository;
+    private CustomerRepository repository;
 
     public SimpleCustomerService(CustomerRepository repository) {
         this.repository = repository;

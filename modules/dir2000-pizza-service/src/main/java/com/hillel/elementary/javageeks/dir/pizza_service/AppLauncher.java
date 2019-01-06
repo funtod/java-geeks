@@ -19,7 +19,10 @@ import com.hillel.elementary.javageeks.dir.pizza_service.services.order.SimpleOr
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.SimplePizzaService;
 
-public class AppLauncher {
+public final class AppLauncher {
+    private AppLauncher() {
+    }
+
     public static void main(String[] args) throws Exception {
         System.out.println("-===Pizza service===-");
         System.out.println();
@@ -41,7 +44,11 @@ public class AppLauncher {
         System.out.println(pizzaService.getAll());
         System.out.println();
 
-        Order order = orderService.placeNewOrder(customer, 1L, 2L, 3L);
+        Long idOne = 1L;
+        Long idTwo = 2L;
+        Long idThree = 3L;
+
+        Order order = orderService.placeNewOrder(customer, idOne, idTwo, idThree);
         System.out.println(order);
         chefService.shutdownAndAwaitTermination();
     }

@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InMemCustomerRepository implements CustomerRepository {
-    Map<Long, Customer> customers = new HashMap<>();
-    Long counter = 0L;
+    private Map<Long, Customer> customers = new HashMap<>();
+    private Long counter = 0L;
 
     @Override
     public synchronized Customer findById(Long id) {

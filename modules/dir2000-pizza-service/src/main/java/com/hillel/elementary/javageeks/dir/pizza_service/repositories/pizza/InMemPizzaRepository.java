@@ -9,16 +9,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InMemPizzaRepository implements PizzaRepository {
-    Map<Long, Pizza> pizzas = new HashMap<>();
-    Long counter = 0L;
+    private Map<Long, Pizza> pizzas = new HashMap<>();
+    private Long counter = 0L;
 
     public InMemPizzaRepository() {
-        int millisecondssToCook = 250;
-        save(new Pizza(null, "Barbeque", PizzaType.CLASSIC, millisecondssToCook, new BigDecimal("153")));
-        millisecondssToCook = 340;
-        save(new Pizza(null, "Pepperoni spice", PizzaType.EXOTIC, millisecondssToCook, new BigDecimal("151")));
-        millisecondssToCook = 410;
-        save(new Pizza(null, "Meat supreme", PizzaType.SUPREME, millisecondssToCook, new BigDecimal("152")));
+        int millisecondsToCook = 250;
+        save(new Pizza(null, "Barbeque", PizzaType.CLASSIC, millisecondsToCook, new BigDecimal("153")));
+        millisecondsToCook = 340;
+        save(new Pizza(null, "Pepperoni spice", PizzaType.EXOTIC, millisecondsToCook, new BigDecimal("151")));
+        millisecondsToCook = 410;
+        save(new Pizza(null, "Meat supreme", PizzaType.SUPREME, millisecondsToCook, new BigDecimal("152")));
     }
 
     @Override
@@ -32,7 +32,8 @@ public class InMemPizzaRepository implements PizzaRepository {
             throw new NullPointerException();
         }
         if (pizza.getId() == null) {
-            Pizza pizzaToSave = new Pizza(++counter, pizza.getName(), pizza.getPizzaType(), pizza.getMillisecondsToCook(), pizza.getPrice());
+            Pizza pizzaToSave = new Pizza(++counter, pizza.getName(), pizza.getPizzaType(),
+                    pizza.getMillisecondsToCook(), pizza.getPrice());
             pizzas.put(pizzaToSave.getId(), pizzaToSave);
             return pizzaToSave;
         } else if (pizzas.get(pizza.getId()) == null) {

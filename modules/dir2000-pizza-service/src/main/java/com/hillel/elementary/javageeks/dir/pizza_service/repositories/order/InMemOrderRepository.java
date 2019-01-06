@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InMemOrderRepository implements OrderRepository {
-    Map<Long, Order> orders = new HashMap<>();
-    Long counter = 0L;
+    private Map<Long, Order> orders = new HashMap<>();
+    private Long counter = 0L;
 
     @Override
     public synchronized Order findById(Long id) {

@@ -1,0 +1,46 @@
+<project>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.hillel.elementary.java-geeks</groupId>
+    <artifactId>pizza-service-alex-n</artifactId>
+    <version>0.0.1</version>
+
+
+    <parent>
+        <groupId>com.hillel.elementary</groupId>
+        <artifactId>java-geeks</artifactId>
+        <version>0.0.1</version>
+        <relativePath>../../</relativePath>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.intellij</groupId>
+            <artifactId>forms_rt</artifactId>
+            <version>${forms_rt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>xml-maven-plugin</artifactId>
+                <configuration>
+                    <transformationSets>
+                        <transformationSet>
+                            <stylesheet>${basedir}/../../checkstyle/checkstyle-author.xsl</stylesheet>
+                        </transformationSet>
+                    </transformationSets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

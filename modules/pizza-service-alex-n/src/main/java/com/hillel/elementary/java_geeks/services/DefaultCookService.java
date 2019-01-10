@@ -9,13 +9,13 @@ import java.util.Collection;
 public class DefaultCookService implements CookService {
 
     private final ChefRepo chefRepo = new InMemChefRepo();
-    private OrderService orderService;
 
-    DefaultCookService(OrderService orderService){
-        this.orderService = orderService;
+    DefaultCookService(OrderService orderService) {
         for (Chef chef : chefRepo.getChefs()) {
-            Thread thread = new Kitchen(chefRepo, chef, orderService);
-            thread.start();
+            if (chef.getStatus() == ChefWorkingStatus.WORKING) {
+                Thread thread = new ChefThread(chefRepo, chef, orderService);
+                thread.start();
+            }
         }
     }
 
@@ -28,13 +28,13 @@ public class DefaultCookService implements CookService {
     }
 }
 
-class Kitchen extends Thread {
+class ChefThread extends Thread {
 
     private OrderService orderService;
     private final ChefRepo chefRepo;
     private Chef chef;
 
-    Kitchen(ChefRepo chefRepo, Chef chef, OrderService orderService) {
+    ChefThread(ChefRepo chefRepo, Chef chef, OrderService orderService) {
         this.chef = chef;
         this.chefRepo = chefRepo;
         this.orderService = orderService;
@@ -43,7 +43,9 @@ class Kitchen extends Thread {
     @Override
     public void run() {
 
-        while (chefRepo.getChef(chef.getId()).getStatus() == ChefWorkingStatus.WORKING) {
+        boolean isWorking = true;
+
+        while (isWorking) {
             while (!chefRepo.hasOrders(chef.getId())) {
                 synchronized (chefRepo) {
                     try {
@@ -54,8 +56,8 @@ class Kitchen extends Thread {
                 }
             }
             Collection<Order> orders = chef.getOrders();
-            for (Order order: orders) {
-                for (Pizza pizza: order.getPizzas()) {
+            for (Order order : orders) {
+                for (Pizza pizza : order.getPizzas()) {
                     try {
                         Thread.sleep(pizza.getCookingTime());
                     } catch (InterruptedException e) {
@@ -63,8 +65,12 @@ class Kitchen extends Thread {
                     }
                 }
                 orderService.changeStatus(OrderStatus.DONE, order.getId());
-                System.out.println("Im ok.");//todo delete
                 chefRepo.deleteOrder(chef.getId(), order);
+            }
+            /* in the end of making all orders, we check if working status changed and reassign
+            isWorking variable to get out of the cycle */
+            if (chefRepo.getChef(chef.getId()).getStatus() != ChefWorkingStatus.WORKING) {
+                isWorking = false;
             }
         }
     }

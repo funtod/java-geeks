@@ -6,8 +6,8 @@ import java.util.HashMap;
 
 public class InMemCustomerRepo implements CustomerRepo {
 
-    HashMap<Long, Customer> customers = new HashMap<>();
-    Long counter = 0L;
+    private HashMap<Long, Customer> customers = new HashMap<>();
+    private Long counter = 0L;
 
     @Override
     public Customer save(Customer customer) {

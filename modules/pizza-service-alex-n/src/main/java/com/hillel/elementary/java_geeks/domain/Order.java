@@ -1,7 +1,6 @@
 package com.hillel.elementary.java_geeks.domain;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Order {

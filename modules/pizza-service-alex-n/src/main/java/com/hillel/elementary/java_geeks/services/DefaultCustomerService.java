@@ -6,7 +6,7 @@ import com.hillel.elementary.java_geeks.repositories.InMemCustomerRepo;
 
 public class DefaultCustomerService implements CustomerService {
 
-    CustomerRepo customerRepo;
+    private CustomerRepo customerRepo;
 
     public DefaultCustomerService() {
         customerRepo = new InMemCustomerRepo();

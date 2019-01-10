@@ -36,7 +36,7 @@ public class Runner {
         System.out.println(orderService.getOrderStatusInfo(registeredOrder1));
         System.out.println(orderService.getOrderStatusInfo(registeredOrder2));
         System.out.println(orderService.getOrderStatusInfo(registeredOrder3));
-        Thread.sleep(5000);
+        Thread.sleep(7000);
         System.out.println(orderService.getOrderStatusInfo(registeredOrder));
         System.out.println(orderService.getOrderStatusInfo(registeredOrder1));
         System.out.println(orderService.getOrderStatusInfo(registeredOrder2));

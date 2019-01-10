@@ -17,7 +17,7 @@ public class Chef {
         this.workingStatus = workingStatus;
         if (orders == null) {
             this.orders = new LinkedList<>();
-        }else {
+        } else {
             this.orders = orders;
         }
     }

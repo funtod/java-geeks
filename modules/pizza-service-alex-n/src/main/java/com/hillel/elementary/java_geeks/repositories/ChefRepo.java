@@ -20,8 +20,8 @@ public interface ChefRepo {
 
     Chef assignOrderToChef(Order order);
 
-    boolean hasOrders (Integer chefId);
+    boolean hasOrders(Integer chefId);
 
-    void deleteOrder (Integer chefId, Order order);
+    void deleteOrder(Integer chefId, Order order);
 
 }

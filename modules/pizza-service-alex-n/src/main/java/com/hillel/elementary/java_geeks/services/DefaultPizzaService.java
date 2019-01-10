@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public class DefaultPizzaService implements PizzaService {
 
-    PizzaRepo pizzaRepo;
+    private PizzaRepo pizzaRepo;
 
     public DefaultPizzaService() {
         pizzaRepo = new InMemPizzaRepo();

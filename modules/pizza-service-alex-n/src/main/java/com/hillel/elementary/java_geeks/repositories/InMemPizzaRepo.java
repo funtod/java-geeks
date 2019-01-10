@@ -9,8 +9,8 @@ import java.util.HashMap;
 
 public class InMemPizzaRepo implements PizzaRepo {
 
-    HashMap<Integer, Pizza> pizzas = new HashMap<>();
-    int counter = 0;
+    private HashMap<Integer, Pizza> pizzas = new HashMap<>();
+    private int counter = 0;
 
     public InMemPizzaRepo() {
         save(new Pizza(null, "Carbonara", PizzaType.MEAT, 1500, new BigDecimal(100)));

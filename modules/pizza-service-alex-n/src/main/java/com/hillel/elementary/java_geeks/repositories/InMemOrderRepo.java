@@ -9,8 +9,8 @@ import java.util.HashMap;
 
 public class InMemOrderRepo implements OrderRepo {
 
-    HashMap<Long, Order> orders = new HashMap<>();
-    Long counter = 0L;
+    private HashMap<Long, Order> orders = new HashMap<>();
+    private Long counter = 0L;
 
     @Override
     public Order saveOrder(Order order) {

@@ -13,7 +13,7 @@ public class InMemChefRepo implements ChefRepo {
 
     public InMemChefRepo() {
         save(new Chef(null, "Bob", ChefWorkingStatus.WORKING, null));
-        save(new Chef(null, "Marty", ChefWorkingStatus.NO_WORKING, null));
+        save(new Chef(null, "Marty", ChefWorkingStatus.NOT_WORKING, null));
         save(new Chef(null, "Jennie", ChefWorkingStatus.WORKING, null));
     }
 
@@ -32,7 +32,7 @@ public class InMemChefRepo implements ChefRepo {
     public Chef changeWorkingStatus(Integer chefId, ChefWorkingStatus status) {
         Chef updatedChef = null;
         for (int i = 0; i < chefs.size(); i++) {
-            if (chefs.get(i).getId() == chefId){
+            if (chefs.get(i).getId() == chefId) {
                 Chef chef = chefs.get(i);
                 updatedChef = new Chef(chef.getId(), chef.getName(), chef.getStatus(), chef.getOrders());
                 chefs.remove(chef);
@@ -46,12 +46,10 @@ public class InMemChefRepo implements ChefRepo {
     public Chef getLessBusyChef() {
         int minBusyness = Integer.MAX_VALUE;
         Chef lessBusyChef = null;
-        for (int i = 0; i < chefs.size(); i++) {
-            if (chefs.get(i) != null &
-                    chefs.get(i).getOrders().size() < minBusyness &
-                    chefs.get(i).getStatus() == ChefWorkingStatus.WORKING) {
-                minBusyness = chefs.get(i).getOrders().size();
-                lessBusyChef = chefs.get(i);
+        for (Chef chef : chefs) {
+            if (chef.getOrders().size() < minBusyness & chef.getStatus() == ChefWorkingStatus.WORKING) {
+                minBusyness = chef.getOrders().size();
+                lessBusyChef = chef;
             }
         }
         return lessBusyChef;
@@ -65,9 +63,9 @@ public class InMemChefRepo implements ChefRepo {
     @Override
     public Chef getChef(Integer chefId) {
         Chef chef = null;
-        for (int i = 0; i < chefs.size(); i++) {
-            if (chefs.get(i).getId() == chefId){
-                chef = chefs.get(i);
+        for (Chef chef1 : chefs) {
+            if (chef1.getId() == chefId) {
+                chef = chef1;
             }
         }
         return chef;
@@ -78,7 +76,7 @@ public class InMemChefRepo implements ChefRepo {
         Chef chef = getLessBusyChef();
         LinkedList<Order> orders = (LinkedList<Order>) chef.getOrders();
         orders.add(order);
-        Chef chefWithOrder = new Chef(chef.getId(),chef.getName(),chef.getStatus(), orders);
+        Chef chefWithOrder = new Chef(chef.getId(), chef.getName(), chef.getStatus(), orders);
         chefs.remove(chef);
         chefs.add(chefWithOrder);
         return chefWithOrder;

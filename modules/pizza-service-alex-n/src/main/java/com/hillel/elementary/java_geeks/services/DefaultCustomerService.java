@@ -2,14 +2,13 @@ package com.hillel.elementary.java_geeks.services;
 
 import com.hillel.elementary.java_geeks.domain.Customer;
 import com.hillel.elementary.java_geeks.repositories.CustomerRepo;
-import com.hillel.elementary.java_geeks.repositories.InMemCustomerRepo;
 
 public class DefaultCustomerService implements CustomerService {
 
     private CustomerRepo customerRepo;
 
-    public DefaultCustomerService() {
-        customerRepo = new InMemCustomerRepo();
+    public DefaultCustomerService(CustomerRepo customerRepo) {
+        this.customerRepo = customerRepo;
     }
 
     @Override

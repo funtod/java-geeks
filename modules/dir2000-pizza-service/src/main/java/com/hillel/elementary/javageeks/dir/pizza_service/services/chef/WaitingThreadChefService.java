@@ -4,21 +4,23 @@ import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.OrderStatus;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.OrderRepository;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.notifier.NotifierService;
 import com.hillel.elementary.javageeks.dir.pizza_service.utility.Utilities;
 
 import java.util.concurrent.*;
 
 public class WaitingThreadChefService extends Thread implements ChefService {
-    private final ChefListener chefListener;
+    private final NotifierService notifierService;
     private final OrderRepository orderRepository;
     private final BlockingQueue<Order> orderQueue;
-    private final int QUEUE_CAPACITY = 5;
+    private final int ORDER_QUEUE_CAPACITY = 5;
+    private final int SECONDS_TO_FINISH_WORK = 3;
     private final ExecutorService pool = Executors.newSingleThreadExecutor();
 
-    public WaitingThreadChefService(ChefListener chefListener, OrderRepository orderRepository) {
-        this.chefListener = chefListener;
+    public WaitingThreadChefService(NotifierService notifierService, OrderRepository orderRepository) {
+        this.notifierService = notifierService;
         this.orderRepository = orderRepository;
-        orderQueue = new ArrayBlockingQueue<>(QUEUE_CAPACITY);
+        orderQueue = new ArrayBlockingQueue<>(ORDER_QUEUE_CAPACITY);
         pool.submit(this);
     }
 
@@ -35,7 +37,7 @@ public class WaitingThreadChefService extends Thread implements ChefService {
                 Order updatedOrder = new Order(order);
                 updatedOrder.setOrderStatus(OrderStatus.COOKED);
                 orderRepository.save(updatedOrder);
-                System.out.println(updatedOrder);
+                notifierService.notifyCustomer(updatedOrder);
             } catch (InterruptedException e) {
                 System.out.println("Exiting chef service...");
                 return;
@@ -52,8 +54,7 @@ public class WaitingThreadChefService extends Thread implements ChefService {
         }
     }
 
-    public void shutdownAndAwaitTermination() {
-        int time = 3;
-        Utilities.shutdownAndAwaitTermination(pool, time, TimeUnit.SECONDS);
+    public void finishWork() {
+        Utilities.shutdownAndAwaitTermination(pool, SECONDS_TO_FINISH_WORK, TimeUnit.SECONDS);
     }
 }

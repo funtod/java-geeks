@@ -12,10 +12,9 @@ public class Runner {
 
     public static void main(String[] args) throws InterruptedException {
 
-        Customer customer = new Customer("John Smith");
         CustomerRepo customerRepo = new InMemCustomerRepo();
         CustomerService customerService = new DefaultCustomerService(customerRepo);
-        Customer registeredCustomer = customerService.registerCustomer(customer);
+        Customer registeredCustomer = customerService.registerCustomer("John Smith");
 
         PizzaRepo pizzaRepo = new InMemPizzaRepo();
         PizzaService pizzaService = new DefaultPizzaService(pizzaRepo);

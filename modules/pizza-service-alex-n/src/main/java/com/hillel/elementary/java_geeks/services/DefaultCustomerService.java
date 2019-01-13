@@ -15,4 +15,9 @@ public class DefaultCustomerService implements CustomerService {
     public Customer registerCustomer(Customer customer) {
         return customerRepo.save(customer);
     }
+
+    @Override
+    public Customer registerCustomer(String customerName) {
+        return customerRepo.save(new Customer(customerName));
+    }
 }

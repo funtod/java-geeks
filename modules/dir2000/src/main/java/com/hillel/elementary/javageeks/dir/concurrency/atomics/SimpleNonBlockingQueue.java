@@ -6,11 +6,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SimpleNonBlockingQueue<T> extends AbstractQueue<T> {
-
-
     private AtomicReference<Node<T>> head = new AtomicReference<>(null);
     private AtomicInteger size = new AtomicInteger(0);
-
 
     @Override
     public Iterator<T> iterator() {
@@ -25,12 +22,12 @@ public class SimpleNonBlockingQueue<T> extends AbstractQueue<T> {
     @Override
     public boolean offer(T value) {
         if (value == null) throw new IllegalArgumentException();
-
         while (true) {
             Node<T> first = head.get();
             Node<T> node = new Node<>(value, first);
 
             if (head.compareAndSet(first, node)) {
+                size.incrementAndGet();
                 return true;
             }
         }
@@ -38,18 +35,44 @@ public class SimpleNonBlockingQueue<T> extends AbstractQueue<T> {
 
     @Override
     public T poll() {
-        if (head.get() == null) return null;
-
         while(true) {
+            Node<T> first = head.get();
+            if (first == null) return null;
 
+            if (first.next == null) {
+                if (head.compareAndSet(first, null)) {
+                    size.decrementAndGet();
+                    return first.value;
+                }
+            } else {
+                Node<T> currNode = first;
+                Node<T> newFirst = new Node<>(first.value, null);
+                Node<T> newCurrNode = newFirst;
+                T valueToReturn = currNode.next.value;
+                while (currNode.next.next != null) {
+                    newCurrNode.next = new Node<>(currNode.next.value, null);
+                    newCurrNode = newCurrNode.next;
 
-
+                    currNode = currNode.next;
+                    valueToReturn = currNode.next.value;
+                }
+                if (head.compareAndSet(first, newFirst)) {
+                    size.decrementAndGet();
+                    return valueToReturn;
+                }
+            }
         }
     }
 
     @Override
     public T peek() {
-        return null;
+        Node<T> node = head.get();
+        if (node == null) return null;
+        while (node.next != null) {
+            node = node.next;
+        }
+
+        return node.value;
     }
 
     private static class Node<T> {

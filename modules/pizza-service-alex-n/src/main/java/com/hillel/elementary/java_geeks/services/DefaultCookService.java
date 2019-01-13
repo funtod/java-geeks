@@ -10,7 +10,7 @@ public class DefaultCookService implements CookService {
 
     private final ChefRepo chefRepo = new InMemChefRepo();
 
-    DefaultCookService(OrderService orderService) {
+    public DefaultCookService(OrderService orderService) {
         for (Chef chef : chefRepo.getChefs()) {
             if (chef.getStatus() == ChefWorkingStatus.WORKING) {
                 Thread thread = new ChefThread(chefRepo, chef, orderService);

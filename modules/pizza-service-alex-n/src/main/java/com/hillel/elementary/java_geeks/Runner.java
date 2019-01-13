@@ -20,31 +20,36 @@ public class Runner {
         PizzaRepo pizzaRepo = new InMemPizzaRepo();
         PizzaService pizzaService = new DefaultPizzaService(pizzaRepo);
         Collection<Pizza> pizzas = pizzaService.getAllPizzas();
-        for (Pizza pizza: pizzas) {
+        for (Pizza pizza : pizzas) {
             System.out.println(pizza);
         }
 
-        Order order = new Order(registeredCustomer, pizzaService.getPizzaById(1), pizzaService.getPizzaById(2));
-        Order order1 = new Order(registeredCustomer, pizzaService.getPizzaById(1), pizzaService.getPizzaById(2));
-        Order order2 = new Order(registeredCustomer, pizzaService.getPizzaById(1), pizzaService.getPizzaById(2));
-        Order order3 = new Order(registeredCustomer, pizzaService.getPizzaById(1), pizzaService.getPizzaById(2));
-
         OrderRepo orderRepo = new InMemOrderRepo();
         OrderService orderService = new DefaultOrderService(orderRepo);
-        
-        Order registeredOrder = orderService.placeOrder(order);
-        Order registeredOrder1 = orderService.placeOrder(order1);
-        Order registeredOrder2 = orderService.placeOrder(order2);
-        Order registeredOrder3 = orderService.placeOrder(order3);
+        CookService cookService = new DefaultCookService(orderService);
 
-        System.out.println(orderService.getOrderStatusInfo(registeredOrder));
-        System.out.println(orderService.getOrderStatusInfo(registeredOrder1));
-        System.out.println(orderService.getOrderStatusInfo(registeredOrder2));
-        System.out.println(orderService.getOrderStatusInfo(registeredOrder3));
+        Order orderOne = orderService.saveOrder(registeredCustomer,
+                pizzaService.getPizzaById(1),
+                pizzaService.getPizzaById(2));
+        Order orderTwo = orderService.saveOrder(registeredCustomer,
+                pizzaService.getPizzaById(0),
+                pizzaService.getPizzaById(3));
+        Order orderThree = orderService.saveOrder(registeredCustomer,
+                pizzaService.getPizzaById(3),
+                pizzaService.getPizzaById(1));
+
+        cookService.passOrderToCook(orderOne);
+        cookService.passOrderToCook(orderTwo);
+        cookService.passOrderToCook(orderThree);
+
+        System.out.println(orderService.getOrderStatusInfo(orderOne));
+        System.out.println(orderService.getOrderStatusInfo(orderTwo));
+        System.out.println(orderService.getOrderStatusInfo(orderThree));
+
         Thread.sleep(7000);
-        System.out.println(orderService.getOrderStatusInfo(registeredOrder));
-        System.out.println(orderService.getOrderStatusInfo(registeredOrder1));
-        System.out.println(orderService.getOrderStatusInfo(registeredOrder2));
-        System.out.println(orderService.getOrderStatusInfo(registeredOrder3));
+
+        System.out.println(orderService.getOrderStatusInfo(orderOne));
+        System.out.println(orderService.getOrderStatusInfo(orderTwo));
+        System.out.println(orderService.getOrderStatusInfo(orderThree));
     }
 }

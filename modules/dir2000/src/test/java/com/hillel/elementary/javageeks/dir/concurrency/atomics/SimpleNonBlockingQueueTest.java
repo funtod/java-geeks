@@ -16,7 +16,7 @@ class SimpleNonBlockingQueueTest {
   private final Collection<Callable<Object>> threads = new ArrayList<>();
   private final AtomicInteger counter = new AtomicInteger();
   private final int THREAD_PAIRS_COUNT = 100;
-  private final int TRIES_TO_INVOKE = 100;
+  private final int READ_TRIES = 50;
   private final int MILLISECONDS_TO_AWAIT = 10000;
 
   @Test
@@ -33,7 +33,7 @@ class SimpleNonBlockingQueueTest {
       threads.add(new Callable<Object>() {
         @Override
         public Object call() throws Exception {
-          for (int j = 0; j < TRIES_TO_INVOKE; j++) {
+          for (int j = 0; j < READ_TRIES; j++) {
             Integer x = queue.poll();
             if (x != null) {
               System.out.println(x);
@@ -65,7 +65,7 @@ class SimpleNonBlockingQueueTest {
       threads.add(new Callable<Object>() {
         @Override
         public Object call() throws Exception {
-          for (int j = 0; j < TRIES_TO_INVOKE; j++) {
+          for (int j = 0; j < READ_TRIES; j++) {
             Integer x = queue.poll();
             if (x != null) {
               counter.incrementAndGet();
@@ -75,7 +75,7 @@ class SimpleNonBlockingQueueTest {
         }
       });
       //to check that iterators don't fail and do not influence on usual queue work
-      for (int j = 0; j < TRIES_TO_INVOKE; j++) {
+      for (int j = 0; j < READ_TRIES; j++) {
         threads.add(new Callable<Object>() {
           @Override
           public Object call() throws Exception {

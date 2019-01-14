@@ -76,7 +76,7 @@ public class SimpleNonBlockingQueue<T> extends AbstractQueue<T> {
     }
 
     private static class Node<T> {
-        private final T value;
+        private T value;
         private Node<T> next;
 
         public Node(T value, Node<T> next) {

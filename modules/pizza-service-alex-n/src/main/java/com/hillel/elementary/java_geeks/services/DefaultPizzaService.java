@@ -10,6 +10,9 @@ public class DefaultPizzaService implements PizzaService {
     private PizzaRepo pizzaRepo;
 
     public DefaultPizzaService(PizzaRepo pizzaRepo) {
+        if (pizzaRepo == null) {
+            throw new IllegalArgumentException("PizzaRepo must not be null");
+        }
         this.pizzaRepo = pizzaRepo;
     }
 
@@ -20,6 +23,9 @@ public class DefaultPizzaService implements PizzaService {
 
     @Override
     public Pizza getPizzaById(int pizzaId) {
+        if (pizzaId < 0) {
+            throw new IllegalArgumentException("pizzaId must be grater than 0");
+        }
         return pizzaRepo.findById(pizzaId);
     }
 }

@@ -11,6 +11,9 @@ public class DefaultCookService implements CookService {
     private final ChefRepo chefRepo = new InMemChefRepo();
 
     public DefaultCookService(OrderService orderService) {
+        if (orderService == null) {
+            throw new IllegalArgumentException("OrderService can not be null");
+        }
         for (Chef chef : chefRepo.getChefs()) {
             if (chef.getStatus() == ChefWorkingStatus.WORKING) {
                 Thread thread = new ChefThread(chefRepo, chef, orderService);
@@ -21,6 +24,9 @@ public class DefaultCookService implements CookService {
 
     @Override
     public void passOrderToCook(Order order) {
+        if (order == null) {
+            throw new IllegalArgumentException("Order can not be null");
+        }
         synchronized (chefRepo) {
             chefRepo.assignOrderToChef(order);
             chefRepo.notifyAll();

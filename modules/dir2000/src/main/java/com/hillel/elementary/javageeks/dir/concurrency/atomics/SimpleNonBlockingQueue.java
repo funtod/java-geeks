@@ -2,16 +2,17 @@ package com.hillel.elementary.javageeks.dir.concurrency.atomics;
 
 import java.util.AbstractQueue;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SimpleNonBlockingQueue<T> extends AbstractQueue<T> {
-    private AtomicReference<Node<T>> tail = new AtomicReference<>(null);
-    private AtomicInteger size = new AtomicInteger(0);
+    private final AtomicReference<Node<T>> tail = new AtomicReference<>(null);
+    private final AtomicInteger size = new AtomicInteger(0);
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new <T>InnerIterator();
     }
 
     @Override
@@ -79,9 +80,29 @@ public class SimpleNonBlockingQueue<T> extends AbstractQueue<T> {
         private T value;
         private Node<T> next;
 
-        public Node(T value, Node<T> next) {
+        private Node(T value, Node<T> next) {
             this.value = value;
             this.next = next;
+        }
+    }
+
+    private class InnerIterator implements Iterator {
+        Node<T> node = tail.get();
+
+        @Override
+        public boolean hasNext() {
+            return node != null;
+        }
+
+        @Override
+        public Object next() {
+            if (hasNext()) {
+                T value = node.value;
+                node = node.next;
+                return value;
+            } else {
+                throw new NoSuchElementException();
+            }
         }
     }
 }

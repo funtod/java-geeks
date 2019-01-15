@@ -8,12 +8,12 @@ import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.InMe
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.OrderRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza.InMemPizzaRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza.PizzaRepository;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefListener;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefService;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ConsoleAwareChefListener;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.WaitingThreadChefService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.customer.CustomerService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.customer.SimpleCustomerService;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.notifier.NotifierService;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.notifier.SimpleNotifierService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.order.OrderService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.order.SimpleOrderService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
@@ -36,8 +36,8 @@ public final class AppLauncher {
 
         OrderRepository orderRepository = new InMemOrderRepository();
 
-        ChefListener chefListener = new ConsoleAwareChefListener(orderRepository);
-        ChefService chefService = new WaitingThreadChefService(chefListener, orderRepository);
+        NotifierService notifierService = new SimpleNotifierService();
+        ChefService chefService = new WaitingThreadChefService(notifierService, orderRepository);
         OrderService orderService = new SimpleOrderService(orderRepository, pizzaService, chefService);
 
         System.out.println("Available pizzas:");
@@ -49,7 +49,7 @@ public final class AppLauncher {
         Long idThree = 3L;
 
         Order order = orderService.placeNewOrder(customer, idOne, idTwo, idThree);
-        System.out.println(order);
-        chefService.shutdownAndAwaitTermination();
+        notifierService.notifyCustomer(order);
+        chefService.finishWork();
     }
 }

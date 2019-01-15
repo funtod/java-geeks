@@ -2,7 +2,12 @@ package com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.PizzaType;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import java.io.File;
+import java.io.FileReader;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;
@@ -13,12 +18,7 @@ public class InMemPizzaRepository implements PizzaRepository {
     private Long counter = 0L;
 
     public InMemPizzaRepository() {
-        int millisecondsToCook = 250;
-        save(new Pizza(null, "Barbeque", PizzaType.CLASSIC, millisecondsToCook, new BigDecimal("153")));
-        millisecondsToCook = 340;
-        save(new Pizza(null, "Pepperoni spice", PizzaType.EXOTIC, millisecondsToCook, new BigDecimal("151")));
-        millisecondsToCook = 410;
-        save(new Pizza(null, "Meat supreme", PizzaType.SUPREME, millisecondsToCook, new BigDecimal("152")));
+        initialFill();
     }
 
     @Override
@@ -45,5 +45,30 @@ public class InMemPizzaRepository implements PizzaRepository {
     @Override
     public synchronized Collection<Pizza> findAll() {
         return pizzas.values();
+    }
+
+    private void initialFill() {
+        File file = new File(getClass().getClassLoader().getResource("pizzas.json").getFile());
+        if (!file.exists()) {
+            throw new RuntimeException("File pizzas.json has not been found");
+        }
+
+        try (FileReader fileReader = new FileReader(file)){
+            JSONParser parser = new JSONParser();
+            JSONArray array = (JSONArray)parser.parse(fileReader);
+            for (int i = 0; i < array.size(); i++) {
+                JSONObject obj = (JSONObject)array.get(i);
+
+                Long id = (Long)obj.get("id");
+                String name = (String)obj.get("name");
+                PizzaType pizzaType = PizzaType.valueOf((String)obj.get("pizzaType"));
+                int millisecondsToCook = ((Long)obj.get("millisecondsToCook")).intValue();
+                BigDecimal price = new BigDecimal((Long)obj.get("price"));
+
+                pizzas.put(id, new Pizza(id, name, pizzaType, millisecondsToCook, price));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

@@ -11,7 +11,7 @@ public class Runner {
         CustomerRepo customerRepo = new InMemCustomerRepo();
         CustomerService customerService = new DefaultCustomerService(customerRepo);
 
-        PizzaRepo pizzaRepo = new InMemPizzaRepo();
+        PizzaRepo pizzaRepo = new JsonPizzaRepo();
         PizzaService pizzaService = new DefaultPizzaService(pizzaRepo);
 
         OrderRepo orderRepo = new InMemOrderRepo();

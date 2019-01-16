@@ -1,0 +1,30 @@
+{
+  "0": {
+    "id": 0,
+    "name": "Carbonara",
+    "pizzaType": "MEAT",
+    "cookingTime": 1500,
+    "price": 100
+  },
+  "1": {
+    "id": 1,
+    "name": "Pepperoni",
+    "pizzaType": "MEAT",
+    "cookingTime": 2000,
+    "price": 150
+  },
+  "2": {
+    "id": 2,
+    "name": "Margarita",
+    "pizzaType": "VEGETARIAN",
+    "cookingTime": 1000,
+    "price": 250
+  },
+  "3": {
+    "id": 3,
+    "name": "Sicilian",
+    "pizzaType": "SEAFOOD",
+    "cookingTime": 1500,
+    "price": 200
+  }
+}

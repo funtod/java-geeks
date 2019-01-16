@@ -41,6 +41,11 @@ public class DefaultOrderService implements OrderService {
 
     @Override
     public Order saveOrder(Customer customer, Pizza... pizzas) {
+        for (Pizza pizza: pizzas) {
+            if (pizza == null) {
+                throw new IllegalArgumentException("Pizza can not be null");
+            }
+        }
         if (customer == null) {
             throw new IllegalArgumentException("Customer must not be null");
         } else if (pizzas.length < 1) {

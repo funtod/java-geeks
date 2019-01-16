@@ -5,23 +5,27 @@ import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.OrderRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefService;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.util.*;
 
 public class SimpleOrderService implements OrderService {
-    private OrderRepository orderRepository;
-    private PizzaService pizzaService;
-    private ChefService chefService;
+    private final OrderRepository orderRepository;
+    private final PizzaService pizzaService;
+    private final ChefService chefService;
+    private final List<DiscountService> discountServices;
+    private final int SUM_PRECISION = 2;
 
-    public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService, ChefService chefService) {
+    public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService
+            , ChefService chefService, List<DiscountService> discountServices) {
         this.orderRepository = orderRepository;
         this.pizzaService = pizzaService;
         this.chefService = chefService;
+        this.discountServices = discountServices;
     }
 
     @Override
@@ -48,10 +52,21 @@ public class SimpleOrderService implements OrderService {
     }
 
     private BigDecimal calculateTotal(Collection<Pizza> collection) {
-        BigDecimal total = BigDecimal.ZERO;
-        for (Pizza pizza : collection) {
-            total = total.add(pizza.getPrice());
+        HashMap<Pizza, BigDecimal> costs = new HashMap<>();
+        for (Pizza pizza: collection) {
+            costs.put(pizza, pizza.getPrice());
         }
+
+        for (DiscountService service: discountServices) {
+            service.giveDiscount(costs);
+        }
+
+        BigDecimal total = BigDecimal.ZERO;
+        for (BigDecimal value : costs.values()) {
+            total = total.add(value);
+        }
+        total = total.round(new MathContext(SUM_PRECISION, RoundingMode.CEILING));
+
         return total;
     }
 

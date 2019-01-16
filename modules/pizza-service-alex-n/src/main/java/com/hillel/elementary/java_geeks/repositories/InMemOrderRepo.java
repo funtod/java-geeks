@@ -13,7 +13,7 @@ public class InMemOrderRepo implements OrderRepo {
     private Long counter = 0L;
 
     @Override
-    public Order saveOrder(Order order) {
+    public synchronized Order saveOrder(Order order) {
         BigDecimal total = new BigDecimal(0);
         for (Pizza pizza : order.getPizzas()) {
             total = total.add(pizza.getPrice());
@@ -30,6 +30,9 @@ public class InMemOrderRepo implements OrderRepo {
 
     @Override
     public Order getOrderById(Long id) {
+        if (orders.size() < id) {
+            throw new IllegalArgumentException("There is no order with such id: " + id);
+        }
         return orders.get(id);
     }
 

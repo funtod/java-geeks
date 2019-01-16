@@ -9,12 +9,22 @@ import com.hillel.elementary.java_geeks.repositories.OrderRepo;
 public class DefaultOrderService implements OrderService {
 
     private OrderRepo orderRepo;
+    private PizzaService pizzaService;
 
-    public DefaultOrderService(OrderRepo orderRepo) {
+    public DefaultOrderService(OrderRepo orderRepo, PizzaService pizzaService) {
         if (orderRepo == null) {
             throw new IllegalArgumentException("OrderRepo must not be null");
         }
+        if (pizzaService == null) {
+            throw new IllegalArgumentException("PizzaService must not be null");
+        }
+        this.pizzaService = pizzaService;
         this.orderRepo = orderRepo;
+    }
+
+    @Override
+    public Order getOrder(long orderId) {
+        return orderRepo.getOrderById(orderId);
     }
 
     @Override
@@ -40,12 +50,34 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
+    public Order saveOrder(Customer customer, int... pizzaIds) {
+        if (customer == null) {
+            throw new IllegalArgumentException("Customer must not be null");
+        } else if (pizzaIds == null || pizzaIds.length == 0) {
+            throw new IllegalArgumentException("there must be at least 1 pizza id");
+        }
+        Pizza[] pizzas = new Pizza[pizzaIds.length];
+        for (int i = 0; i < pizzaIds.length; i++) {
+            pizzas[i] = pizzaService.getPizzaById(pizzaIds[i]);
+        }
+        return saveOrder(customer, pizzas);
+    }
+
+    @Override
     public String getOrderStatusInfo(Order order) {
         if (order == null) {
             throw new IllegalArgumentException("Order can not be null");
         }
         Order orderFromMem = orderRepo.getOrderById(order.getId());
         return "Order: " + orderFromMem.getId() + " - status: " + orderFromMem.getStatus();
+    }
+
+    @Override
+    public String getOrderStatusInfo(long orderId) {
+        if (orderId < 0) {
+            throw new IllegalArgumentException("Id must be grater than 0");
+        }
+        return getOrderStatusInfo(orderRepo.getOrderById(orderId));
     }
 
     @Override

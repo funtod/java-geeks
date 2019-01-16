@@ -2,6 +2,7 @@ package com.hillel.elementary.java_geeks.repositories;
 
 import com.hillel.elementary.java_geeks.domain.Customer;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 public class InMemCustomerRepo implements CustomerRepo {
@@ -15,5 +16,10 @@ public class InMemCustomerRepo implements CustomerRepo {
         customers.put(counter, savedCustomer);
         counter++;
         return savedCustomer;
+    }
+
+    @Override
+    public Collection<Customer> getAll() {
+        return customers.values();
     }
 }

@@ -26,7 +26,11 @@ public class InMemPizzaRepo implements PizzaRepo {
 
     @Override
     public Pizza findById(int pizzaId) {
-        return pizzas.get(pizzaId);
+        if (pizzaId > pizzas.size() - 1) {
+            return null;
+        } else {
+            return pizzas.get(pizzaId);
+        }
     }
 
     @Override

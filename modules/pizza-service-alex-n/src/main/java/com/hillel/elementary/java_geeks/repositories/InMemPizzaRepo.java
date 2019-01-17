@@ -9,14 +9,23 @@ import java.util.HashMap;
 
 public class InMemPizzaRepo implements PizzaRepo {
 
+    private static final Pizza PIZZA_CARBONARA =
+            new Pizza(null, "Carbonara", PizzaType.MEAT, 1500, new BigDecimal(100));
+    private static final Pizza PIZZA_PEPPERONI =
+            new Pizza(null, "Pepperoni", PizzaType.MEAT, 2000, new BigDecimal(150));
+    private static final Pizza PIZZA_MARGARITA =
+            new Pizza(null, "Margarita", PizzaType.VEGETARIAN, 1000, new BigDecimal(250));
+    private static final Pizza PIZZA_SICILIAN =
+            new Pizza(null, "Sicilian", PizzaType.SEAFOOD, 1500, new BigDecimal(200));
+
     private HashMap<Integer, Pizza> pizzas = new HashMap<>();
     private int counter = 0;
 
     public InMemPizzaRepo() {
-        save(new Pizza(null, "Carbonara", PizzaType.MEAT, 1500, new BigDecimal(100)));
-        save(new Pizza(null, "Pepperoni", PizzaType.MEAT, 2000, new BigDecimal(150)));
-        save(new Pizza(null, "Margarita", PizzaType.VEGETARIAN, 1000, new BigDecimal(250)));
-        save(new Pizza(null, "Sicilian", PizzaType.SEAFOOD, 1500, new BigDecimal(200)));
+        save(PIZZA_CARBONARA);
+        save(PIZZA_PEPPERONI);
+        save(PIZZA_MARGARITA);
+        save(PIZZA_SICILIAN);
     }
 
     @Override
@@ -44,5 +53,9 @@ public class InMemPizzaRepo implements PizzaRepo {
             pizzas.put(counter, pizzaWithId);
             counter++;
         }
+    }
+
+    public void setPizzas(HashMap<Integer, Pizza> pizzas) {
+        this.pizzas = pizzas;
     }
 }

@@ -4,7 +4,5 @@ public enum InterfaceState {
     ROOT,
     ORDER,
     PIZZA,
-    CUSTOMER,
-    ORDER_CREATION,
-    CUSTOMER_CREATION
+    CUSTOMER
 }

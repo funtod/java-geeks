@@ -26,5 +26,12 @@
     "pizzaType": "SEAFOOD",
     "cookingTime": 1500,
     "price": 200
+  },
+  "4": {
+    "id": 4,
+    "name": "Hawaii",
+    "pizzaType": "MEAT",
+    "cookingTime": 2000,
+    "price": 150
   }
 }

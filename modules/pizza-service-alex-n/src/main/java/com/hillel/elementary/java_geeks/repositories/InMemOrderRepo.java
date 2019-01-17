@@ -14,7 +14,7 @@ public class InMemOrderRepo implements OrderRepo {
 
     @Override
     public synchronized Order saveOrder(Order order) {
-        BigDecimal total = new BigDecimal(0);
+        BigDecimal total = BigDecimal.ZERO;
         for (Pizza pizza : order.getPizzas()) {
             total = total.add(pizza.getPrice());
         }

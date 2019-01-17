@@ -40,8 +40,12 @@ public class Chef {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Chef chef = (Chef) o;
         return Objects.equals(id, chef.id);
     }

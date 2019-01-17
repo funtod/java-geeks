@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class ConsoleUI {
 
-    static Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     void showHello() {
         display("##### This is Pizza service #####");
@@ -66,7 +66,7 @@ public class ConsoleUI {
                     pizzaIds = null;
                 }
             }
-            if (pizzaIds == null || pizzaIds.length == 0) {
+            if (pizzaIds.length == 0) {
                 display("Something is wrong. Try again");
                 repeat = true;
             } else {

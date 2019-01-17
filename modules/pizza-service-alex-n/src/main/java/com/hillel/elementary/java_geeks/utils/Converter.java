@@ -1,11 +1,12 @@
 package com.hillel.elementary.java_geeks.utils;
 
-import com.hillel.elementary.java_geeks.domain.Pizza;
+public final class Converter {
 
-public class Converter {
+    private Converter() {
+    }
 
     public static int[] convertUserStringToPizzaIds(String string) {
-        int[] intIds = null;
+        int[] intIds;
         try {
             String[] strIds = string.split(",");
             intIds = new int[strIds.length];

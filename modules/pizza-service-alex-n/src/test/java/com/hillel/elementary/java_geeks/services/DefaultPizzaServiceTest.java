@@ -15,15 +15,16 @@ import static org.mockito.Mockito.when;
 
 class DefaultPizzaServiceTest {
 
+    PizzaRepo pizzaRepoMock = mock(InMemPizzaRepo.class);
+    PizzaService pizzaService = new DefaultPizzaService(pizzaRepoMock);
+
     @Test
     void shouldReturnPizzaById() {
 
         //given
-        PizzaRepo pizzaRepoMock = mock(InMemPizzaRepo.class);
         Pizza pizza = new Pizza(0, "pizza", PizzaType.MEAT, 200, new BigDecimal(200));
         when(pizzaRepoMock.findById(anyInt())).thenReturn(pizza);
-        PizzaService pizzaService = new DefaultPizzaService(pizzaRepoMock);
-        
+
         //when
         Pizza foundedPizza = pizzaService.getPizzaById(0);
 

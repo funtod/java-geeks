@@ -13,14 +13,15 @@ import static org.mockito.Mockito.mock;
 
 class DefaultOrderServiceTest {
 
+    private OrderRepo realOrderRepo = new InMemOrderRepo();
+    private PizzaService mockPizzaService = mock(DefaultPizzaService.class);
+
     @Test
     void shouldAddAndGetOrders() {
 
         //given
-        OrderRepo realOrderRepo = new InMemOrderRepo();
         Pizza pizza = new Pizza(0, "pizza", PizzaType.MEAT, 200, new BigDecimal(200));
         Order order = new Order(new Customer(0L, "John"), pizza);
-        PizzaService mockPizzaService = mock(DefaultPizzaService.class);
         OrderService orderService = new DefaultOrderService(realOrderRepo, mockPizzaService);
 
         //when
@@ -34,10 +35,8 @@ class DefaultOrderServiceTest {
     void shouldChangeOrderStatus() {
 
         //given
-        OrderRepo realOrderRepo = new InMemOrderRepo();
         Pizza pizza = new Pizza(0, "pizza", PizzaType.MEAT, 200, new BigDecimal(200));
         Order order = new Order(new Customer(0L, "John"), pizza);
-        PizzaService mockPizzaService = mock(DefaultPizzaService.class);
         OrderService orderService = new DefaultOrderService(realOrderRepo, mockPizzaService);
         orderService.saveOrder(order);
 
@@ -50,8 +49,7 @@ class DefaultOrderServiceTest {
 
     @Test
     void shouldThrowExceptionWhenPizzaIsNull() {
-        OrderRepo realOrderRepo = new InMemOrderRepo();
-        PizzaService mockPizzaService = mock(DefaultPizzaService.class);
+
         OrderService orderService = new DefaultOrderService(realOrderRepo, mockPizzaService);
 
         assertThrows(IllegalArgumentException.class, () -> {
@@ -61,8 +59,7 @@ class DefaultOrderServiceTest {
 
     @Test
     void shouldThrowExceptionWhenCustomerIsNull() {
-        OrderRepo realOrderRepo = new InMemOrderRepo();
-        PizzaService mockPizzaService = mock(DefaultPizzaService.class);
+
         OrderService orderService = new DefaultOrderService(realOrderRepo, mockPizzaService);
         Pizza pizza = new Pizza(0, "pizza", PizzaType.MEAT, 200, new BigDecimal(200));
 

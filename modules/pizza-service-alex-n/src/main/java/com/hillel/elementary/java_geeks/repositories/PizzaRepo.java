@@ -6,6 +6,8 @@ import java.util.Collection;
 
 public interface PizzaRepo {
 
+    void initialiseData();
+
     Collection<Pizza> findAll();
 
     Pizza findById(int pizzaId);

@@ -13,11 +13,12 @@ import static org.mockito.Mockito.when;
 
 class DefaultCustomerServiceTest {
 
+    private CustomerRepo mockCustomerRepo = mock(InMemCustomerRepo.class);
+
     @Test
     void shouldSaveAndGetCustomer() {
 
         //given
-        CustomerRepo mockCustomerRepo = mock(InMemCustomerRepo.class);
         Customer customer = new Customer(0L, "John");
         when(mockCustomerRepo.save(any())).thenReturn(customer);
         CustomerService customerService = new DefaultCustomerService(mockCustomerRepo);
@@ -32,9 +33,8 @@ class DefaultCustomerServiceTest {
     @Test
     public void shouldThrowAnException() {
 
-        CustomerRepo mockCustomerRepo = mock(InMemCustomerRepo.class);
         Customer nullCustomer = null;
-        Customer nullNameCustomer = new Customer(0l, null);
+        Customer nullNameCustomer = new Customer(0L, null);
         CustomerService customerService = new DefaultCustomerService(mockCustomerRepo);
 
 

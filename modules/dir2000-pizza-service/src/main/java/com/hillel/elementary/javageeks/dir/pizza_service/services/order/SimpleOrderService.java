@@ -18,10 +18,10 @@ public class SimpleOrderService implements OrderService {
     private final PizzaService pizzaService;
     private final ChefService chefService;
     private final List<DiscountService> discountServices;
-    private final int SUM_PRECISION = 2;
+    private static final int SUM_PRECISION = 2;
 
-    public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService
-            , ChefService chefService, List<DiscountService> discountServices) {
+    public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService,
+                              ChefService chefService, List<DiscountService> discountServices) {
         this.orderRepository = orderRepository;
         this.pizzaService = pizzaService;
         this.chefService = chefService;

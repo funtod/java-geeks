@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public class DiscountServicePercent implements DiscountService {
-  BigDecimal percent;
+  private BigDecimal percent;
 
   public DiscountServicePercent(BigDecimal argPercent) {
     percent = argPercent;

@@ -45,19 +45,24 @@ public final class AppLauncher {
 
         OrderRepository orderRepository = new InMemOrderRepository();
 
-        Long idOne = 1L;
-        Long idTwo = 2L;
-        Long idThree = 3L;
+        final Long idOne = 1L;
+        final Long idTwo = 2L;
+        final Long idThree = 3L;
 
         List<DiscountService> currentDiscountServices = new LinkedList<>();
-        currentDiscountServices.add(new DiscountServicePercent(BigDecimal.valueOf(10)));
-        currentDiscountServices.add(new DiscountServiceMonth(idTwo, Month.JANUARY, BigDecimal.valueOf(5)));
-        currentDiscountServices.add(new DiscountServiceSomeForFree(3));
+
+        final int discountPercentTen = 10;
+        currentDiscountServices.add(new DiscountServicePercent(BigDecimal.valueOf(discountPercentTen)));
+        final int discountPercentFive = 5;
+        currentDiscountServices.add(new DiscountServiceMonth(idTwo, Month.JANUARY,
+                BigDecimal.valueOf(discountPercentFive)));
+        final int numberOfFreePizza = 3;
+        currentDiscountServices.add(new DiscountServiceSomeForFree(numberOfFreePizza));
 
         NotifierService notifierService = new SimpleNotifierService();
         ChefService chefService = new WaitingThreadChefService(notifierService, orderRepository);
-        OrderService orderService = new SimpleOrderService(orderRepository, pizzaService
-                , chefService, currentDiscountServices);
+        OrderService orderService = new SimpleOrderService(orderRepository, pizzaService,
+                chefService, currentDiscountServices);
 
         System.out.println("Available pizzas:");
         System.out.println(pizzaService.getAll());

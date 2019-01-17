@@ -53,17 +53,17 @@ public class InMemPizzaRepository implements PizzaRepository {
             throw new RuntimeException("File pizzas.json has not been found");
         }
 
-        try (FileReader fileReader = new FileReader(file)){
+        try (FileReader fileReader = new FileReader(file)) {
             JSONParser parser = new JSONParser();
-            JSONArray array = (JSONArray)parser.parse(fileReader);
+            JSONArray array = (JSONArray) parser.parse(fileReader);
             for (int i = 0; i < array.size(); i++) {
-                JSONObject obj = (JSONObject)array.get(i);
+                JSONObject obj = (JSONObject) array.get(i);
 
-                Long id = (Long)obj.get("id");
-                String name = (String)obj.get("name");
-                PizzaType pizzaType = PizzaType.valueOf((String)obj.get("pizzaType"));
-                int millisecondsToCook = ((Long)obj.get("millisecondsToCook")).intValue();
-                BigDecimal price = new BigDecimal((Long)obj.get("price"));
+                Long id = (Long) obj.get("id");
+                String name = (String) obj.get("name");
+                PizzaType pizzaType = PizzaType.valueOf((String) obj.get("pizzaType"));
+                int millisecondsToCook = ((Long) obj.get("millisecondsToCook")).intValue();
+                BigDecimal price = new BigDecimal((Long) obj.get("price"));
 
                 pizzas.put(id, new Pizza(id, name, pizzaType, millisecondsToCook, price));
             }

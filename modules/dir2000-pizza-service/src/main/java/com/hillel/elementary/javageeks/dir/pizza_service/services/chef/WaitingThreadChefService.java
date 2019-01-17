@@ -13,8 +13,8 @@ public class WaitingThreadChefService extends Thread implements ChefService {
     private final NotifierService notifierService;
     private final OrderRepository orderRepository;
     private final BlockingQueue<Order> orderQueue;
-    private final int ORDER_QUEUE_CAPACITY = 5;
-    private final int SECONDS_TO_FINISH_WORK = 3;
+    private static final int ORDER_QUEUE_CAPACITY = 5;
+    private static final int SECONDS_TO_FINISH_WORK = 3;
     private final ExecutorService pool = Executors.newSingleThreadExecutor();
 
     public WaitingThreadChefService(NotifierService notifierService, OrderRepository orderRepository) {

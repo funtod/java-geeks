@@ -27,7 +27,7 @@ public class DiscountServiceMonth implements DiscountService {
     for (Map.Entry<Pizza, BigDecimal> entry : costs.entrySet()) {
       if (entry.getKey().getId().equals(pizzaId)) {
         BigDecimal value = entry.getValue();
-        BigDecimal newValue = value.subtract(value.multiply(percent).divide(ONE_HUNDRED));
+        BigDecimal newValue = value.subtract(value.multiply(percent).divide(ONE_HUNDRED, SUM_PRECISION));
         entry.setValue(newValue);
       }
     }

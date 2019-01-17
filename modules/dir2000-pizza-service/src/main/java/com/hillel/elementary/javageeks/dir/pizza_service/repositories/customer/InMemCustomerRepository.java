@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InMemCustomerRepository implements CustomerRepository {
-    private Map<Long, Customer> customers = new HashMap<>();
+    private final Map<Long, Customer> customers = new HashMap<>();
     private Long counter = 0L;
 
     @Override

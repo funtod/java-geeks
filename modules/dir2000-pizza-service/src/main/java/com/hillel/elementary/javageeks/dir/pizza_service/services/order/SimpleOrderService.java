@@ -9,7 +9,6 @@ import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.Disco
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.*;
 
@@ -18,7 +17,6 @@ public class SimpleOrderService implements OrderService {
     private final PizzaService pizzaService;
     private final ChefService chefService;
     private final List<DiscountService> discountServices;
-    private static final int SUM_PRECISION = 2;
 
     public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService,
                               ChefService chefService, List<DiscountService> discountServices) {
@@ -65,7 +63,6 @@ public class SimpleOrderService implements OrderService {
         for (BigDecimal value : costs.values()) {
             total = total.add(value);
         }
-        total = total.round(new MathContext(SUM_PRECISION, RoundingMode.CEILING));
 
         return total;
     }

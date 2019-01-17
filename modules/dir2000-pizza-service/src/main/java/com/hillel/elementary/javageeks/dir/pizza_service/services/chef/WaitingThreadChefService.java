@@ -51,6 +51,7 @@ public class WaitingThreadChefService extends Thread implements ChefService {
         try {
             orderQueue.put(order);
         } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 

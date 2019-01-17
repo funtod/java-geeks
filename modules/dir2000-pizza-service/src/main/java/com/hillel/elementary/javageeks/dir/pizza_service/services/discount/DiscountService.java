@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface DiscountService {
   BigDecimal ONE_HUNDRED = new BigDecimal("100");
+  int SUM_PRECISION = 2;
 
   void giveDiscount(Map<Pizza, BigDecimal> costs);
 }

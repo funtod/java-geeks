@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public class DiscountServicePercent implements DiscountService {
-  private BigDecimal percent;
+  private final BigDecimal percent;
 
   public DiscountServicePercent(BigDecimal argPercent) {
     percent = argPercent;
@@ -14,6 +14,6 @@ public class DiscountServicePercent implements DiscountService {
 
   @Override
   public void giveDiscount(Map<Pizza, BigDecimal> costs) {
-    costs.replaceAll((k, v) -> v.subtract(v.multiply(percent).divide(ONE_HUNDRED)));
+    costs.replaceAll((k, v) -> v.subtract(v.multiply(percent).divide(ONE_HUNDRED, SUM_PRECISION)));
   }
 }

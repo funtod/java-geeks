@@ -6,7 +6,7 @@ import com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza.Pizz
 import java.util.Collection;
 
 public class SimplePizzaService implements PizzaService {
-    private PizzaRepository pizzaRepository;
+    private final PizzaRepository pizzaRepository;
 
     public SimplePizzaService(PizzaRepository pizzaRepository) {
         this.pizzaRepository = pizzaRepository;

@@ -36,7 +36,7 @@ public class Order {
             return false;
         }
         Order order = (Order) argO;
-        return id == order.id;
+        return Objects.equals(id, order.id);
     }
 
     @Override

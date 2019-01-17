@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InMemPizzaRepository implements PizzaRepository {
-    private Map<Long, Pizza> pizzas = new HashMap<>();
+    private final Map<Long, Pizza> pizzas = new HashMap<>();
     private Long counter = 0L;
 
     public InMemPizzaRepository() {
@@ -56,17 +56,17 @@ public class InMemPizzaRepository implements PizzaRepository {
         try (FileReader fileReader = new FileReader(file)) {
             JSONParser parser = new JSONParser();
             JSONArray array = (JSONArray) parser.parse(fileReader);
-            for (int i = 0; i < array.size(); i++) {
-                JSONObject obj = (JSONObject) array.get(i);
+          for (Object item : array) {
+            JSONObject obj = (JSONObject) item;
 
-                Long id = (Long) obj.get("id");
-                String name = (String) obj.get("name");
-                PizzaType pizzaType = PizzaType.valueOf((String) obj.get("pizzaType"));
-                int millisecondsToCook = ((Long) obj.get("millisecondsToCook")).intValue();
-                BigDecimal price = new BigDecimal((Long) obj.get("price"));
+            Long id = (Long) obj.get("id");
+            String name = (String) obj.get("name");
+            PizzaType pizzaType = PizzaType.valueOf((String) obj.get("pizzaType"));
+            int millisecondsToCook = ((Long) obj.get("millisecondsToCook")).intValue();
+            BigDecimal price = new BigDecimal((Long) obj.get("price"));
 
-                pizzas.put(id, new Pizza(id, name, pizzaType, millisecondsToCook, price));
-            }
+            pizzas.put(id, new Pizza(id, name, pizzaType, millisecondsToCook, price));
+          }
         } catch (Exception ex) {
             ex.printStackTrace();
         }

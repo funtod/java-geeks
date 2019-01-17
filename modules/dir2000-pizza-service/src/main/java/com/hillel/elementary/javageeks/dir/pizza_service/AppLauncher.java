@@ -32,7 +32,7 @@ public final class AppLauncher {
     private AppLauncher() {
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.println("-===Pizza service===-");
         System.out.println();
 

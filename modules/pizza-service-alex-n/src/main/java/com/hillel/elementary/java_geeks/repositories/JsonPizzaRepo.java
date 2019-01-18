@@ -6,13 +6,13 @@ import com.hillel.elementary.java_geeks.domain.Pizza;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class JsonPizzaRepo extends AbstractPizzaRepo {
 

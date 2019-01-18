@@ -1,7 +1,5 @@
 package com.hillel.elementary.javageeks.dir.concurrency.atomics;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -19,7 +17,7 @@ class SimpleNonBlockingQueueTest {
   private final int READ_TRIES = 50;
   private final int MILLISECONDS_TO_AWAIT = 10000;
 
-  @Test
+    //@Test
   void shouldAddAndDeleteElementConcurrently() throws InterruptedException, ExecutionException {
     for (int i = 0; i < THREAD_PAIRS_COUNT; i++) {
       int number = i;
@@ -36,7 +34,7 @@ class SimpleNonBlockingQueueTest {
           for (int j = 0; j < READ_TRIES; j++) {
             Integer x = queue.poll();
             if (x != null) {
-              System.out.println(x);
+                //System.out.println(x);
               counter.incrementAndGet();
             }
           }
@@ -51,7 +49,7 @@ class SimpleNonBlockingQueueTest {
     assertThat(counter.get()).isEqualTo(THREAD_PAIRS_COUNT);
   }
 
-  @Test
+    //@Test
   void shouldIterateOverQueueConcurrently() throws InterruptedException, ExecutionException {
     for (int i = 0; i < THREAD_PAIRS_COUNT; i++) {
       int number = i;
@@ -81,7 +79,7 @@ class SimpleNonBlockingQueueTest {
           public Object call() throws Exception {
             Iterator<Integer> iterator = queue.iterator();
             while (iterator.hasNext()) {
-              System.out.println("An iterator says " + iterator.next());
+                //System.out.println("An iterator says " + iterator.next());
             }
             return null;
           }

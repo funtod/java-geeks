@@ -2,6 +2,7 @@ package com.hillel.elementary.javageeks.dir.pizza_service;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
+import com.hillel.elementary.javageeks.dir.pizza_service.profiling.Profiler;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.CustomerRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.InMemCustomerRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.InMemOrderRepository;
@@ -60,6 +61,7 @@ public final class AppLauncher {
         currentDiscountServices.add(new DiscountServiceSomeForFree(numberOfFreePizza));
 
         NotifierService notifierService = new SimpleNotifierService();
+        notifierService = Profiler.getProfiler(notifierService);
         ChefService chefService = new WaitingThreadChefService(notifierService, orderRepository);
         OrderService orderService = new SimpleOrderService(orderRepository, pizzaService,
                 chefService, currentDiscountServices);

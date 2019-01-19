@@ -19,7 +19,6 @@
         <maven-pmd-plugin.version>3.9.0</maven-pmd-plugin.version>
         <jsoup.version>1.11.3</jsoup.version>
         <mockito.version>2.23.4</mockito.version>
-        <json-simple.version>1.1.1</json-simple.version>
     </properties>
 
     <modules>

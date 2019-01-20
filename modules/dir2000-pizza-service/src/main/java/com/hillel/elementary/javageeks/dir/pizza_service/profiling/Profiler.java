@@ -5,7 +5,6 @@ import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Timed;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.Date;
 
 public class Profiler {
     public static <T> T getProfiler(T obj) {
@@ -16,15 +15,14 @@ public class Profiler {
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                 Timed annotation = method.getAnnotation(Timed.class);
                 boolean isTimed = annotation != null;
-                long timeMillBefore = 0;
-                long timeMillAfter;
+                long nanosBefore = 0;
                 if (isTimed) {
-                    timeMillBefore = new Date().getTime();
+                    nanosBefore = System.nanoTime();
                 }
                 Object result = method.invoke(obj, args);
                 if (isTimed) {
-                    timeMillAfter = new Date().getTime();
-                    System.out.println(timeMillAfter - timeMillBefore);
+                    long nanosAfter = System.nanoTime();
+                    System.out.printf("%s.%s() time elapsed in nanos: %d%n", cl.getSimpleName(), method.getName(), nanosAfter - nanosBefore);
                 }
                 return result;
             }

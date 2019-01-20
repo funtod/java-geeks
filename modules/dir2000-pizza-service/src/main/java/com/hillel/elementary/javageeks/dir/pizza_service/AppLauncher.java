@@ -45,6 +45,7 @@ public final class AppLauncher {
         PizzaService pizzaService = new SimplePizzaService(pizzaRepository);
 
         OrderRepository orderRepository = new InMemOrderRepository();
+        orderRepository = Profiler.getProfiler(orderRepository);
 
         final Long idOne = 1L;
         final Long idTwo = 2L;
@@ -61,7 +62,7 @@ public final class AppLauncher {
         currentDiscountServices.add(new DiscountServiceSomeForFree(numberOfFreePizza));
 
         NotifierService notifierService = new SimpleNotifierService();
-        notifierService = Profiler.getProfiler(notifierService);
+        //notifierService =
         ChefService chefService = new WaitingThreadChefService(notifierService, orderRepository);
         OrderService orderService = new SimpleOrderService(orderRepository, pizzaService,
                 chefService, currentDiscountServices);

@@ -63,7 +63,7 @@ public final class AppLauncher {
         currentDiscountServices.add(new DiscountServiceSomeForFree(numberOfFreePizza));
 
         NotifierService notifierService = new SimpleNotifierService();
-        //notifierService =
+
         ChefService chefService = new WaitingThreadChefService(notifierService, orderRepository);
         OrderService orderService = new SimpleOrderService(orderRepository, pizzaService,
                 chefService, currentDiscountServices);

@@ -5,9 +5,15 @@ import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Timed;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class Profiler {
-    public static <T> T getProfiler(T obj) {
+public final class Profiler {
+  private Profiler() {
+  }
+
+  public static <T> T wrap(T obj) {
+        Logger logger = LoggerFactory.getLogger(Profiler.class);
         Class<?> cl = obj.getClass();
         Class<?>[] interfaces = cl.getInterfaces();
         InvocationHandler handler = new InvocationHandler() {
@@ -22,7 +28,8 @@ public class Profiler {
                 Object result = method.invoke(obj, args);
                 if (isTimed) {
                     long nanosAfter = System.nanoTime();
-                    System.out.printf("%s.%s() time elapsed in nanos: %d%n", cl.getSimpleName(), method.getName(), nanosAfter - nanosBefore);
+                    logger.debug(String.format("%s.%s() time elapsed in nanos: %d%n", cl.getSimpleName(),
+                            method.getName(), nanosAfter - nanosBefore));
                 }
                 return result;
             }

@@ -43,10 +43,10 @@ public final class AppLauncher {
 
         PizzaRepository pizzaRepository = new InMemPizzaRepository();
         PizzaService pizzaService = new SimplePizzaService(pizzaRepository);
-        pizzaService = Profiler.wrap(pizzaService);
+        //pizzaService = Profiler.wrap(pizzaService);
 
         OrderRepository orderRepository = new InMemOrderRepository();
-        orderRepository = Profiler.wrap(orderRepository);
+        //orderRepository = Profiler.wrap(orderRepository);
 
         final Long idOne = 1L;
         final Long idTwo = 2L;

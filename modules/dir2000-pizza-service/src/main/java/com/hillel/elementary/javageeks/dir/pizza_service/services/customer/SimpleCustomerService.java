@@ -1,8 +1,10 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.services.customer;
 
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.CustomerRepository;
 
+@Component("simpleCustomerService")
 public class SimpleCustomerService implements CustomerService {
     private final CustomerRepository repository;
 

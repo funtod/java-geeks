@@ -1,10 +1,12 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer;
 
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Component("inMemCustomerRepository")
 public class InMemCustomerRepository implements CustomerRepository {
     private final Map<Long, Customer> customers = new HashMap<>();
     private Long counter = 0L;

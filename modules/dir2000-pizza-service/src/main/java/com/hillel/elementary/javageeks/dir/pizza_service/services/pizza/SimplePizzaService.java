@@ -1,10 +1,12 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.services.pizza;
 
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza.PizzaRepository;
 
 import java.util.Collection;
 
+@Component("simplePizzaService")
 public class SimplePizzaService implements PizzaService {
     private final PizzaRepository pizzaRepository;
 

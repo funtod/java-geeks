@@ -1,16 +1,16 @@
 [
   {
     "className" : "DiscountServicePercent",
-    "argPercent" : 10
+    "percent" : 10
   },
   {
     "className" : "DiscountServiceMonth",
-    "argPizzaId" : "Pepperoni spice",
-    "argMonth" : "JANUARY",
-    "argPercent" : 5
+    "pizzaId" : 2,
+    "month" : "JANUARY",
+    "percent" : 5
   },
   {
     "className" : "DiscountServiceSomeForFree",
-    "argNumberOfSome" : 3
+    "numberOfSome" : 3
   }
 ]

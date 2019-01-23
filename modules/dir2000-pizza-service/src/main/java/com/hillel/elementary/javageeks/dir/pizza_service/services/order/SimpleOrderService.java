@@ -5,6 +5,7 @@ import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.OrderRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefService;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountGroupService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
 
@@ -15,14 +16,14 @@ public class SimpleOrderService implements OrderService {
     private final OrderRepository orderRepository;
     private final PizzaService pizzaService;
     private final ChefService chefService;
-    private final List<DiscountService> discountServices;
+    private final DiscountGroupService discountGroupService;
 
     public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService,
-                              ChefService chefService, List<DiscountService> discountServices) {
+                              ChefService chefService, DiscountGroupService discountGroupService) {
         this.orderRepository = orderRepository;
         this.pizzaService = pizzaService;
         this.chefService = chefService;
-        this.discountServices = discountServices;
+        this.discountGroupService = discountGroupService;
     }
 
     @Override
@@ -54,9 +55,7 @@ public class SimpleOrderService implements OrderService {
             costs.put(pizza, pizza.getPrice());
         }
 
-        for (DiscountService service: discountServices) {
-            service.giveDiscount(costs);
-        }
+        discountGroupService.giveDiscount(costs);
 
         BigDecimal total = BigDecimal.ZERO;
         for (BigDecimal value : costs.values()) {

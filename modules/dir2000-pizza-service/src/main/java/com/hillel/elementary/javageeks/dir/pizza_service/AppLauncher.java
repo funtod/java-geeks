@@ -13,21 +13,13 @@ import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefServi
 import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.WaitingThreadChefService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.customer.CustomerService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.customer.SimpleCustomerService;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountService;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountServiceMonth;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountServicePercent;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountServiceSomeForFree;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.*;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.notifier.NotifierService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.notifier.SimpleNotifierService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.order.OrderService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.order.SimpleOrderService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.SimplePizzaService;
-
-import java.math.BigDecimal;
-import java.time.Month;
-import java.util.LinkedList;
-import java.util.List;
 
 public final class AppLauncher {
     private AppLauncher() {
@@ -39,7 +31,6 @@ public final class AppLauncher {
 
         CustomerRepository customerRepository = new InMemCustomerRepository();
         CustomerService customerService = new SimpleCustomerService(customerRepository);
-        Customer customer = customerService.register(new Customer(null, "Vanya"));
 
         PizzaRepository pizzaRepository = new InMemPizzaRepository();
         PizzaService pizzaService = new SimplePizzaService(pizzaRepository);
@@ -48,29 +39,21 @@ public final class AppLauncher {
         OrderRepository orderRepository = new InMemOrderRepository();
         //orderRepository = Profiler.wrap(orderRepository);
 
-        final Long idOne = 1L;
-        final Long idTwo = 2L;
-        final Long idThree = 3L;
-
-        List<DiscountService> currentDiscountServices = new LinkedList<>();
-
-        final int discountPercentTen = 10;
-        currentDiscountServices.add(new DiscountServicePercent(BigDecimal.valueOf(discountPercentTen)));
-        final int discountPercentFive = 5;
-        currentDiscountServices.add(new DiscountServiceMonth(idTwo, Month.JANUARY,
-                BigDecimal.valueOf(discountPercentFive)));
-        final int numberOfFreePizza = 3;
-        currentDiscountServices.add(new DiscountServiceSomeForFree(numberOfFreePizza));
-
         NotifierService notifierService = new SimpleNotifierService();
-
         ChefService chefService = new WaitingThreadChefService(notifierService, orderRepository);
+        DiscountGroupService discountGroupService = new SimpleDiscountGroupService();
+
         OrderService orderService = new SimpleOrderService(orderRepository, pizzaService,
-                chefService, currentDiscountServices);
+                chefService, discountGroupService);
 
         System.out.println("Available pizzas:");
         System.out.println(pizzaService.getAll());
         System.out.println();
+
+        final Long idOne = 1L;
+        final Long idTwo = 2L;
+        final Long idThree = 3L;
+        Customer customer = customerService.register(new Customer(null, "Vanya"));
 
         Order order = orderService.placeNewOrder(customer, idOne, idTwo, idThree);
         notifierService.notifyCustomer(order);

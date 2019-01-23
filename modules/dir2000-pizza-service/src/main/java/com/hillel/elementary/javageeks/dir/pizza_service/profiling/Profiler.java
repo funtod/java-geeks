@@ -25,7 +25,8 @@ public final class Profiler {
                 if (isTimed) {
                     nanosBefore = System.nanoTime();
                 }
-                Object result = method.invoke(obj, args);
+                Method realMethod = cl.getMethod(method.getName(), method.getParameterTypes());
+                Object result = realMethod.invoke(obj, args);
                 if (isTimed) {
                     long nanosAfter = System.nanoTime();
                     logger.debug(String.format("%s.%s() time elapsed in nanos: %d%n", cl.getSimpleName(),

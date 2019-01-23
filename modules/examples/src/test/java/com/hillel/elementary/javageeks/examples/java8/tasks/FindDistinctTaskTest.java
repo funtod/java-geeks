@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class FindDistinctTaskTest {
     private List<String> emptyTagsList = Collections.emptyList();
-    private LocalDate dummyDate = LocalDate.of(2018, 1, 1);
+    private LocalDate dummyDate = LocalDate.of(2018, 12, 1);
 
     @Test
     void shouldReturnDistinctListOfTasks() {
@@ -84,7 +84,7 @@ class FindDistinctTaskTest {
                 new Task("Lesson 12", TaskType.READING, LocalDate.of(2018, 12, 1), emptyTagsList)
         );
 
-        Integer result = FindDistinctTask.countAllTasksByType(tasks, TaskType.READING);
+        Long result = FindDistinctTask.countAllTasksByType(tasks, TaskType.READING);
         assertThat(result).isEqualTo(7);
     }
 

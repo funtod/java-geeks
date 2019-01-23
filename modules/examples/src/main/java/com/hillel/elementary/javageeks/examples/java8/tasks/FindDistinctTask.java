@@ -4,18 +4,18 @@ import java.util.List;
 
 public class FindDistinctTask {
 
-    // Вернуть список с уникальными задачами
+    // Вернуть список с уникальными задачами (доп. сложность - с уникальными именами)
     public static List<Task> allDistinctTasks(List<Task> tasks) {
         throw new UnsupportedOperationException();
     }
 
-    // Найти 5 первых (по дате создания) задач по чтению
+    // Найти 5 первых (по дате создания) задач по чтению, вернуть имя задачи
     public static List<String> top5ReadingTaskNames(List<Task> tasks) {
         throw new UnsupportedOperationException();
     }
 
     // Посчитать количество задач указанного типа
-    public static Integer countAllTasksByType(List<Task> tasks, TaskType type) {
+    public static Long countAllTasksByType(List<Task> tasks, TaskType type) {
         throw new UnsupportedOperationException();
     }
 

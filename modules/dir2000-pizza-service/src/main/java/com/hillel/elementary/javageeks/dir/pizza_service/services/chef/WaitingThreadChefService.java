@@ -1,5 +1,6 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.services.chef;
 
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.OrderStatus;
@@ -9,6 +10,7 @@ import com.hillel.elementary.javageeks.dir.pizza_service.utility.Utilities;
 
 import java.util.concurrent.*;
 
+@Component("chefService")
 public class WaitingThreadChefService extends Thread implements ChefService {
     private final NotifierService notifierService;
     private final OrderRepository orderRepository;

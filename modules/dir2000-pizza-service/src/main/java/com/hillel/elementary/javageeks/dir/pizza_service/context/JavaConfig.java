@@ -64,7 +64,7 @@ public class JavaConfig implements Config {
     }
 
     @Override
-    public Class<?> getBeanClassByName(String name) {
+    public Class<?> getClassByBeanName(String name) {
         Class<?> aClass = classes.get(name);
         if (aClass == null) {
             throw new IllegalStateException(String.format("No class for beanName: %s found", name));
@@ -82,6 +82,6 @@ public class JavaConfig implements Config {
                 }
             }
         }
-        throw  new IllegalStateException(String.format("No class for interface: %s found", interfaceClass));
+        throw new IllegalStateException(String.format("No class for interface: %s found", interfaceClass));
     }
 }

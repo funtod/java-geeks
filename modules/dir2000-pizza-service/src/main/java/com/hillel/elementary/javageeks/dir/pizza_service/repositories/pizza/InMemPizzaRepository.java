@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-@Component("inMemPizzaRepository")
+@Component("pizzaRepository")
 public class InMemPizzaRepository implements PizzaRepository {
     private final Map<Long, Pizza> pizzas = new HashMap<>();
     private Long counter = 0L;

@@ -4,6 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 public interface Config {
-  Class<?> getBeanClassByName(String name);
+  Class<?> getClassByBeanName(String name);
   Class<?> getBeanClassByInterface(Class<?> interfaceClass);
 }

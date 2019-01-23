@@ -1,5 +1,8 @@
 package com.hillel.elementary.javageeks.dir.pizza_service;
 
+import com.hillel.elementary.javageeks.dir.pizza_service.context.Context;
+import com.hillel.elementary.javageeks.dir.pizza_service.context.JavaConfig;
+import com.hillel.elementary.javageeks.dir.pizza_service.context.SimpleImplementationContext;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
 import com.hillel.elementary.javageeks.dir.pizza_service.profiling.Profiler;
@@ -22,41 +25,33 @@ import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaSer
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.SimplePizzaService;
 
 public final class AppLauncher {
-    private AppLauncher() {
-    }
+  private AppLauncher() {
+  }
 
-    public static void main(String[] args) {
-        System.out.println("-===Pizza service===-");
-        System.out.println();
+  public static void main(String[] args) {
+    System.out.println("-===Pizza service===-");
+    System.out.println();
 
-        CustomerRepository customerRepository = new InMemCustomerRepository();
-        CustomerService customerService = new SimpleCustomerService(customerRepository);
+    JavaConfig javaConfig = new JavaConfig();
+    Context context = new SimpleImplementationContext(javaConfig);
 
-        PizzaRepository pizzaRepository = new InMemPizzaRepository();
-        PizzaService pizzaService = new SimplePizzaService(pizzaRepository);
-        //pizzaService = Profiler.wrap(pizzaService);
+    PizzaService pizzaService = context.getBean("pizzaService");
+    CustomerService customerService = context.getBean("customerService");
+    OrderService orderService = context.getBean("orderService");
+    ChefService chefService = context.getBean("chefService");
+    NotifierService notifierService = context.getBean("notifierService");
 
-        OrderRepository orderRepository = new InMemOrderRepository();
-        //orderRepository = Profiler.wrap(orderRepository);
+    System.out.println("Available pizzas:");
+    System.out.println(pizzaService.getAll());
+    System.out.println();
 
-        NotifierService notifierService = new SimpleNotifierService();
-        ChefService chefService = new WaitingThreadChefService(notifierService, orderRepository);
-        DiscountGroupService discountGroupService = new SimpleDiscountGroupService();
+    final Long idOne = 1L;
+    final Long idTwo = 2L;
+    final Long idThree = 3L;
+    Customer customer = customerService.register(new Customer(null, "Vanya"));
 
-        OrderService orderService = new SimpleOrderService(orderRepository, pizzaService,
-                chefService, discountGroupService);
-
-        System.out.println("Available pizzas:");
-        System.out.println(pizzaService.getAll());
-        System.out.println();
-
-        final Long idOne = 1L;
-        final Long idTwo = 2L;
-        final Long idThree = 3L;
-        Customer customer = customerService.register(new Customer(null, "Vanya"));
-
-        Order order = orderService.placeNewOrder(customer, idOne, idTwo, idThree);
-        notifierService.notifyCustomer(order);
-        chefService.finishWork();
-    }
+    Order order = orderService.placeNewOrder(customer, idOne, idTwo, idThree);
+    notifierService.notifyCustomer(order);
+    chefService.finishWork();
+  }
 }

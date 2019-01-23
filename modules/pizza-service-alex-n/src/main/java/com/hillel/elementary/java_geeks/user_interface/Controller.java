@@ -1,5 +1,6 @@
 package com.hillel.elementary.java_geeks.user_interface;
 
+import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.domain.Customer;
 import com.hillel.elementary.java_geeks.domain.Order;
 import com.hillel.elementary.java_geeks.domain.Pizza;
@@ -10,6 +11,7 @@ import com.hillel.elementary.java_geeks.services.PizzaService;
 
 import java.util.Collection;
 
+@Component("controller")
 public class Controller {
 
     private static final int ANSWER_ONE = 1;
@@ -17,21 +19,22 @@ public class Controller {
     private static final int ANSWER_THREE = 3;
     private static final int ANSWER_FOUR = 4;
 
-    private ConsoleUI consoleUI = new ConsoleUI();
-
     private CustomerService customerService;
     private OrderService orderService;
     private PizzaService pizzaService;
     private CookService cookService;
+    private ConsoleUI consoleUI;
 
     public Controller(CustomerService customerService,
                       OrderService orderService,
                       PizzaService pizzaService,
-                      CookService cookService) {
+                      CookService cookService,
+                      ConsoleUI consoleUI) {
         this.customerService = customerService;
         this.orderService = orderService;
         this.pizzaService = pizzaService;
         this.cookService = cookService;
+        this.consoleUI = consoleUI;
     }
 
     public void runUserInterface() {

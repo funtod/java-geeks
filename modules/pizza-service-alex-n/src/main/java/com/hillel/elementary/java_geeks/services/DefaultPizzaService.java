@@ -1,10 +1,12 @@
 package com.hillel.elementary.java_geeks.services;
 
+import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.domain.Pizza;
 import com.hillel.elementary.java_geeks.repositories.PizzaRepo;
 
 import java.util.Collection;
 
+@Component("pizzaService")
 public class DefaultPizzaService implements PizzaService {
 
     private PizzaRepo pizzaRepo;

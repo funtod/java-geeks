@@ -1,9 +1,11 @@
 package com.hillel.elementary.java_geeks.user_interface;
 
+import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.utils.Converter;
 
 import java.util.Scanner;
 
+@Component("consoleUI")
 public class ConsoleUI {
 
     private final Scanner scanner = new Scanner(System.in);

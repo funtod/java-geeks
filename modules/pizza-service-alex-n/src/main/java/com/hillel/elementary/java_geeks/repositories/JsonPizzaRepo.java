@@ -2,6 +2,7 @@ package com.hillel.elementary.java_geeks.repositories;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.domain.Pizza;
 
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component("pizzaRepo")
 public class JsonPizzaRepo extends AbstractPizzaRepo {
 
     private static final String PATH_TO_JSON = "pizzas.json";

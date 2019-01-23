@@ -1,5 +1,6 @@
 package com.hillel.elementary.java_geeks.repositories;
 
+import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.domain.Order;
 import com.hillel.elementary.java_geeks.domain.OrderStatus;
 import com.hillel.elementary.java_geeks.domain.Pizza;
@@ -7,6 +8,8 @@ import com.hillel.elementary.java_geeks.domain.Pizza;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
+
+@Component("orderRepo")
 public class InMemOrderRepo implements OrderRepo {
 
     private HashMap<Long, Order> orders = new HashMap<>();

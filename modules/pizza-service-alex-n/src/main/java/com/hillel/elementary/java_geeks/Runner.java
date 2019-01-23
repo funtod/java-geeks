@@ -1,5 +1,8 @@
 package com.hillel.elementary.java_geeks;
 
+import com.hillel.elementary.java_geeks.configs.Context;
+import com.hillel.elementary.java_geeks.configs.DefaultPizzaServiceContext;
+import com.hillel.elementary.java_geeks.configs.PizzaServiceConfig;
 import com.hillel.elementary.java_geeks.repositories.CustomerRepo;
 import com.hillel.elementary.java_geeks.repositories.InMemCustomerRepo;
 import com.hillel.elementary.java_geeks.repositories.JsonPizzaRepo;
@@ -21,19 +24,10 @@ public final class Runner {
     private Runner() {
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
-        CustomerRepo customerRepo = new InMemCustomerRepo();
-        CustomerService customerService = new DefaultCustomerService(customerRepo);
-
-        PizzaRepo pizzaRepo = new JsonPizzaRepo();
-        PizzaService pizzaService = new DefaultPizzaService(pizzaRepo);
-
-        OrderRepo orderRepo = new InMemOrderRepo();
-        OrderService orderService = new DefaultOrderService(orderRepo, pizzaService);
-        CookService cookService = new DefaultCookService(orderService);
-
-        Controller controller = new Controller(customerService, orderService, pizzaService, cookService);
+        Context context = new DefaultPizzaServiceContext(new PizzaServiceConfig());
+        Controller controller = context.getBean("controller");
         controller.runUserInterface();
     }
 }

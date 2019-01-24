@@ -1,6 +1,7 @@
 package com.hillel.elementary.java_geeks.services;
 
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
+import com.hillel.elementary.java_geeks.configs.anotations.Timed;
 import com.hillel.elementary.java_geeks.domain.Pizza;
 import com.hillel.elementary.java_geeks.repositories.PizzaRepo;
 
@@ -18,6 +19,7 @@ public class DefaultPizzaService implements PizzaService {
         this.pizzaRepo = pizzaRepo;
     }
 
+    @Timed(isOn = true)
     @Override
     public Collection<Pizza> getAllPizzas() {
         return pizzaRepo.findAll();

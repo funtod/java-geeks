@@ -3,7 +3,8 @@ package com.hillel.elementary.java_geeks.configs;
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
 
 import java.lang.reflect.Constructor;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DefaultPizzaServiceContext implements Context {
 
@@ -30,13 +31,14 @@ public class DefaultPizzaServiceContext implements Context {
 
         for (int i = 0; i < parameterTypes.length; i++) {
             Class<?> clazz = parameterTypes[i];
-            if (clazz.isInterface()){
+            if (clazz.isInterface()) {
                 clazz = config.getBeanClassByInterface(clazz);
             }
 
             Component componentAnnotation = clazz.getAnnotation(Component.class);
             if (componentAnnotation == null) {
-                throw new IllegalArgumentException(String.format("There is argument in %s which we can not create bean for", beanName)); // todo переписать
+                String msg = String.format("There is argument in %s which we can not create bean for", beanName);
+                throw new IllegalArgumentException(msg);
             }
             String constructorArgumentBeanName = componentAnnotation.value();
             if (beans.containsKey(constructorArgumentBeanName)) {
@@ -47,6 +49,7 @@ public class DefaultPizzaServiceContext implements Context {
         }
 
         Object bean = constructor.newInstance(constructorArguments);
+        bean = ProxyCreator.getProxyForBean(bean);
         beans.put(beanName, bean);
 
         return (T) bean;

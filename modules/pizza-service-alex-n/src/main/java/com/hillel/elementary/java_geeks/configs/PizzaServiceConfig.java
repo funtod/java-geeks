@@ -1,40 +1,15 @@
 package com.hillel.elementary.java_geeks.configs;
 
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
-import com.hillel.elementary.java_geeks.configs.anotations.Timed;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PizzaServiceConfig implements Config {
 
     private Map<String, Class<?>> classes = new HashMap<>();
-
-    @Override
-    public void measureTimedMethodsPerformance() {
-        try {
-            ArrayList<Class> classes = getAllClasses();
-            for (int i = 0; i < classes.size(); i++) {
-                Method[] methods = classes.get(i).getMethods();
-                for (Method method : methods) {
-                    if (method.isAnnotationPresent(Timed.class)) {
-
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
     public PizzaServiceConfig() {
         try {
@@ -44,7 +19,8 @@ public class PizzaServiceConfig implements Config {
                 if (annotation != null) {
                     String name = annotation.value().isEmpty() ? aClass.getSimpleName() : annotation.value();
                     if (classes.put(name, aClass) != null) {
-                        throw new IllegalStateException(String.format("More than one bean with name%s can't be registered", name));
+                        String msg = String.format("More than one bean with name%s can't be registered", name);
+                        throw new IllegalStateException(msg);
                     }
                 }
             }
@@ -79,7 +55,8 @@ public class PizzaServiceConfig implements Config {
                 assert !file.getName().contains(".");
                 classes.addAll(findClasses(file, packageName + "." + file.getName()));
             } else if (file.getName().endsWith(".class")) {
-                Class<?> clazz = Class.forName(packageName.substring(1).replace("/", ".") + '.' + file.getName().substring(0, file.getName().length() - 6));
+                Class<?> clazz = Class.forName(packageName.substring(1).replace("/", ".") +
+                        '.' + file.getName().substring(0, file.getName().length() - 6));
                 classes.add(clazz);
             }
         }

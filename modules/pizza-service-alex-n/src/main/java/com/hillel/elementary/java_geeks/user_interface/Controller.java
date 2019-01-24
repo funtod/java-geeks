@@ -62,7 +62,6 @@ public class Controller {
         readCustomerResponse();
     }
 
-
     private void readRootResponse() {
         switch (consoleUI.getIntUserAnswer(ANSWER_ONE, ANSWER_FOUR)) {
 

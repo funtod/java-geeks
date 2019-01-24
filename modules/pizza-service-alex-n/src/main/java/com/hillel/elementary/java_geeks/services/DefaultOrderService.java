@@ -1,6 +1,7 @@
 package com.hillel.elementary.java_geeks.services;
 
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
+import com.hillel.elementary.java_geeks.configs.anotations.Timed;
 import com.hillel.elementary.java_geeks.domain.Customer;
 import com.hillel.elementary.java_geeks.domain.Order;
 import com.hillel.elementary.java_geeks.domain.OrderStatus;
@@ -87,6 +88,7 @@ public class DefaultOrderService implements OrderService {
         return getOrderStatusInfo(orderRepo.getOrderById(orderId));
     }
 
+    @Timed(isOn = true)
     @Override
     public Order changeStatus(OrderStatus orderStatus, Long orderId) {
         return orderRepo.changeOrderStatus(orderStatus, orderId);

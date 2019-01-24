@@ -1,1 +1,11 @@
 2019-01-24 14:18:30,252 INFO [main] c.h.e.j.c.TimedInvocationHandler [TimedInvocationHandler.java:29] Method: getAllPizzas complete in: 73689 ns
+2019-01-24 14:46:44,787 INFO [main] c.h.e.j.c.TimedInvocationHandler [TimedInvocationHandler.java:29] Method: getAllPizzas completed in: 71842 ns
+2019-01-24 14:53:25,969 INFO [main] c.h.e.j.c.TimedInvocationHandler [TimedInvocationHandler.java:29] Method: getAllPizzas completed in: 238704 ns
+
+2019-01-24 15:20:10,934 INFO [main] c.h.e.j.c.DefaultPizzaServiceContext [DefaultPizzaServiceContext.java:74] Invoke method: initialiseData which annotated with @PostCreate
+2019-01-24 15:21:44,867 INFO [main] c.h.e.j.c.DefaultPizzaServiceContext [DefaultPizzaServiceContext.java:74] Invoke method: initialiseData which annotated with @PostCreate
+2019-01-24 15:27:19,951 INFO | INFO  c.h.e.j.c.DefaultPizzaServiceContext - Invoke method: initialiseData which annotated with @PostCreate
+2019-01-24 15:33:20,105 | INFO  c.h.e.j.c.DefaultPizzaServiceContext - Invoke method: initialiseData which annotated with @PostCreate
+2019-01-24 15:43:52,720 | INFO  c.h.e.j.c.DefaultPizzaServiceContext - Invoke method: initialiseData which annotated with @PostCreate
+2019-01-24 15:48:18,881 | INFO  c.h.e.j.c.DefaultPizzaServiceContext - Invoke method: initialiseData which annotated with @PostCreate
+2019-01-24 15:48:27,088 | INFO  c.h.e.j.c.TimedInvocationHandler - Method: getAllPizzas completed in: 70474 ns

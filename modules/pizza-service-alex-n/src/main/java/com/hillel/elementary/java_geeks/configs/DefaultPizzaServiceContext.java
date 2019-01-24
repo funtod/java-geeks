@@ -1,13 +1,19 @@
 package com.hillel.elementary.java_geeks.configs;
 
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
+import com.hillel.elementary.java_geeks.configs.anotations.PostCreate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DefaultPizzaServiceContext implements Context {
 
+    private static final Logger logger = LoggerFactory.getLogger(DefaultPizzaServiceContext.class);
     private final Config config;
     private Map<String, Object> beans = new HashMap<>();
 
@@ -50,10 +56,27 @@ public class DefaultPizzaServiceContext implements Context {
 
         Object bean = constructor.newInstance(constructorArguments);
         bean = ProxyCreator.getProxyForBean(bean);
+        invokeAnnotatedMethods(bean);
         beans.put(beanName, bean);
 
         return (T) bean;
     }
 
+    private void invokeAnnotatedMethods(Object bean) {
+        for (Method method : bean.getClass().getDeclaredMethods()) {
+            if (method.isAnnotationPresent(PostCreate.class)) {
+                if (method.getParameterCount() != 0) {
+                    throw new IllegalArgumentException("Method annotated with @PostCreate, can't has parameters");
+                } else {
+                    try {
+                        method.setAccessible(true);
+                        method.invoke(bean);
+                        logger.info("Invoke method: " + method.getName() + " which annotated with @PostCreate");
+                    } catch (IllegalAccessException | InvocationTargetException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 }
-

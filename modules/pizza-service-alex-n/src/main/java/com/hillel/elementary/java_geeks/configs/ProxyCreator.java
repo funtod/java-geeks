@@ -14,8 +14,13 @@ class ProxyCreator {
         for (Method method : bean.getClass().getDeclaredMethods()) {
             if (method.isAnnotationPresent(Timed.class)) {
 
-                Class[] interfaces = bean.getClass().getInterfaces();
                 ClassLoader classLoader = bean.getClass().getClassLoader();
+                Class[] interfaces = bean.getClass().getInterfaces();
+                /*in case we will have a class that extends abstract class that implements interface
+                Just like: JsonPizzaRepo -> AbstractPizzaRepo -> PizzaRepo */
+                if (interfaces.length == 0) {
+                    interfaces = bean.getClass().getSuperclass().getInterfaces();
+                }
 
                 return Proxy.newProxyInstance(classLoader, interfaces, new TimedInvocationHandler(bean));
             }

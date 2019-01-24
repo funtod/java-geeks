@@ -3,6 +3,8 @@ package com.hillel.elementary.java_geeks.repositories;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
+import com.hillel.elementary.java_geeks.configs.anotations.PostCreate;
+import com.hillel.elementary.java_geeks.configs.anotations.Timed;
 import com.hillel.elementary.java_geeks.domain.Pizza;
 
 import java.io.IOException;
@@ -21,7 +23,7 @@ public class JsonPizzaRepo extends AbstractPizzaRepo {
     private static final String PATH_TO_JSON = "pizzas.json";
 
     public JsonPizzaRepo() {
-        initialiseData();
+        //initialiseData();
     }
 
     private HashMap<Integer, Pizza> getDataMapFromJson() {
@@ -39,6 +41,7 @@ public class JsonPizzaRepo extends AbstractPizzaRepo {
         return (HashMap<Integer, Pizza>) myMap;
     }
 
+    @PostCreate
     @Override
     public void initialiseData() {
         for (Pizza pizza : getDataMapFromJson().values()) {

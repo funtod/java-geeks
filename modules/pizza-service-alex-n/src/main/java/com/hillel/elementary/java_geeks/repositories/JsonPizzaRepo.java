@@ -23,7 +23,6 @@ public class JsonPizzaRepo extends AbstractPizzaRepo {
     private static final String PATH_TO_JSON = "pizzas.json";
 
     public JsonPizzaRepo() {
-        //initialiseData();
     }
 
     private HashMap<Integer, Pizza> getDataMapFromJson() {

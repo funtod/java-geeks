@@ -1,6 +1,7 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.services.discount;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.PostCreate;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.PizzaType;
 import org.json.simple.JSONArray;
@@ -20,8 +21,8 @@ import java.time.Month;
 public class SimpleDiscountGroupService implements DiscountGroupService {
   private final List<DiscountService> discountServices = new LinkedList<>();
 
-  @Override
-  public void giveDiscount(Map<Pizza, BigDecimal> costs) {
+  @PostCreate
+  private void initialFill() {
     File file = new File(getClass().getClassLoader().getResource("discount_terms.json").getFile());
     if (!file.exists()) {
       throw new RuntimeException("File discount_terms.json has not been found");
@@ -75,6 +76,13 @@ public class SimpleDiscountGroupService implements DiscountGroupService {
       }
     } catch (Exception ex) {
       ex.printStackTrace();
+    }
+  }
+
+  @Override
+  public void giveDiscount(Map<Pizza, BigDecimal> costs) {
+    for (DiscountService discountService : discountServices) {
+      discountService.giveDiscount(costs);
     }
   }
 }

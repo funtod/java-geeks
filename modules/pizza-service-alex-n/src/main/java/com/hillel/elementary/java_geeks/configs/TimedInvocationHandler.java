@@ -1,12 +1,15 @@
 package com.hillel.elementary.java_geeks.configs;
 
 import com.hillel.elementary.java_geeks.configs.anotations.Timed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 public class TimedInvocationHandler implements InvocationHandler {
 
+    private static final Logger logger = LoggerFactory.getLogger(TimedInvocationHandler.class);
     private Object target;
 
     TimedInvocationHandler(Object target) {
@@ -23,7 +26,7 @@ public class TimedInvocationHandler implements InvocationHandler {
                 return realMethod.invoke(target, args);
             } finally {
                 nanos = System.nanoTime() - nanos;
-                System.out.printf("Method: %s complete in: %d%n ns", method.getName(), nanos);
+                logger.info(String.format("Method: %s completed in: %d ns", method.getName(), nanos));
             }
         }
         return realMethod.invoke(target, args);

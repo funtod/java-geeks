@@ -1,6 +1,7 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.PostCreate;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.PizzaType;
 import org.json.simple.JSONArray;
@@ -20,7 +21,7 @@ public class InMemPizzaRepository implements PizzaRepository {
     private Long counter = 0L;
 
     public InMemPizzaRepository() {
-        initialFill();
+       //initialFill();
     }
 
     @Override
@@ -49,6 +50,7 @@ public class InMemPizzaRepository implements PizzaRepository {
         return pizzas.values();
     }
 
+    @PostCreate
     private void initialFill() {
         File file = new File(getClass().getClassLoader().getResource("pizzas.json").getFile());
         if (!file.exists()) {

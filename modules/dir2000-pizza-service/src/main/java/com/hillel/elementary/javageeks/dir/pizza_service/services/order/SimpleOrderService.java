@@ -8,6 +8,7 @@ import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.Orde
 import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountGroupService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Timed;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -27,6 +28,7 @@ public class SimpleOrderService implements OrderService {
         this.discountGroupService = discountGroupService;
     }
 
+    @Timed
     @Override
     public Order placeNewOrder(Customer customer, Long... idsOfPizzas) {
         if (customer == null) {
@@ -50,6 +52,7 @@ public class SimpleOrderService implements OrderService {
         return order;
     }
 
+    @Timed
     private BigDecimal calculateTotal(Collection<Pizza> collection) {
         HashMap<Pizza, BigDecimal> costs = new HashMap<>();
         for (Pizza pizza: collection) {

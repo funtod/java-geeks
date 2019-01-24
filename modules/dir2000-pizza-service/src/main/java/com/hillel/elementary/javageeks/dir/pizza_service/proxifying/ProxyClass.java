@@ -1,4 +1,4 @@
-package com.hillel.elementary.javageeks.dir.pizza_service.profiling;
+package com.hillel.elementary.javageeks.dir.pizza_service.proxifying;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Timed;
 
@@ -8,12 +8,14 @@ import java.lang.reflect.Proxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class Profiler {
-  private Profiler() {
+public final class ProxyClass {
+
+  public static final Logger LOGGER = LoggerFactory.getLogger(ProxyClass.class);
+
+  private ProxyClass() {
   }
 
   public static <T> T wrap(T obj) {
-        Logger logger = LoggerFactory.getLogger(Profiler.class);
         Class<?> cl = obj.getClass();
         Class<?>[] interfaces = cl.getInterfaces();
         InvocationHandler handler = new InvocationHandler() {
@@ -29,13 +31,13 @@ public final class Profiler {
                 Object result = realMethod.invoke(obj, args);
                 if (isTimed) {
                     long nanosAfter = System.nanoTime();
-                    logger.debug(String.format("%s.%s() time elapsed in nanos: %d%n", cl.getSimpleName(),
+                    LOGGER.debug(String.format("%s.%s() time elapsed in nanos: %d%n", cl.getSimpleName(),
                             method.getName(), nanosAfter - nanosBefore));
                 }
                 return result;
             }
         };
-        Object proxy = Proxy.newProxyInstance(Profiler.class.getClassLoader(), interfaces, handler);
+        Object proxy = Proxy.newProxyInstance(ProxyClass.class.getClassLoader(), interfaces, handler);
         return (T) proxy;
     }
 }

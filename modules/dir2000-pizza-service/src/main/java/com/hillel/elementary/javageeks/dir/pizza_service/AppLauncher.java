@@ -5,24 +5,11 @@ import com.hillel.elementary.javageeks.dir.pizza_service.context.JavaConfig;
 import com.hillel.elementary.javageeks.dir.pizza_service.context.SimpleImplementationContext;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
-import com.hillel.elementary.javageeks.dir.pizza_service.profiling.Profiler;
-import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.CustomerRepository;
-import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.InMemCustomerRepository;
-import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.InMemOrderRepository;
-import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.OrderRepository;
-import com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza.InMemPizzaRepository;
-import com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza.PizzaRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefService;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.WaitingThreadChefService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.customer.CustomerService;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.customer.SimpleCustomerService;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.*;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.notifier.NotifierService;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.notifier.SimpleNotifierService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.order.OrderService;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.order.SimpleOrderService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.SimplePizzaService;
 
 public final class AppLauncher {
   private AppLauncher() {

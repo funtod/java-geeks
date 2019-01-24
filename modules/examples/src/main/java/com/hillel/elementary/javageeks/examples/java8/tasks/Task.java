@@ -47,4 +47,14 @@ public class Task {
     public int hashCode() {
         return Objects.hash(name, type, creationDate);
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                ", creationDate=" + creationDate +
+                ", tags=" + tags +
+                '}';
+    }
 }

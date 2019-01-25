@@ -1,0 +1,22 @@
+[
+  {
+    "CLASSNAME": "DiscountServicePercent",
+    "DATA": {
+      "percent": 10
+    }
+  },
+  {
+    "CLASSNAME": "DiscountServiceMonth",
+    "DATA": {
+      "pizzaId": 2,
+      "month": "JANUARY",
+      "percent": 5
+    }
+  },
+  {
+    "CLASSNAME": "DiscountServiceSomeForFree",
+    "DATA": {
+      "numberOfSome": 3
+    }
+  }
+]

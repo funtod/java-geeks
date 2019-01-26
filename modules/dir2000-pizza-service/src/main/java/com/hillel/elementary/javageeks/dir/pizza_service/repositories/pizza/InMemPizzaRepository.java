@@ -54,7 +54,7 @@ public class InMemPizzaRepository implements PizzaRepository {
     private void initialFill() {
         File file = new File(getClass().getClassLoader().getResource("pizzas.json").getFile());
         if (!file.exists()) {
-            throw new RuntimeException("File pizzas.json has not been found");
+            throw new IllegalStateException("File pizzas.json has not been found");
         }
 
         try (FileReader fileReader = new FileReader(file)) {

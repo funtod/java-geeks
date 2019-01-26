@@ -1,16 +1,22 @@
 [
   {
-    "className" : "DiscountServicePercent",
-    "percent" : 10
+    "CLASSNAME": "com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountServicePercent",
+    "DATA": {
+      "percent": 10
+    }
   },
   {
-    "className" : "DiscountServiceMonth",
-    "pizzaId" : 2,
-    "month" : "JANUARY",
-    "percent" : 5
+    "CLASSNAME": "com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountServiceMonth",
+    "DATA": {
+      "pizzaId": 2,
+      "month": "JANUARY",
+      "percent": 5
+    }
   },
   {
-    "className" : "DiscountServiceSomeForFree",
-    "numberOfSome" : 3
+    "CLASSNAME": "com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountServiceSomeForFree",
+    "DATA": {
+      "numberOfSome": 3
+    }
   }
 ]

@@ -4,8 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.configs.anotations.PostCreate;
-import com.hillel.elementary.java_geeks.configs.anotations.Timed;
 import com.hillel.elementary.java_geeks.domain.Pizza;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -20,6 +21,7 @@ import java.util.Map;
 @Component("pizzaRepo")
 public class JsonPizzaRepo extends AbstractPizzaRepo {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(JsonPizzaRepo.class);
     private static final String PATH_TO_JSON = "pizzas.json";
 
     public JsonPizzaRepo() {
@@ -31,7 +33,9 @@ public class JsonPizzaRepo extends AbstractPizzaRepo {
             Path path = Paths.get(getClass().getClassLoader().getResource(PATH_TO_JSON).toURI());
             json = new String(Files.readAllBytes(path), Charset.defaultCharset());
         } catch (URISyntaxException | IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Can't continue execution:", e);
+            LOGGER.info("Shutting down due to error.");
+            System.exit(1);
         }
         Gson gson = new Gson();
         Type type = new TypeToken<Map<Integer, Pizza>>() {

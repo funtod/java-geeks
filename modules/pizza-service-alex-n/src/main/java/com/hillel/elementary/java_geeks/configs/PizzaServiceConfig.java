@@ -1,6 +1,8 @@
 package com.hillel.elementary.java_geeks.configs;
 
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -9,26 +11,36 @@ import java.util.*;
 
 public class PizzaServiceConfig implements Config {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PizzaServiceConfig.class);
     private Map<String, Class<?>> classes = new HashMap<>();
 
     public PizzaServiceConfig() {
+
+        ArrayList<Class> allClasses = null;
+
         try {
-            ArrayList<Class> allClasses = getAllClasses();
-            for (Class aClass : allClasses) {
-                Component annotation = (Component) aClass.getAnnotation(Component.class);
-                if (annotation != null) {
-                    String name = annotation.value().isEmpty() ? aClass.getSimpleName() : annotation.value();
-                    if (classes.put(name, aClass) != null) {
-                        String msg = String.format("More than one bean with name%s can't be registered", name);
-                        throw new IllegalStateException(msg);
-                    }
+            allClasses = getAllClasses();
+        } catch (NullPointerException | IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            LOGGER.error("Can't continue execution:", e);
+            LOGGER.info("Shutting down due to error.");
+            System.exit(1);
+        }
+
+        for (Class aClass : allClasses) {
+            Component annotation = (Component) aClass.getAnnotation(Component.class);
+            if (annotation != null) {
+                String name = annotation.value().isEmpty() ? aClass.getSimpleName() : annotation.value();
+                if (classes.put(name, aClass) != null) {
+
+                    String msg = String.format("More than one bean with name%s can't be registered", name);
+                    LOGGER.error("Something is wrong:",
+                            new IllegalStateException(msg));
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Unable to find Component classes");
         }
     }
+
 
     private ArrayList<Class> getAllClasses() throws IOException, ClassNotFoundException {
         Enumeration<URL> resources = getClass().getClassLoader().getResources("");
@@ -67,7 +79,8 @@ public class PizzaServiceConfig implements Config {
     public Class<?> getBeanClassByName(String name) {
         Class<?> aClass = classes.get(name);
         if (aClass == null) {
-            throw new IllegalStateException(String.format("No class for beanName: %s found", name));
+            LOGGER.error("Something is wrong:",
+                    new IllegalStateException(String.format("No class for beanName: %s found", name)));
         }
         return aClass;
     }
@@ -93,7 +106,12 @@ public class PizzaServiceConfig implements Config {
                 }
             }
         }
-        throw new IllegalStateException(String.format("No class for interface: %s found", interfaceClass));
+
+        LOGGER.error("Can't continue execution:",
+                new IllegalStateException(String.format("No class for interface: %s found", interfaceClass)));
+        LOGGER.info("Shutting down due to error.");
+        System.exit(1);
+        return null;
     }
 }
 

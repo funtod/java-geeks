@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class DefaultPizzaServiceContext implements Context {
 
-    private static final Logger logger = LoggerFactory.getLogger(DefaultPizzaServiceContext.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultPizzaServiceContext.class);
     private final Config config;
     private Map<String, Object> beans = new HashMap<>();
 
@@ -24,11 +24,22 @@ public class DefaultPizzaServiceContext implements Context {
     @Override
     public <T> T getBean(String beanName) throws Exception {
         if (beanName == null || beanName.isEmpty()) {
-            throw new IllegalArgumentException("Bean name must be not null and not empty");
+            LOGGER.error("Something is wrong:",
+                    new IllegalArgumentException("Bean name must be not null and not empty"));
         }
         if (beans.containsKey(beanName)) {
             return (T) beans.get(beanName);
         }
+
+        Object bean = createNewBean(beanName);
+        bean = ProxyCreator.getProxyForBean(bean);
+        invokeAnnotatedMethods(bean);
+        beans.put(beanName, bean);
+
+        return (T) bean;
+    }
+
+    private Object createNewBean(String beanName) throws Exception {
 
         Class<?> beanClass = config.getBeanClassByName(beanName);
         Constructor<?> constructor = beanClass.getConstructors()[0];
@@ -44,7 +55,10 @@ public class DefaultPizzaServiceContext implements Context {
             Component componentAnnotation = clazz.getAnnotation(Component.class);
             if (componentAnnotation == null) {
                 String msg = String.format("There is argument in %s which we can not create bean for", beanName);
-                throw new IllegalArgumentException(msg);
+                Throwable throwable = new IllegalArgumentException(msg);
+                LOGGER.error("Can't continue execution:", throwable);
+                LOGGER.info("Shutting down due to error.");
+                System.exit(1);
             }
             String constructorArgumentBeanName = componentAnnotation.value();
             if (beans.containsKey(constructorArgumentBeanName)) {
@@ -53,25 +67,20 @@ public class DefaultPizzaServiceContext implements Context {
                 constructorArguments[i] = getBean(constructorArgumentBeanName);
             }
         }
-
-        Object bean = constructor.newInstance(constructorArguments);
-        bean = ProxyCreator.getProxyForBean(bean);
-        invokeAnnotatedMethods(bean);
-        beans.put(beanName, bean);
-
-        return (T) bean;
+        return constructor.newInstance(constructorArguments);
     }
 
     private void invokeAnnotatedMethods(Object bean) {
         for (Method method : bean.getClass().getDeclaredMethods()) {
             if (method.isAnnotationPresent(PostCreate.class)) {
                 if (method.getParameterCount() != 0) {
-                    throw new IllegalArgumentException("Method annotated with @PostCreate, can't has parameters");
+                    LOGGER.error("Something is wrong",
+                            new IllegalArgumentException("Method annotated with @PostCreate, can't has parameters"));
                 } else {
                     try {
                         method.setAccessible(true);
                         method.invoke(bean);
-                        logger.info("Invoke method: " + method.getName() + " which annotated with @PostCreate");
+                        LOGGER.info("Invoke method: " + method.getName() + " which is annotated with @PostCreate");
                     } catch (IllegalAccessException | InvocationTargetException e) {
                         e.printStackTrace();
                     }

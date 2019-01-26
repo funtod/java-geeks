@@ -8,17 +8,20 @@ import com.hillel.elementary.java_geeks.domain.Pizza;
 import com.hillel.elementary.java_geeks.domain.OrderStatus;
 import com.hillel.elementary.java_geeks.repositories.ChefRepo;
 import com.hillel.elementary.java_geeks.repositories.InMemChefRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
 @Component("cookService")
 public class DefaultCookService implements CookService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultCookService.class);
     private final ChefRepo chefRepo = new InMemChefRepo();
 
     public DefaultCookService(OrderService orderService) {
         if (orderService == null) {
-            throw new IllegalArgumentException("OrderService can not be null");
+            LOGGER.error("Something is wrong:", new IllegalArgumentException("OrderService can not be null"));
         }
         for (Chef chef : chefRepo.getChefs()) {
             if (chef.getStatus() == ChefWorkingStatus.WORKING) {
@@ -31,7 +34,7 @@ public class DefaultCookService implements CookService {
     @Override
     public void passOrderToCook(Order order) {
         if (order == null) {
-            throw new IllegalArgumentException("Order can not be null");
+            LOGGER.error("Something is wrong:", new IllegalArgumentException("Order can not be null"));
         }
         synchronized (chefRepo) {
             chefRepo.assignOrderToChef(order);

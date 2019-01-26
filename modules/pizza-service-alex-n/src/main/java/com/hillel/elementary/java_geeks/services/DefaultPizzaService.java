@@ -4,17 +4,21 @@ import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.configs.anotations.Timed;
 import com.hillel.elementary.java_geeks.domain.Pizza;
 import com.hillel.elementary.java_geeks.repositories.PizzaRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
 @Component("pizzaService")
 public class DefaultPizzaService implements PizzaService {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(DefaultPizzaService.class);
     private PizzaRepo pizzaRepo;
 
     public DefaultPizzaService(PizzaRepo pizzaRepo) {
+        pizzaRepo =  null;
         if (pizzaRepo == null) {
-            throw new IllegalArgumentException("PizzaRepo must not be null");
+            LOGGER.error("Something is wrong:", new IllegalArgumentException("PizzaRepo must not be null"));
         }
         this.pizzaRepo = pizzaRepo;
     }
@@ -28,7 +32,7 @@ public class DefaultPizzaService implements PizzaService {
     @Override
     public Pizza getPizzaById(int pizzaId) {
         if (pizzaId < 0) {
-            throw new IllegalArgumentException("pizzaId must be grater than 0");
+            LOGGER.error("Something is wrong:", new IllegalArgumentException("pizzaId must be grater than 0"));
         }
         return pizzaRepo.findById(pizzaId);
     }

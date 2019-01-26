@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 
 public class TimedInvocationHandler implements InvocationHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(TimedInvocationHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(TimedInvocationHandler.class);
     private Object target;
 
     TimedInvocationHandler(Object target) {
@@ -26,7 +26,7 @@ public class TimedInvocationHandler implements InvocationHandler {
                 return realMethod.invoke(target, args);
             } finally {
                 nanos = System.nanoTime() - nanos;
-                logger.info(String.format("Method: %s completed in: %d ns", method.getName(), nanos));
+                LOGGER.info(String.format("Method: %s completed in: %d ns", method.getName(), nanos));
             }
         }
         return realMethod.invoke(target, args);

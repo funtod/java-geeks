@@ -16,7 +16,6 @@ public class DefaultPizzaService implements PizzaService {
     private PizzaRepo pizzaRepo;
 
     public DefaultPizzaService(PizzaRepo pizzaRepo) {
-        pizzaRepo =  null;
         if (pizzaRepo == null) {
             LOGGER.error("Something is wrong:", new IllegalArgumentException("PizzaRepo must not be null"));
         }

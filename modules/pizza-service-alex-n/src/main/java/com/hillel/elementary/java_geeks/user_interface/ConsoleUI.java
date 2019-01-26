@@ -62,17 +62,20 @@ public class ConsoleUI {
         while (repeat) {
             display("Enter pizzas id's split by comas:");
             pizzaIds = Converter.convertUserStringToPizzaIds(getStringUserAnswer());
-            for (int i = 0; i < pizzaIds.length; i++) {
-                if (pizzaIds[i] > maxId) {
-                    display("Sorry but there is now pizza with id=" + pizzaIds[i] + " in data base.");
-                    pizzaIds = null;
-                }
-            }
-            if (pizzaIds.length == 0) {
+
+            if (pizzaIds == null || pizzaIds.length == 0) {
                 display("Something is wrong. Try again");
                 repeat = true;
             } else {
-                repeat = false;
+                for (int i = 0; i < pizzaIds.length; i++) {
+                    if (pizzaIds[i] > maxId) {
+                        display("Sorry but there is no pizza with id=" + pizzaIds[i] + " in data base.");
+                        repeat = true;
+                        break;
+                    } else {
+                        repeat = false;
+                    }
+                }
             }
         }
         return pizzaIds;

@@ -29,20 +29,4 @@ class DefaultCustomerServiceTest {
         //than
         assertThat(registeredCustomer).isEqualTo(customer);
     }
-
-    @Test
-    public void shouldThrowAnException() {
-
-        Customer nullCustomer = null;
-        Customer nullNameCustomer = new Customer(0L, null);
-        CustomerService customerService = new DefaultCustomerService(mockCustomerRepo);
-
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            customerService.registerCustomer(nullCustomer);
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            customerService.registerCustomer(nullNameCustomer);
-        });
-    }
 }

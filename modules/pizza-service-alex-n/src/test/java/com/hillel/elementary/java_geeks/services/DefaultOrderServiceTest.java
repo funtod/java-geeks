@@ -46,25 +46,4 @@ class DefaultOrderServiceTest {
         //than
         assertThat(orderService.getOrder(0).getStatus()).isEqualTo(OrderStatus.DONE);
     }
-
-    @Test
-    void shouldThrowExceptionWhenPizzaIsNull() {
-
-        OrderService orderService = new DefaultOrderService(realOrderRepo, mockPizzaService);
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            orderService.saveOrder(new Customer(0L ,"John"), null, null);
-        });
-    }
-
-    @Test
-    void shouldThrowExceptionWhenCustomerIsNull() {
-
-        OrderService orderService = new DefaultOrderService(realOrderRepo, mockPizzaService);
-        Pizza pizza = new Pizza(0, "pizza", PizzaType.MEAT, 200, new BigDecimal(200));
-
-        assertThrows(IllegalArgumentException.class, () -> {
-            orderService.saveOrder(null, pizza);
-        });
-    }
 }

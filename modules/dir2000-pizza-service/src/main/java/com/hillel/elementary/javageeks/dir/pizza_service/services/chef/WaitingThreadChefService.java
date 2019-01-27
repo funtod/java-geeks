@@ -6,6 +6,7 @@ import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.OrderStatus;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.OrderRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.notifier.NotifierService;
+import com.hillel.elementary.javageeks.dir.pizza_service.utility.Logging;
 import com.hillel.elementary.javageeks.dir.pizza_service.utility.Utilities;
 
 import java.util.concurrent.*;
@@ -52,8 +53,8 @@ public class WaitingThreadChefService extends Thread implements ChefService {
     public void cook(Order order) {
         try {
             orderQueue.put(order);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException ex) {
+            Logging.logStackTrace(ex);
         }
     }
 

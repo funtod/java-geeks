@@ -2,10 +2,13 @@ package com.hillel.elementary.javageeks.dir.pizza_service.services.resource;
 
 import com.google.gson.*;
 import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
+import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountService;
+import com.hillel.elementary.javageeks.dir.pizza_service.utility.Logging;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -14,30 +17,40 @@ import java.nio.file.Files;
 @Component("resourceService")
 public class SimpleResourceService implements ResourceService {
     private final String DISCOUNT_TERMS_FILE_NAME = "discount_terms.json";
+    private final String PIZZAS_FILE_NAME = "pizzas_gson.json";
+
+    @Override
+    public Pizza[] readPizzas() {
+        return readJsonFile(Pizza.class, PIZZAS_FILE_NAME);
+    }
 
     @Override
     public DiscountService[] readDiscountTerms() {
-        File inputFile = new File(getClass().getClassLoader().getResource(DISCOUNT_TERMS_FILE_NAME).getFile());
+        return readJsonFile(DiscountService.class, DISCOUNT_TERMS_FILE_NAME);
+    }
+
+    public <T> T[] readJsonFile(Class<T> klass, String fileName) {
+        File inputFile = new File(getClass().getClassLoader().getResource(fileName).getFile());
 
         try {
             byte[] encoded = Files.readAllBytes(inputFile.toPath());
             String json = new String(encoded, StandardCharsets.UTF_8);
 
             GsonBuilder builder = new GsonBuilder();
-            builder.registerTypeAdapter(DiscountService.class, new InterfaceAdapter());
+            builder.registerTypeAdapter(klass, new JsonTypeAdapter());
             Gson gson = builder.create();
-
-            DiscountService[] array = gson.fromJson(json, DiscountService[].class);
+            T[] arrayT = (T[]) Array.newInstance(klass, 0);
+            T[] array = gson.<T[]>fromJson(json, arrayT.getClass());
             return array;
 
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new IllegalStateException(e.getMessage());
+        } catch (IOException ex) {
+            Logging.logStackTrace(ex);
+            throw new IllegalStateException(ex.getMessage());
         }
     }
 }
 
-class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
+class JsonTypeAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
 
     private static final String CLASSNAME = "CLASSNAME";
     private static final String DATA = "DATA";
@@ -64,7 +77,6 @@ class InterfaceAdapter<T> implements JsonSerializer<T>, JsonDeserializer<T> {
         try {
             return Class.forName(className);
         } catch (ClassNotFoundException e) {
-            //e.printStackTrace();
             throw new JsonParseException("Class not found " + e.getMessage());
         }
     }

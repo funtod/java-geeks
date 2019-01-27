@@ -1,6 +1,7 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.context;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
+import com.hillel.elementary.javageeks.dir.pizza_service.utility.Logging;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,9 +24,9 @@ public class JavaConfig implements Config {
                     }
                 }
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Unable to find Component classes");
+        } catch (Exception ex) {
+            Logging.logStackTrace(ex);
+            throw new IllegalStateException("Unable to find Component classes");
         }
     }
 

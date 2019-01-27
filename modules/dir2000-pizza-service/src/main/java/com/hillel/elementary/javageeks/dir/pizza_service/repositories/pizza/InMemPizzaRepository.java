@@ -4,6 +4,8 @@ import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
 import com.hillel.elementary.javageeks.dir.pizza_service.annotations.PostCreate;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.PizzaType;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.resource.ResourceService;
+import com.hillel.elementary.javageeks.dir.pizza_service.utility.Logging;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,9 +21,10 @@ import java.util.Map;
 public class InMemPizzaRepository implements PizzaRepository {
     private final Map<Long, Pizza> pizzas = new HashMap<>();
     private Long counter = 0L;
+    ResourceService resourceService;
 
-    public InMemPizzaRepository() {
-       //initialFill();
+    public InMemPizzaRepository(ResourceService argResourceService) {
+        resourceService = argResourceService;
     }
 
     @Override
@@ -72,7 +75,18 @@ public class InMemPizzaRepository implements PizzaRepository {
             pizzas.put(id, new Pizza(id, name, pizzaType, millisecondsToCook, price));
           }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            Logging.logStackTrace(ex);
+            throw new IllegalStateException(ex);
         }
+    }
+
+    //@PostCreate
+    private void initWithGson() {
+        Pizza[] array = resourceService.readPizzas();
+        System.out.println("We are here!");
+        for (Pizza pizza : array) {
+            pizzas.put(pizza.getId(), pizza);
+        }
+
     }
 }

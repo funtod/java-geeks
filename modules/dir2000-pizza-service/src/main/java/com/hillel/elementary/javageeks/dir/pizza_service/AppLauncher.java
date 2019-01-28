@@ -40,13 +40,5 @@ public final class AppLauncher {
     Order order = orderService.placeNewOrder(customer, idOne, idTwo, idThree);
     notifierService.notifyCustomer(order);
     chefService.finishWork();
-
-//    GsonBuilder builder = new GsonBuilder();
-//    builder.setPrettyPrinting();
-//    Gson gson = builder.create();
-//
-//    System.out.println(gson.toJson(pizzaService.getById(1L)));
-//    System.out.println(gson.toJson(pizzaService.getById(2L)));
-//    System.out.println(gson.toJson(pizzaService.getById(3L)));
   }
 }

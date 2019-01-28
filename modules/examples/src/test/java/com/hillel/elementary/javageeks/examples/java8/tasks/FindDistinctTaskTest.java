@@ -1,5 +1,6 @@
 package com.hillel.elementary.javageeks.examples.java8.tasks;
 
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -146,4 +147,33 @@ class FindDistinctTaskTest {
         String result = FindDistinctTask.joinAllTaskTitles(tasks);
         assertThat(result).isEqualTo("Lesson 1***Lesson 2***Lesson 3***Lesson 4");
     }
+
+
+    @Test
+    void shouldReturnListWithPrefixes() {
+        String expected = "o1,o5,o7,e8,e100,o1001";
+
+        String result = FindDistinctTask.evensAndOdds("1, 5,    7,8,100,1001");
+
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    void shouldReturnEmptyStringIfNothingIsPassed() {
+        String expected = "";
+
+        String result = FindDistinctTask.evensAndOdds("");
+
+        assertThat(result).isEqualTo(expected);
+    }
+
+    @Test
+    void shouldReturnListWithOnly3LetterWordsStartingWithA() {
+        List<String> expected = Lists.list("abc", "aaa");
+
+        List<String> result = FindDistinctTask.searchForThreeLetterWordsStartingWithA(Lists.list("abc", "bbb", "ab", "abcd", "", "aaa"));
+
+        assertThat(result).isEqualTo(expected);
+    }
+
 }

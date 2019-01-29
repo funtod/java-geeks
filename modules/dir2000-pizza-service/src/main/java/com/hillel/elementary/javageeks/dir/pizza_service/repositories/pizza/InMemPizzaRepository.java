@@ -3,16 +3,8 @@ package com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
 import com.hillel.elementary.javageeks.dir.pizza_service.annotations.PostCreate;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
-import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.PizzaType;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.resource.ResourceService;
-import com.hillel.elementary.javageeks.dir.pizza_service.utility.Logging;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
-import java.io.File;
-import java.io.FileReader;
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -55,35 +47,7 @@ public class InMemPizzaRepository implements PizzaRepository {
 
     @PostCreate
     private void initialFill() {
-        File file = new File(getClass().getClassLoader().getResource("pizzas.json").getFile());
-        if (!file.exists()) {
-            throw new IllegalStateException("File pizzas.json has not been found");
-        }
-
-        try (FileReader fileReader = new FileReader(file)) {
-            JSONParser parser = new JSONParser();
-            JSONArray array = (JSONArray) parser.parse(fileReader);
-          for (Object item : array) {
-            JSONObject obj = (JSONObject) item;
-
-            Long id = (Long) obj.get("id");
-            String name = (String) obj.get("name");
-            PizzaType pizzaType = PizzaType.valueOf((String) obj.get("pizzaType"));
-            int millisecondsToCook = ((Long) obj.get("millisecondsToCook")).intValue();
-            BigDecimal price = new BigDecimal((Long) obj.get("price"));
-
-            pizzas.put(id, new Pizza(id, name, pizzaType, millisecondsToCook, price));
-          }
-        } catch (Exception ex) {
-            Logging.logStackTrace(ex);
-            throw new IllegalStateException(ex);
-        }
-    }
-
-    //@PostCreate
-    private void initWithGson() {
         Pizza[] array = resourceService.readPizzas();
-        System.out.println("We are here!");
         for (Pizza pizza : array) {
             pizzas.put(pizza.getId(), pizza);
         }

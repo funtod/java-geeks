@@ -5,7 +5,6 @@ import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.CustomerRepository;
 
 import java.util.Optional;
-import java.util.function.Consumer;
 
 @Component("customerService")
 public class SimpleCustomerService implements CustomerService {

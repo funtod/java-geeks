@@ -29,7 +29,7 @@ public class InMemCustomerRepository implements CustomerRepository {
         } else if (customers.get(customer.getId()) == null) {
             throw new IllegalArgumentException();
         }
-        return Optional.ofNullable(customer);
+        return Optional.of(customer);
     }
 
     @Override

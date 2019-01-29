@@ -20,7 +20,7 @@ public class JavaConfig implements Config {
                 if (annotation != null) {
                     String name = annotation.value().isEmpty() ? aClass.getSimpleName() : annotation.value();
                     if (classes.put(name, aClass) != null) {
-                        throw new IllegalStateException(String.format("More than one bean with name%s can't be registered", name));
+                        throw new IllegalStateException(String.format("More than one bean with name %s can't be registered", name));
                     }
                 }
             }

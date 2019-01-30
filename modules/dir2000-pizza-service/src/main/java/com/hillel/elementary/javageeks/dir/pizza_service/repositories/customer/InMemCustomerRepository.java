@@ -22,14 +22,19 @@ public class InMemCustomerRepository implements CustomerRepository {
         if (customer == null) {
             throw new IllegalArgumentException("The customer should not be null");
         }
-        if (customer.getId() == null) {
-            Customer customerToSave = new Customer(++counter, customer.getName());
-            customers.put(customerToSave.getId(), customerToSave);
-            return Optional.of(customerToSave);
-        } else if (customers.get(customer.getId()) == null) {
-            throw new IllegalArgumentException();
+
+        if (customer.getId() != null && customers.get(customer.getId()) == null) {
+            throw new IllegalStateException("The customer " + customer + " has id, but isn't in the database");
         }
-        return Optional.of(customer);
+
+        Customer customerToSave = createAndSave(customer);
+        return Optional.of(customerToSave);
+    }
+
+    private Customer createAndSave(Customer customer)  {
+        Customer customerToSave = new Customer(++counter, customer.getName());
+        customers.put(customerToSave.getId(), customerToSave);
+        return customerToSave;
     }
 
     @Override

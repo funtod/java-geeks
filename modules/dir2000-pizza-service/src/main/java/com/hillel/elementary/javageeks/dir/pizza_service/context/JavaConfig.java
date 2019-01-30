@@ -7,8 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class JavaConfig implements Config {
 

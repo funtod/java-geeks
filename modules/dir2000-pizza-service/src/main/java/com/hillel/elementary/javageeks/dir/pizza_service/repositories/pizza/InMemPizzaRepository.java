@@ -5,6 +5,7 @@ import com.hillel.elementary.javageeks.dir.pizza_service.annotations.PostCreate;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.resource.ResourceService;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,9 +49,6 @@ public class InMemPizzaRepository implements PizzaRepository {
     @PostCreate
     private void initialFill() {
         Pizza[] array = resourceService.readPizzas();
-        for (Pizza pizza : array) {
-            pizzas.put(pizza.getId(), pizza);
-        }
-
+        Arrays.stream(array).forEach(pizza -> pizzas.put(pizza.getId(), pizza));
     }
 }

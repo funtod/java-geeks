@@ -41,6 +41,7 @@ public class SimpleOrderService implements OrderService {
             throw new IllegalArgumentException("The identifiers of pizzas is absent!");
         }
         List<Pizza> list = new ArrayList<>();
+
         for (Long id : idsOfPizzas) {
             list.add(pizzaService.getById(id));
         }
@@ -58,15 +59,8 @@ public class SimpleOrderService implements OrderService {
         for (Pizza pizza: collection) {
             costs.put(pizza, pizza.getPrice());
         }
-
         discountGroupService.giveDiscount(costs);
-
-        BigDecimal total = BigDecimal.ZERO;
-        for (BigDecimal value : costs.values()) {
-            total = total.add(value);
-        }
-
-        return total;
+        return costs.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Override

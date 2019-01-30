@@ -43,7 +43,6 @@ public class SimpleCustomerService implements CustomerService {
         }
 
         Optional<Customer> result = repository.save(customer);
-        result.orElseThrow(() ->new IllegalStateException("Failed to save customer " + customer));
-        return result.get();
+        return result.orElseThrow(() ->new IllegalStateException("Failed to save customer " + customer));
     }
 }

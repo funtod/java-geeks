@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class JavaConfig implements Config {
 
@@ -38,7 +40,8 @@ public class JavaConfig implements Config {
       dirs.add(new File(resource.getFile()));
     }
     ArrayList<Class> classes = new ArrayList<>();
-    dirs.stream().forEach(directory -> classes.addAll(findClasses(directory, "")));
+    dirs.stream()
+            .forEach(directory -> classes.addAll(findClasses(directory, "")));
     return classes;
   }
 
@@ -81,11 +84,11 @@ public class JavaConfig implements Config {
   @Override
   public Class<?> getBeanClassByInterface(Class<?> interfaceClass) {
     for (Class<?> clazz : classes.values()) {
-      Class<?>[] interfaces = clazz.getInterfaces();
-      for (int i = 0; i < interfaces.length; i++) {
-        if (interfaces[i] == interfaceClass) {
-          return clazz;
-        }
+      Optional<Class<?>> optional = Arrays.stream(clazz.getInterfaces())
+              .filter(inf -> inf == interfaceClass)
+              .findFirst();
+      if (optional.isPresent()) {
+        return clazz;
       }
     }
     throw new IllegalStateException(String.format("No class for interface: %s found", interfaceClass));

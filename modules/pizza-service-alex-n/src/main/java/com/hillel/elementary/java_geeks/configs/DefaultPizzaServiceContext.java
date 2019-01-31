@@ -2,6 +2,7 @@ package com.hillel.elementary.java_geeks.configs;
 
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.configs.anotations.PostCreate;
+import com.hillel.elementary.java_geeks.exceptions.AppInitialisationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,7 +23,7 @@ public class DefaultPizzaServiceContext implements Context {
     }
 
     @Override
-    public <T> T getBean(String beanName) throws Exception {
+    public <T> T getBean(String beanName) {
         if (beanName == null || beanName.isEmpty()) {
             String msg = "Bean name must be not null and not empty";
             LOGGER.error(msg);
@@ -40,7 +41,7 @@ public class DefaultPizzaServiceContext implements Context {
         return (T) bean;
     }
 
-    private Object createNewBean(String beanName) throws Exception {
+    private Object createNewBean(String beanName) {
 
         Class<?> beanClass = config.getBeanClassByName(beanName);
         Constructor<?> constructor = beanClass.getConstructors()[0];
@@ -66,7 +67,13 @@ public class DefaultPizzaServiceContext implements Context {
                 constructorArguments[i] = getBean(constructorArgumentBeanName);
             }
         }
-        return constructor.newInstance(constructorArguments);
+
+        try {
+            return constructor.newInstance(constructorArguments);
+        } catch (Exception e){
+            LOGGER.error("Can't create instance of bean " + e);
+            throw new AppInitialisationException(e.getMessage());
+        }
     }
 
     private void invokeAnnotatedMethods(Object bean) {
@@ -82,7 +89,7 @@ public class DefaultPizzaServiceContext implements Context {
                     method.invoke(bean);
                     LOGGER.info("Invoke method: " + method.getName() + " which is annotated with @PostCreate");
                 } catch (IllegalAccessException | InvocationTargetException e) {
-                    e.printStackTrace();
+                    LOGGER.error("Can't invoke method: " + e.getMessage());
                 }
             }
         }

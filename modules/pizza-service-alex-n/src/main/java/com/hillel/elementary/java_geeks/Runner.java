@@ -10,7 +10,7 @@ public final class Runner {
     private Runner() {
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         Context context = new DefaultPizzaServiceContext(new PizzaServiceConfig());
         Controller controller = context.getBean("controller");

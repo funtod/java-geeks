@@ -3,7 +3,7 @@ package com.hillel.elementary.javageeks.examples.threads.tasks.wait;
 public class Starter {
 
     public static void main(String[] args) {
-        WaitTask waitTask = new WaitTask();
+        com.hillel.elementary.javageeks.examples.threads.tasks.wait.WaitTask waitTask = new com.hillel.elementary.javageeks.examples.threads.tasks.wait.WaitTask();
 
         Thread t1 = new Thread(waitTask.new TestThread("t1", 1));
         Thread t2 = new Thread(waitTask.new TestThread("t2", 2));

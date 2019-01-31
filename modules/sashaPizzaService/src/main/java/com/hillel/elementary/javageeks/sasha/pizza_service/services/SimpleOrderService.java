@@ -35,7 +35,7 @@ public class SimpleOrderService implements OrderService {
             list.add(pizzaService.getById(id));
         }
         list = Collections.unmodifiableList(list);
-        BigDecimal total = colculationTotal(list);
+        BigDecimal total = calculationTotal(list);
 
         /*
         Order order = new Order(null,client,list,total, Status.NEW);
@@ -50,7 +50,7 @@ public class SimpleOrderService implements OrderService {
         return orderRepository.findById(id);
     }
 
-    private BigDecimal colculationTotal(Collection<Pizza> collection){
+    private BigDecimal calculationTotal(Collection<Pizza> collection){
         BigDecimal total = BigDecimal.ZERO;
         for (Pizza pizza:collection){
            total = total.add(pizza.getPrice());

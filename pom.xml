@@ -38,6 +38,7 @@
         <module>modules/vlada-m</module>
         <module>modules/oleh-mod</module>
         <module>modules/sashaPizzaService</module>
+        <module>modules/pizza-service-alex-n</module>
     </modules>
 
     <build>

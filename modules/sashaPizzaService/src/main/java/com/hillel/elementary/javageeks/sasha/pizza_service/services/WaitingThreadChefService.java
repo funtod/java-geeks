@@ -9,7 +9,7 @@ import com.hillel.elementary.javageeks.sasha.pizza_service.repository.OrderRepos
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class WaitingThreadChefService implements ChefService {
+public class WaitingThreadChefService extends Thread implements ChefService {
 
     private OrderRepository orderRepository;
     private ExecutorService executor = Executors.newFixedThreadPool(5);

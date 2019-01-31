@@ -1,11 +1,14 @@
 package com.hillel.elementary.javageeks.sasha.pizza_service.repository;
 
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.hillel.elementary.javageeks.sasha.pizza_service.domain.Pizza;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.*;
 
 public class InMemPizzaRepository implements PizzaRepository {
 
@@ -43,5 +46,21 @@ public class InMemPizzaRepository implements PizzaRepository {
         return pizzas.values();
     }
 
+    private void initialPizza() {
+        File file = new File(getClass().getClassLoader().getResource("pizza.json").getFile());
+        if (!file.exists()) {
+            throw new RuntimeException("File pizza.json has not been found");
+        }
+        try(FileReader fileReader = new FileReader(file)) {
+            Type listType = new TypeToken<ArrayList<Pizza>>(){}.getType();
+            List<Pizza> pizzaList = new Gson().fromJson(fileReader, listType);
 
+            for (Pizza pizza:pizzaList) {
+                pizzas.put(pizza.getId(),pizza);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 }

@@ -2,27 +2,9 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.hillel.elementary.java-geeks</groupId>
-    <artifactId>sasha</artifactId>
+    <artifactId>pizza-service-alex-n</artifactId>
     <version>0.0.1</version>
-    <dependencies>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-engine</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.bytebuddy</groupId>
-            <artifactId>byte-buddy</artifactId>
-            <version>1.9.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.5</version>
-        </dependency>
-    </dependencies>
+
 
     <parent>
         <groupId>com.hillel.elementary</groupId>
@@ -30,6 +12,30 @@
         <version>0.0.1</version>
         <relativePath>../../</relativePath>
     </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.intellij</groupId>
+            <artifactId>forms_rt</artifactId>
+            <version>${forms_rt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.23.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

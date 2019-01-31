@@ -1,0 +1,29 @@
+{
+  "pizzas": [
+    {
+      "id": 1,
+      "name": "Meatpizza",
+      "price": 50
+    },
+    {
+      "id": 2,
+      "name": "Cheesepizza",
+      "price": 55
+    },
+    {
+      "id": 3,
+      "name": "Veganpizza",
+      "price": 40
+    },
+    {
+      "id": 4,
+      "name": "Tomatopizza",
+      "price": 46
+    },
+    {
+      "id": 5,
+      "name": "Fishpizza",
+      "price": 70
+    }
+  ]
+}

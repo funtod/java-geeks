@@ -37,6 +37,7 @@
         <module>modules/sasha</module>
         <module>modules/vlada-m</module>
         <module>modules/oleh-mod</module>
+        <module>modules/sashaPizzaService</module>
     </modules>
 
     <build>

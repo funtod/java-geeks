@@ -19,6 +19,7 @@ public class FindDistinctTask {
                 .collect(Collectors.toList());
     }
 
+
     // Найти 5 первых (по дате создания) задач по чтению, вернуть имена задач
     public static List<String> top5ReadingTaskNames(List<Task> tasks) {
         return tasks.stream()

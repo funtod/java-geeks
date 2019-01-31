@@ -15,6 +15,7 @@ class FindDistinctTaskTest {
     private List<String> emptyTagsList = Collections.emptyList();
     private LocalDate dummyDate = LocalDate.of(2018, 12, 1);
 
+
     @Test
     void shouldReturnDistinctListOfTasks() {
         List<Task> tasks = Arrays.asList(

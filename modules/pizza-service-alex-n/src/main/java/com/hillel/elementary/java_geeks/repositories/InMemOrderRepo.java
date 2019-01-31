@@ -8,7 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Optional;
 
 
 @Component("orderRepo")
@@ -20,14 +22,15 @@ public class InMemOrderRepo implements OrderRepo {
 
     @Override
     public synchronized Order saveOrder(Order order) {
-        BigDecimal total = BigDecimal.ZERO;
-        for (Pizza pizza : order.getPizzas()) {
-            total = total.add(pizza.getPrice());
-        }
+
+        Optional<BigDecimal> total = Arrays.stream(order.getPizzas())
+                .map(Pizza::getPrice)
+                .reduce(BigDecimal::add);
+
         Order registeredOrder = new Order(counter,
                 order.getCustomer(),
                 order.getPizzas(),
-                total,
+                total.get(),
                 OrderStatus.IN_PROGRESS);
         orders.put(counter, registeredOrder);
         counter++;

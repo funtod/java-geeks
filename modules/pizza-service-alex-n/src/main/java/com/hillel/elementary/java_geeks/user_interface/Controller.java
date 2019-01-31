@@ -151,7 +151,7 @@ public class Controller {
 
     private void orderCreationDialog() {
         Customer registeredCustomer = customerService.registerCustomer(consoleUI.getCustomerName());
-        int[] pizzaIds = consoleUI.getPizzaIdsFromUser(pizzaService.getAllPizzas().size() - 1);
+        Integer[] pizzaIds = consoleUI.getPizzaIdsFromUser(pizzaService.getAllPizzas().size() - 1);
         Order order = orderService.saveOrder(registeredCustomer, pizzaIds);
         cookService.passOrderToCook(order);
         consoleUI.display(order.toString());

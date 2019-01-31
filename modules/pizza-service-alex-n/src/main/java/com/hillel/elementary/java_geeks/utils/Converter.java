@@ -3,6 +3,8 @@ package com.hillel.elementary.java_geeks.utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
+
 public final class Converter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Converter.class);
@@ -10,14 +12,13 @@ public final class Converter {
     private Converter() {
     }
 
-    public static int[] convertUserStringToPizzaIds(String string) {
-        int[] intIds;
+    public static Integer[] convertUserStringToPizzaIds(String string) {
+        Integer[] intIds;
         try {
             String[] strIds = string.split(",");
-            intIds = new int[strIds.length];
-            for (int i = 0; i < strIds.length; i++) {
-                intIds[i] = Integer.parseInt(strIds[i]);
-            }
+            intIds = Arrays.stream(strIds)
+                    .map(Integer::parseInt)
+                    .toArray(Integer[]::new);
         } catch (NumberFormatException e) {
             LOGGER.error("Something is wrong:", e);
             intIds = null;

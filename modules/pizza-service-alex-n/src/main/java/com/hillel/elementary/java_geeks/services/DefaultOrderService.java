@@ -77,7 +77,7 @@ public class DefaultOrderService implements OrderService {
     }
 
     @Override
-    public Order saveOrder(Customer customer, int... pizzaIds) {
+    public Order saveOrder(Customer customer, Integer... pizzaIds) {
         if (customer == null) {
             String msg = "Customer must not be null";
             LOGGER.error(msg);

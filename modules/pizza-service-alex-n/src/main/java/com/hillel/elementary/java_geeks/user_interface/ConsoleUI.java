@@ -54,9 +54,9 @@ public class ConsoleUI {
         return getIntUserAnswer(0, Integer.MAX_VALUE);
     }
 
-    int[] getPizzaIdsFromUser(int maxId) {
+    Integer[] getPizzaIdsFromUser(int maxId) {
 
-        int[] pizzaIds = new int[0];
+        Integer[] pizzaIds = new Integer[0];
         boolean repeat = true;
 
         while (repeat) {
@@ -67,9 +67,9 @@ public class ConsoleUI {
                 display("Something is wrong. Try again");
                 repeat = true;
             } else {
-                for (int i = 0; i < pizzaIds.length; i++) {
-                    if (pizzaIds[i] > maxId) {
-                        display("Sorry but there is no pizza with id=" + pizzaIds[i] + " in data base.");
+                for (int pizzaId : pizzaIds) {
+                    if (pizzaId > maxId) {
+                        display("Sorry but there is no pizza with id=" + pizzaId + " in data base.");
                         repeat = true;
                         break;
                     } else {

@@ -21,7 +21,9 @@ public class DefaultCookService implements CookService {
 
     public DefaultCookService(OrderService orderService) {
         if (orderService == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("OrderService can not be null"));
+            String msg = "OrderService can not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         for (Chef chef : chefRepo.getChefs()) {
             if (chef.getStatus() == ChefWorkingStatus.WORKING) {
@@ -34,7 +36,9 @@ public class DefaultCookService implements CookService {
     @Override
     public void passOrderToCook(Order order) {
         if (order == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("Order can not be null"));
+            String msg = "Order can not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         synchronized (chefRepo) {
             chefRepo.assignOrderToChef(order);

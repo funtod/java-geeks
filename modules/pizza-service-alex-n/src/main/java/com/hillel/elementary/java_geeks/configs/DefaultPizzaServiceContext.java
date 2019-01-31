@@ -24,8 +24,9 @@ public class DefaultPizzaServiceContext implements Context {
     @Override
     public <T> T getBean(String beanName) throws Exception {
         if (beanName == null || beanName.isEmpty()) {
-            LOGGER.error("Something is wrong:",
-                    new IllegalArgumentException("Bean name must be not null and not empty"));
+            String msg = "Bean name must be not null and not empty";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         if (beans.containsKey(beanName)) {
             return (T) beans.get(beanName);
@@ -55,10 +56,8 @@ public class DefaultPizzaServiceContext implements Context {
             Component componentAnnotation = clazz.getAnnotation(Component.class);
             if (componentAnnotation == null) {
                 String msg = String.format("There is argument in %s which we can not create bean for", beanName);
-                Throwable throwable = new IllegalArgumentException(msg);
-                LOGGER.error("Can't continue execution:", throwable);
-                LOGGER.info("Shutting down due to error.");
-                System.exit(1);
+                LOGGER.error(msg);
+                throw new IllegalStateException(msg);
             }
             String constructorArgumentBeanName = componentAnnotation.value();
             if (beans.containsKey(constructorArgumentBeanName)) {
@@ -74,16 +73,16 @@ public class DefaultPizzaServiceContext implements Context {
         for (Method method : bean.getClass().getDeclaredMethods()) {
             if (method.isAnnotationPresent(PostCreate.class)) {
                 if (method.getParameterCount() != 0) {
-                    LOGGER.error("Something is wrong",
-                            new IllegalArgumentException("Method annotated with @PostCreate, can't has parameters"));
-                } else {
-                    try {
-                        method.setAccessible(true);
-                        method.invoke(bean);
-                        LOGGER.info("Invoke method: " + method.getName() + " which is annotated with @PostCreate");
-                    } catch (IllegalAccessException | InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
+                    String msg = "Method annotated with @PostCreate, can't has parameters";
+                    LOGGER.error(msg);
+                    throw new IllegalArgumentException(msg);
+                }
+                try {
+                    method.setAccessible(true);
+                    method.invoke(bean);
+                    LOGGER.info("Invoke method: " + method.getName() + " which is annotated with @PostCreate");
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.hillel.elementary.java_geeks.configs;
 
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
+import com.hillel.elementary.java_geeks.exceptions.AppInitialisationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,17 +15,16 @@ public class PizzaServiceConfig implements Config {
     private static final Logger LOGGER = LoggerFactory.getLogger(PizzaServiceConfig.class);
     private Map<String, Class<?>> classes = new HashMap<>();
 
-    public PizzaServiceConfig() {
+    public PizzaServiceConfig() throws AppInitialisationException {
 
         ArrayList<Class> allClasses = null;
 
         try {
             allClasses = getAllClasses();
         } catch (NullPointerException | IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            LOGGER.error("Can't continue execution:", e);
-            LOGGER.info("Shutting down due to error.");
-            System.exit(1);
+            String msg = "Can`t load some classes: ";
+            LOGGER.error(msg, e);
+            throw new AppInitialisationException(msg + e);
         }
 
         for (Class aClass : allClasses) {
@@ -32,10 +32,7 @@ public class PizzaServiceConfig implements Config {
             if (annotation != null) {
                 String name = annotation.value().isEmpty() ? aClass.getSimpleName() : annotation.value();
                 if (classes.put(name, aClass) != null) {
-
-                    String msg = String.format("More than one bean with name%s can't be registered", name);
-                    LOGGER.error("Something is wrong:",
-                            new IllegalStateException(msg));
+                    LOGGER.error(String.format("More than one bean with name%s can't be registered", name));
                 }
             }
         }
@@ -79,8 +76,7 @@ public class PizzaServiceConfig implements Config {
     public Class<?> getBeanClassByName(String name) {
         Class<?> aClass = classes.get(name);
         if (aClass == null) {
-            LOGGER.error("Something is wrong:",
-                    new IllegalStateException(String.format("No class for beanName: %s found", name)));
+            LOGGER.error(String.format("No class for beanName: %s was found", name));
         }
         return aClass;
     }
@@ -107,10 +103,7 @@ public class PizzaServiceConfig implements Config {
             }
         }
 
-        LOGGER.error("Can't continue execution:",
-                new IllegalStateException(String.format("No class for interface: %s found", interfaceClass)));
-        LOGGER.info("Shutting down due to error.");
-        System.exit(1);
+        LOGGER.error(String.format("No class for interface: %s was found", interfaceClass));
         return null;
     }
 }

@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.configs.anotations.PostCreate;
 import com.hillel.elementary.java_geeks.domain.Pizza;
+import com.hillel.elementary.java_geeks.exceptions.AppInitialisationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,15 +28,15 @@ public class JsonPizzaRepo extends AbstractPizzaRepo {
     public JsonPizzaRepo() {
     }
 
-    private HashMap<Integer, Pizza> getDataMapFromJson() {
+    private HashMap<Integer, Pizza> getDataMapFromJson() throws AppInitialisationException {
         String json = null;
         try {
             Path path = Paths.get(getClass().getClassLoader().getResource(PATH_TO_JSON).toURI());
             json = new String(Files.readAllBytes(path), Charset.defaultCharset());
         } catch (URISyntaxException | IOException e) {
-            LOGGER.error("Can't continue execution:", e);
-            LOGGER.info("Shutting down due to error.");
-            System.exit(1);
+            String msg = "Can't read pizzas from file: ";
+            LOGGER.error(msg, e);
+            throw new AppInitialisationException(msg + e);
         }
         Gson gson = new Gson();
         Type type = new TypeToken<Map<Integer, Pizza>>() {
@@ -46,7 +47,7 @@ public class JsonPizzaRepo extends AbstractPizzaRepo {
 
     @PostCreate
     @Override
-    public void initialiseData() {
+    public void initialiseData() throws AppInitialisationException {
         for (Pizza pizza : getDataMapFromJson().values()) {
             save(pizza);
         }

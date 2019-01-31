@@ -19,10 +19,14 @@ public class DefaultOrderService implements OrderService {
 
     public DefaultOrderService(OrderRepo orderRepo, PizzaService pizzaService) {
         if (orderRepo == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("OrderRepo must not be null"));
+            String msg = "OrderRepo must not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         if (pizzaService == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("PizzaService must not be null"));
+            String msg = "PizzaService must not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         this.pizzaService = pizzaService;
         this.orderRepo = orderRepo;
@@ -36,11 +40,17 @@ public class DefaultOrderService implements OrderService {
     @Override
     public Order saveOrder(Order order) {
         if (order == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("Order must not be null"));
+            String msg = "Order must not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         } else if (order.getPizzas().length < 1) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("There must be at least 1 pizza"));
+            String msg = "There must be at least 1 pizza";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         } else if (order.getCustomer() == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("Order must have customer"));
+            String msg = "Order must have customer";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         return orderRepo.saveOrder(order);
     }
@@ -49,13 +59,19 @@ public class DefaultOrderService implements OrderService {
     public Order saveOrder(Customer customer, Pizza... pizzas) {
         for (Pizza pizza : pizzas) {
             if (pizza == null) {
-                LOGGER.error("Something is wrong:", new IllegalArgumentException("Pizza can not be null"));
+                String msg = "Pizza can not be null";
+                LOGGER.error(msg);
+                throw new IllegalArgumentException(msg);
             }
         }
         if (customer == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("Customer must not be null"));
+            String msg = "Customer must not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         } else if (pizzas.length < 1) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("There must be at least 1 pizza"));
+            String msg = "There must be at least 1 pizza";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         return orderRepo.saveOrder(new Order(customer, pizzas));
     }
@@ -63,9 +79,13 @@ public class DefaultOrderService implements OrderService {
     @Override
     public Order saveOrder(Customer customer, int... pizzaIds) {
         if (customer == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("Customer must not be null"));
+            String msg = "Customer must not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         } else if (pizzaIds == null || pizzaIds.length == 0) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("there must be at least 1 pizza id"));
+            String msg = "Customer must not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         Pizza[] pizzas = new Pizza[pizzaIds.length];
         for (int i = 0; i < pizzaIds.length; i++) {
@@ -77,7 +97,9 @@ public class DefaultOrderService implements OrderService {
     @Override
     public String getOrderStatusInfo(Order order) {
         if (order == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("Order can not be null"));
+            String msg = "Order can not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         Order orderFromMem = orderRepo.getOrderById(order.getId());
         return "Order: " + orderFromMem.getId() + " - status: " + orderFromMem.getStatus();
@@ -86,7 +108,9 @@ public class DefaultOrderService implements OrderService {
     @Override
     public String getOrderStatusInfo(long orderId) {
         if (orderId < 0) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("Id must be grater than 0"));
+            String msg = "Id must be grater than 0";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         return getOrderStatusInfo(orderRepo.getOrderById(orderId));
     }

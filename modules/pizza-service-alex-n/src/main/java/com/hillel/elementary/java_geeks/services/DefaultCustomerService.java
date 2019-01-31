@@ -16,7 +16,9 @@ public class DefaultCustomerService implements CustomerService {
 
     public DefaultCustomerService(CustomerRepo customerRepo) {
         if (customerRepo == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("CustomerRepo must not be null"));
+            String msg = "CustomerRepo must not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         this.customerRepo = customerRepo;
     }
@@ -24,10 +26,14 @@ public class DefaultCustomerService implements CustomerService {
     @Override
     public Customer registerCustomer(Customer customer) {
         if (customer == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("Customer can not be null"));
+            String msg = "Customer can not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         if (customer.getName() == null || customer.getName().isEmpty() || customer.getName().trim().isEmpty()) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("Can not save customer with such name"));
+            String msg = "Can not save customer with such name";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         return customerRepo.save(customer);
     }
@@ -35,8 +41,9 @@ public class DefaultCustomerService implements CustomerService {
     @Override
     public Customer registerCustomer(String customerName) {
         if (customerName == null || customerName.isEmpty() || customerName.trim().isEmpty()) {
-            LOGGER.error("Something is wrong:",
-                    new IllegalArgumentException("Can not create and save customer with such name"));
+            String msg = "Can not create and save customer with such name";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         return customerRepo.save(new Customer(customerName));
     }

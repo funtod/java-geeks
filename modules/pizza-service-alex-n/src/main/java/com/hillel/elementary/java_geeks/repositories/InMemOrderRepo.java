@@ -37,8 +37,9 @@ public class InMemOrderRepo implements OrderRepo {
     @Override
     public Order getOrderById(Long id) {
         if (orders.size() < id) {
-            LOGGER.error("Something is wrong:",
-                    new IllegalArgumentException(String.format("There is no order with such id: %d", id)));
+            String msg = String.format("There is no order with such id: %d", id);
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         return orders.get(id);
     }

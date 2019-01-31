@@ -81,7 +81,7 @@ public class ConsoleUI {
         return pizzaIds;
     }
 
-    String getStringUserAnswer() {
+    private String getStringUserAnswer() {
 
         boolean repeat = true;
         String userAnswer = null;

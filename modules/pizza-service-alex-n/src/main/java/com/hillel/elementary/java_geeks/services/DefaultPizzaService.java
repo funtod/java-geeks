@@ -17,7 +17,9 @@ public class DefaultPizzaService implements PizzaService {
 
     public DefaultPizzaService(PizzaRepo pizzaRepo) {
         if (pizzaRepo == null) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("PizzaRepo must not be null"));
+            String msg = "PizzaRepo must not be null";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         this.pizzaRepo = pizzaRepo;
     }
@@ -31,7 +33,9 @@ public class DefaultPizzaService implements PizzaService {
     @Override
     public Pizza getPizzaById(int pizzaId) {
         if (pizzaId < 0) {
-            LOGGER.error("Something is wrong:", new IllegalArgumentException("pizzaId must be grater than 0"));
+            String msg = "pizzaId must be grater than 0";
+            LOGGER.error(msg);
+            throw new IllegalArgumentException(msg);
         }
         return pizzaRepo.findById(pizzaId);
     }

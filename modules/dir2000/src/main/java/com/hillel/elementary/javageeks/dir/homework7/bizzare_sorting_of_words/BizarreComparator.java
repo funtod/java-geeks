@@ -12,33 +12,9 @@ public class BizarreComparator implements Comparator<String> {
   private static final Pattern PATTERN = Pattern.compile("[aeiouyAEIOUY]");
 
   public static int vowelLettersCount(String word) {
-    Matcher matcher = PATTERN.matcher(word);
-    int counter = 0;
-
-    List<String> list = new ArrayList<>();
-    while (matcher.find()) {
-      list.add(word.substring(matcher.start(), matcher.end()));
-      counter++;
-    }
-    String[] array = list.toArray(new String[list.size()]);
-    System.out.println("Word: " + word);
-    System.out.println("Ususal result: " + Arrays.deepToString(array));
-
-    int streamCounter = vowelLettersCountStream(word);
-    System.out.println("Stream check: " + counter + " == " + streamCounter + " = " + (counter == streamCounter) + "\n");
-
-    return counter;
-  }
-
-  private static int vowelLettersCountStream(String word) {
-    Pattern antiPattern = Pattern.compile("[^aeiouyAEIOUY]");
-    Stream<String> stream = antiPattern.splitAsStream(word)
-            .filter(val -> !val.isEmpty());
-
-    Object[] array = stream.toArray();
-    System.out.println("Stream result: " + Arrays.deepToString(array));
-    int streamCounter = array.length;
-    return streamCounter;
+    return (int) Arrays.stream(word.split(""))
+            .filter(letter -> PATTERN.matcher(letter).matches())
+            .count();
   }
 
   @Override

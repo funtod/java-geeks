@@ -32,7 +32,8 @@ public class BizarreComparator implements Comparator<String> {
 
   private static int vowelLettersCountStream(String word) {
     Pattern antiPattern = Pattern.compile("[^aeiouyAEIOUY]");
-    Stream<String> stream = antiPattern.splitAsStream(word);
+    Stream<String> stream = antiPattern.splitAsStream(word)
+            .filter(val -> !val.isEmpty());
 
     Object[] array = stream.toArray();
     System.out.println("Stream result: " + Arrays.deepToString(array));

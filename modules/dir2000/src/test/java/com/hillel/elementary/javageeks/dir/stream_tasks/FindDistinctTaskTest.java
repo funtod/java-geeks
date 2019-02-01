@@ -40,6 +40,31 @@ class FindDistinctTaskTest {
                 new Task("Lesson 9", TaskType.READING, dummyDate, emptyTagsList)
         ));
     }
+    @Test
+    void shouldReturnListOfTasksWithDistinctNames() {
+        List<Task> tasks = Arrays.asList(
+                new Task("Lesson 1", TaskType.READING, dummyDate, emptyTagsList),
+                new Task("Lesson 2", TaskType.WRITING, dummyDate, emptyTagsList),
+                new Task("Lesson 1", TaskType.WRITING, dummyDate, emptyTagsList),
+                new Task("Lesson 1", TaskType.SPEAKING, dummyDate, emptyTagsList),
+                new Task("Lesson 7", TaskType.WRITING, dummyDate, emptyTagsList),
+                new Task("Lesson 8", TaskType.SPEAKING, dummyDate, emptyTagsList),
+                new Task("Lesson 7", TaskType.SPEAKING, dummyDate, emptyTagsList),
+                new Task("Lesson 8", TaskType.SPEAKING, dummyDate, emptyTagsList),
+                new Task("Lesson 9", TaskType.READING, dummyDate, emptyTagsList)
+        );
+
+        List<Task> result = FindDistinctTask.tasksWithDistinctNames(tasks);
+        Collections.sort(result, (a, b) -> a.getName().compareTo(b.getName()));
+
+        assertThat(result).isEqualTo(Arrays.asList(
+                new Task("Lesson 1", TaskType.READING, dummyDate, emptyTagsList),
+                new Task("Lesson 2", TaskType.WRITING, dummyDate, emptyTagsList),
+                new Task("Lesson 7", TaskType.WRITING, dummyDate, emptyTagsList),
+                new Task("Lesson 8", TaskType.SPEAKING, dummyDate, emptyTagsList),
+                new Task("Lesson 9", TaskType.READING, dummyDate, emptyTagsList)
+        ));
+    }
 
     @Test
     void shouldReturnListOfReadingTaskNames() {

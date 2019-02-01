@@ -1,24 +1,23 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.repositories.pizza;
 
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.PostCreate;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
-import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.PizzaType;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.resource.ResourceService;
 
-import java.io.File;
-import java.io.FileReader;
-import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component("pizzaRepository")
 public class InMemPizzaRepository implements PizzaRepository {
     private final Map<Long, Pizza> pizzas = new HashMap<>();
     private Long counter = 0L;
+    ResourceService resourceService;
 
-    public InMemPizzaRepository() {
-        initialFill();
+    public InMemPizzaRepository(ResourceService argResourceService) {
+        resourceService = argResourceService;
     }
 
     @Override
@@ -47,28 +46,9 @@ public class InMemPizzaRepository implements PizzaRepository {
         return pizzas.values();
     }
 
+    @PostCreate
     private void initialFill() {
-        File file = new File(getClass().getClassLoader().getResource("pizzas.json").getFile());
-        if (!file.exists()) {
-            throw new RuntimeException("File pizzas.json has not been found");
-        }
-
-        try (FileReader fileReader = new FileReader(file)) {
-            JSONParser parser = new JSONParser();
-            JSONArray array = (JSONArray) parser.parse(fileReader);
-          for (Object item : array) {
-            JSONObject obj = (JSONObject) item;
-
-            Long id = (Long) obj.get("id");
-            String name = (String) obj.get("name");
-            PizzaType pizzaType = PizzaType.valueOf((String) obj.get("pizzaType"));
-            int millisecondsToCook = ((Long) obj.get("millisecondsToCook")).intValue();
-            BigDecimal price = new BigDecimal((Long) obj.get("price"));
-
-            pizzas.put(id, new Pizza(id, name, pizzaType, millisecondsToCook, price));
-          }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
+        Pizza[] array = resourceService.readPizzas();
+        Arrays.stream(array).forEach(pizza -> pizzas.put(pizza.getId(), pizza));
     }
 }

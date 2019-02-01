@@ -4,6 +4,8 @@ import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer.CustomerRepository;
 import org.junit.jupiter.api.Test;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -13,12 +15,13 @@ import static org.mockito.Mockito.when;
 class SimpleCustomerServiceTest {
     private final CustomerRepository repositoryMock = mock(CustomerRepository.class);
     private final Customer customerMock = mock(Customer.class);
+    private final Optional<Customer> customerOptional = Optional.of(customerMock);
     private final CustomerService service = new SimpleCustomerService(repositoryMock);
 
-    @Test
+     @Test
     void shouldGetCustomerById() {
         //given
-        when(repositoryMock.findById(anyLong())).thenReturn(customerMock);
+        when(repositoryMock.findById(anyLong())).thenReturn(customerOptional);
 
         //when
         Customer customer = service.getById(anyLong());
@@ -31,7 +34,7 @@ class SimpleCustomerServiceTest {
     void shouldGetCustomerByName() {
         //given
         String name = "John";
-        when(repositoryMock.findByName(name)).thenReturn(customerMock);
+        when(repositoryMock.findByName(name)).thenReturn(customerOptional);
 
         //when
         Customer customer = service.getByName(name);
@@ -66,7 +69,7 @@ class SimpleCustomerServiceTest {
         String someName = "John";
 
         //when
-        when(repositoryMock.findByName(someName)).thenReturn(customerMock);
+        when(repositoryMock.findByName(someName)).thenReturn(customerOptional);
         when(customerMock.getName()).thenReturn(someName);
 
         //then
@@ -78,7 +81,7 @@ class SimpleCustomerServiceTest {
     @Test
     void registerShouldReturnSomeCustomer() {
         //when
-        when(repositoryMock.save(customerMock)).thenReturn(customerMock);
+        when(repositoryMock.save(customerMock)).thenReturn(customerOptional);
         when(customerMock.getId()).thenReturn(null);
         Customer customer = service.register(customerMock);
 

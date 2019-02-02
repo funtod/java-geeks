@@ -15,8 +15,8 @@ import static org.mockito.Mockito.when;
 
 class DefaultPizzaServiceTest {
 
-    PizzaRepo pizzaRepoMock = mock(InMemPizzaRepo.class);
-    PizzaService pizzaService = new DefaultPizzaService(pizzaRepoMock);
+    private PizzaRepo pizzaRepoMock = mock(InMemPizzaRepo.class);
+    private PizzaService pizzaService = new DefaultPizzaService(pizzaRepoMock);
 
     @Test
     void shouldReturnPizzaById() {

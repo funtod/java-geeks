@@ -33,4 +33,17 @@ public class FindDistinctTask {
     public static String joinAllTaskTitles(List<Task> tasks) {
         throw new UnsupportedOperationException();
     }
+
+    // Вернуть строку с числами, перечисленными через запятую на основе заданного списка целых чисел.
+    // Каждому элементу должна предшествовать буква «e», если число четное, и буква «o», если число нечетное.
+    // Например, если список ввода (3,44), вывод должен быть 'o3, e44'.
+    public static String evensAndOdds(String numbers) {
+        throw new UnsupportedOperationException();
+    }
+
+    //Вернуть список всех строк, которые начинаются с буквы «а» и имеют ровно 3 буквы
+    public static List<String> searchForThreeLetterWordsStartingWithA(List<String> list) {
+        throw new UnsupportedOperationException();
+    }
+
 }

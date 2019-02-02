@@ -1,14 +1,16 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.services.chef;
 
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
-import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.enums.OrderStatus;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.OrderRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.notifier.NotifierService;
+import com.hillel.elementary.javageeks.dir.pizza_service.utility.Logging;
 import com.hillel.elementary.javageeks.dir.pizza_service.utility.Utilities;
 
 import java.util.concurrent.*;
 
+@Component("chefService")
 public class WaitingThreadChefService extends Thread implements ChefService {
     private final NotifierService notifierService;
     private final OrderRepository orderRepository;
@@ -29,10 +31,9 @@ public class WaitingThreadChefService extends Thread implements ChefService {
         while (!Thread.interrupted()) {
             try {
                 Order order = orderQueue.take();
-                int millisecondsToCook = 0;
-                for (Pizza pizza : order.getPizzas()) {
-                    millisecondsToCook += pizza.getMillisecondsToCook();
-                }
+                int millisecondsToCook = order.getPizzas().stream()
+                        .mapToInt(pizza -> pizza.getMillisecondsToCook())
+                        .sum();
                 Thread.sleep(millisecondsToCook);
                 Order updatedOrder = new Order(order);
                 updatedOrder.setOrderStatus(OrderStatus.COOKED);
@@ -50,8 +51,8 @@ public class WaitingThreadChefService extends Thread implements ChefService {
     public void cook(Order order) {
         try {
             orderQueue.put(order);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException ex) {
+            Logging.logStackTrace(ex);
         }
     }
 

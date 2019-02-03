@@ -31,7 +31,7 @@ class DefaultCustomerServiceTest {
     }
 
     @Test
-    public void shouldThrowAnException() {
+    void shouldThrowAnException() {
 
         Customer nullCustomer = null;
         Customer nullNameCustomer = new Customer(0L, null);

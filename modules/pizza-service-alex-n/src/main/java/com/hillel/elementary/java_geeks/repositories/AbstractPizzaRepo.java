@@ -1,6 +1,7 @@
 package com.hillel.elementary.java_geeks.repositories;
 
 import com.hillel.elementary.java_geeks.domain.Pizza;
+import com.hillel.elementary.java_geeks.exceptions.AppInitialisationException;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,7 +12,7 @@ public abstract class AbstractPizzaRepo implements PizzaRepo {
     private static int counter = 0;
 
     @Override
-    public abstract void initialiseData();
+    public abstract void initialiseData() throws AppInitialisationException;
 
     @Override
     public Collection<Pizza> findAll() {

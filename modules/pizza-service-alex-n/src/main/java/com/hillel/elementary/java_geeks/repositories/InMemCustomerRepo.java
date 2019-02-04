@@ -1,10 +1,13 @@
 package com.hillel.elementary.java_geeks.repositories;
 
+import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.domain.Customer;
 
 import java.util.Collection;
 import java.util.HashMap;
 
+
+@Component("customerRepo")
 public class InMemCustomerRepo implements CustomerRepo {
 
     private HashMap<Long, Customer> customers = new HashMap<>();

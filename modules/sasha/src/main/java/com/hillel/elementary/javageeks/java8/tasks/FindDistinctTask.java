@@ -17,9 +17,18 @@ public class FindDistinctTask {
 
     // Найти 5 первых (по дате создания) задач по чтению, вернуть имя задачи
     public static List<String> top5ReadingTaskNames(List<Task> tasks) {
+        List<String>stringList = tasks.stream()
+                .filter(task -> task.getType().equals(TaskType.READING))
+                .sorted((s1,s2)->s1.getCreationDate().compareTo(s2.getCreationDate()))
+                .map(task -> task.getName())
+                .limit(5)
+                .collect(Collectors.toList());
+        return stringList;
 
-        throw new UnsupportedOperationException();
+
     }
+
+
 
     // Посчитать количество задач указанного типа
     public static Long countAllTasksByType(List<Task> tasks, TaskType type) {
@@ -59,8 +68,6 @@ public class FindDistinctTask {
     // Каждому элементу должна предшествовать буква «e», если число четное, и буква «o», если число нечетное.
     // Например, если список ввода (3,44), вывод должен быть 'o3, e44'.
     public static String evensAndOdds(String numbers) {
-//        Arrays.stream(numbers.split(","))
-//                .map()
         throw new UnsupportedOperationException();
     }
 

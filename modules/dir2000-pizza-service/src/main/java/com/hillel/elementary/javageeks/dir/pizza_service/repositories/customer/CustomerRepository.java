@@ -2,10 +2,12 @@ package com.hillel.elementary.javageeks.dir.pizza_service.repositories.customer;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 
+import java.util.Optional;
+
 public interface CustomerRepository {
-    Customer findById(Long id);
+    Optional<Customer> findById(Long id);
 
-    Customer save(Customer customer);
+    Optional<Customer>  save(Customer customer);
 
-    Customer findByName(String name);
+    Optional<Customer> findByName(String name);
 }

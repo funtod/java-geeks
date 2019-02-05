@@ -45,6 +45,7 @@ public class FindDistinctTask {
     // Проверить у всех ли задач по чтению есть тег "Books"
     public static Boolean isAllReadingTasksWithTagBooks(List<Task> tasks) {
         return tasks.stream()
+                .filter(task -> task.getType() == TaskType.READING)
                 .allMatch(task -> task.getTags().contains("Books"));
     }
 

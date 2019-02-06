@@ -1,10 +1,12 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.repositories.order;
 
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Component("orderRepository")
 public class InMemOrderRepository implements OrderRepository {
     private final Map<Long, Order> orders = new HashMap<>();
     private Long counter = 0L;

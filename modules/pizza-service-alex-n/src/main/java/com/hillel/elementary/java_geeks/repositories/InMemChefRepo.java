@@ -1,11 +1,13 @@
 package com.hillel.elementary.java_geeks.repositories;
 
+import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.domain.Chef;
 import com.hillel.elementary.java_geeks.domain.ChefWorkingStatus;
 import com.hillel.elementary.java_geeks.domain.Order;
 
 import java.util.*;
 
+@Component("chefRepo")
 public class InMemChefRepo implements ChefRepo {
 
     private ArrayList<Chef> chefs = new ArrayList<>();
@@ -32,7 +34,7 @@ public class InMemChefRepo implements ChefRepo {
     public Chef changeWorkingStatus(Integer chefId, ChefWorkingStatus status) {
         Chef updatedChef = null;
         for (int i = 0; i < chefs.size(); i++) {
-            if (chefs.get(i).getId() == chefId) {
+            if (chefs.get(i).getId().equals(chefId)) {
                 Chef chef = chefs.get(i);
                 updatedChef = new Chef(chef.getId(), chef.getName(), chef.getStatus(), chef.getOrders());
                 chefs.remove(chef);
@@ -64,7 +66,7 @@ public class InMemChefRepo implements ChefRepo {
     public Chef getChef(Integer chefId) {
         Chef chef = null;
         for (Chef chef1 : chefs) {
-            if (chef1.getId() == chefId) {
+            if (chef1.getId().equals(chefId)) {
                 chef = chef1;
             }
         }

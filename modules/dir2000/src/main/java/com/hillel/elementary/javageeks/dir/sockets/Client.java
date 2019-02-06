@@ -42,7 +42,9 @@ public class Client {
     frame.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent event) {
         try {
-          sock.close();
+          if (!sock.isClosed()) {
+            sock.close();
+          }
         } catch (IOException argE) {
           argE.printStackTrace();
         }
@@ -56,6 +58,7 @@ public class Client {
     readerThread.start();
 
     frame.setSize(650, 500);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setVisible(true);
 
   }

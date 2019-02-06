@@ -6,21 +6,16 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Iterator;
+import java.util.Scanner;
 import java.util.concurrent.*;
 
 public class Server {
+  ConcurrentHashMap<Socket, PrintWriter> clientOutputStreams;
   ExecutorService executor;
-  CopyOnWriteArraySet<PrintWriter> clientOutputStreams;
 
   public Server() {
-    executor = Executors.newCachedThreadPool(
-            new ThreadFactory() {
-              public Thread newThread(Runnable r) {
-                Thread t = Executors.defaultThreadFactory().newThread(r);
-                t.setDaemon(true);
-                return t;
-              }
-            });
+    clientOutputStreams = new ConcurrentHashMap<>();
+    executor = Executors.newCachedThreadPool();
   }
 
   public static void main(String[] args) {
@@ -28,25 +23,27 @@ public class Server {
   }
 
   public void go() {
-    clientOutputStreams = new CopyOnWriteArraySet<>();
-    try {
-      ServerSocket serverSock = new ServerSocket(5000);
-      while (true) {
-        Socket clientSocket = serverSock.accept();
-        PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
-        clientOutputStreams.add(writer);
+    executor.execute(new ServerTask());
 
-        executor.execute(new ClientHandler(clientSocket));
-        System.out.println("got a connection");
+    try (Scanner scanner = new Scanner(System.in)) {
+      String prompt = "Enter \"shutdown\" to stop the server...";
+      System.out.println(prompt);
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine();
+        if (line.equalsIgnoreCase("shutdown")) {
+          break;
+        } else {
+          System.out.println(prompt);
+        }
       }
-    } catch (Exception ex) {
-      ex.printStackTrace();
     }
     executor.shutdownNow();
+    System.out.println("Shutdown command accepted.");
   }
 
+
   public void tellEveryone(String message) {
-    Iterator<PrintWriter> it = clientOutputStreams.iterator();
+    Iterator<PrintWriter> it = clientOutputStreams.values().iterator();
     while (it.hasNext()) {
       try {
         PrintWriter writer = it.next();
@@ -58,15 +55,30 @@ public class Server {
     }
   }
 
-  public class ClientHandler implements Runnable {
-    BufferedReader reader;
-    Socket sock;
+  private class ServerTask implements Runnable {
+    @Override
+    public void run() {
+      try (ServerSocket serverSock = new ServerSocket(5000);) {
+        while (!Thread.currentThread().isInterrupted()) {
+          Socket clientSocket = serverSock.accept();
+          PrintWriter writer = new PrintWriter(clientSocket.getOutputStream());
+          clientOutputStreams.put(clientSocket, writer);
 
-    public ClientHandler(Socket clientSOcket) {
+          executor.execute(new ClientHandler(clientSocket));
+          System.out.println("got a connection");
+        }
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
+    }
+  }
+
+  private class ClientHandler implements Runnable {
+    Socket clientSocket;
+
+    public ClientHandler(Socket argClientSocket) {
       try {
-        sock = clientSOcket;
-        InputStreamReader isReader = new InputStreamReader(sock.getInputStream());
-        reader = new BufferedReader(isReader);
+        clientSocket = argClientSocket;
       } catch (Exception ex) {
         ex.printStackTrace();
       }
@@ -74,12 +86,12 @@ public class Server {
 
     public void run() {
       String message;
-      try {
+      try (BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));) {
         while ((message = reader.readLine()) != null) {
           System.out.println("read " + message);
           if (message.equalsIgnoreCase("bye")) {
-            sock.close();
-            clientOutputStreams.remove(sock);
+            clientSocket.close();
+            clientOutputStreams.remove(clientSocket);
             return;
           }
           tellEveryone(message);

@@ -15,6 +15,7 @@ class DefaultOrderServiceTest {
 
     private OrderRepo realOrderRepo = new InMemOrderRepo();
     private PizzaService mockPizzaService = mock(DefaultPizzaService.class);
+    private Pizza pizza = new Pizza(0, "pizza", PizzaType.MEAT, 200, new BigDecimal(200));
 
     @Test
     void shouldAddAndGetOrders() {
@@ -53,7 +54,7 @@ class DefaultOrderServiceTest {
         OrderService orderService = new DefaultOrderService(realOrderRepo, mockPizzaService);
 
         assertThrows(IllegalArgumentException.class, () -> {
-            orderService.saveOrder(new Customer(0L ,"John"), null, null);
+            orderService.saveOrder(new Customer(0L ,"John"),  pizza, null);
         });
     }
 
@@ -61,7 +62,6 @@ class DefaultOrderServiceTest {
     void shouldThrowExceptionWhenCustomerIsNull() {
 
         OrderService orderService = new DefaultOrderService(realOrderRepo, mockPizzaService);
-        Pizza pizza = new Pizza(0, "pizza", PizzaType.MEAT, 200, new BigDecimal(200));
 
         assertThrows(IllegalArgumentException.class, () -> {
             orderService.saveOrder(null, pizza);

@@ -1,31 +1,34 @@
 package com.hillel.elementary.javageeks.dir.pizza_service.services.order;
 
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Component;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.repositories.order.OrderRepository;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.chef.ChefService;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountService;
+import com.hillel.elementary.javageeks.dir.pizza_service.services.discount.DiscountGroupService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
+import com.hillel.elementary.javageeks.dir.pizza_service.annotations.Timed;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
 
+@Component("orderService")
 public class SimpleOrderService implements OrderService {
     private final OrderRepository orderRepository;
     private final PizzaService pizzaService;
     private final ChefService chefService;
-    private final List<DiscountService> discountServices;
+    private final DiscountGroupService discountGroupService;
 
     public SimpleOrderService(OrderRepository orderRepository, PizzaService pizzaService,
-                              ChefService chefService, List<DiscountService> discountServices) {
+                              ChefService chefService, DiscountGroupService discountGroupService) {
         this.orderRepository = orderRepository;
         this.pizzaService = pizzaService;
         this.chefService = chefService;
-        this.discountServices = discountServices;
+        this.discountGroupService = discountGroupService;
     }
 
+    @Timed
     @Override
     public Order placeNewOrder(Customer customer, Long... idsOfPizzas) {
         if (customer == null) {
@@ -38,6 +41,7 @@ public class SimpleOrderService implements OrderService {
             throw new IllegalArgumentException("The identifiers of pizzas is absent!");
         }
         List<Pizza> list = new ArrayList<>();
+
         for (Long id : idsOfPizzas) {
             list.add(pizzaService.getById(id));
         }
@@ -49,22 +53,14 @@ public class SimpleOrderService implements OrderService {
         return order;
     }
 
+    @Timed
     private BigDecimal calculateTotal(Collection<Pizza> collection) {
         HashMap<Pizza, BigDecimal> costs = new HashMap<>();
         for (Pizza pizza: collection) {
             costs.put(pizza, pizza.getPrice());
         }
-
-        for (DiscountService service: discountServices) {
-            service.giveDiscount(costs);
-        }
-
-        BigDecimal total = BigDecimal.ZERO;
-        for (BigDecimal value : costs.values()) {
-            total = total.add(value);
-        }
-
-        return total;
+        discountGroupService.giveDiscount(costs);
+        return costs.values().stream().reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Override

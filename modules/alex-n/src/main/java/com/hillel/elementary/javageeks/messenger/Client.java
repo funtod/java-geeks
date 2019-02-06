@@ -6,29 +6,33 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
+public final class Client {
 
     private static boolean running = true;
-    private final static String USER_NAME = "Alexander";
-    private final static String HOST = "localhost";
-    private final static int PORT = 8080;
+    private static final String USER_NAME = "Alexander";
+    private static final String HOST = "localhost";
+    private static final int PORT = 8080;
+    private static final int TIMEOUT = 2000;
 
+
+    private Client() {
+    }
 
     public static void main(String[] args) throws IOException {
 
         Socket socket = new Socket();
-        socket.connect(new InetSocketAddress(HOST, PORT), 2000);
+        socket.connect(new InetSocketAddress(HOST, PORT), TIMEOUT);
         System.out.println("Connected to the: " + HOST + ":" + PORT);
         PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
         writer.println(USER_NAME);
         new Thread(new UserOutputThread(socket)).start();
         new Thread(new ChatFeedThread(socket)).start();
-//        writer.close();
     }
+
 
     static class ChatFeedThread implements Runnable {
 
-        Socket socket;
+        private Socket socket;
 
         ChatFeedThread(Socket socket) {
             this.socket = socket;
@@ -48,9 +52,10 @@ public class Client {
         }
     }
 
+
     static class UserOutputThread implements Runnable {
 
-        Socket socket;
+        private Socket socket;
 
         UserOutputThread(Socket socket) {
             this.socket = socket;

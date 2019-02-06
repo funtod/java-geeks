@@ -8,9 +8,12 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Server {
+public final class Server {
 
     private static HashMap<String, Socket> userConnections = new HashMap<>();
+
+    private Server() {
+    }
 
     public static void main(String[] args) {
 
@@ -45,8 +48,9 @@ public class Server {
 
 
     private static class UserThread implements Runnable {
-        Socket userSocket;
-        String userName;
+
+        private Socket userSocket;
+        private String userName;
 
         UserThread(Socket userSocket, String userName) {
             this.userSocket = userSocket;

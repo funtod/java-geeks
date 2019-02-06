@@ -108,6 +108,9 @@ public class Server {
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                 while ((message = reader.readLine()) != null) {
                     System.out.println("read " + message);
+                    if (message.startsWith("user:")) {
+                        message = "Welcome " + message;
+                    }
                     if (message.equalsIgnoreCase("bye")) {
                         clientSocket.close();
                         clientSockets.remove(clientSocket);

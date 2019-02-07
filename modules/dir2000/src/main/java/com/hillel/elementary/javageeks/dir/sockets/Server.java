@@ -30,8 +30,8 @@ public class Server {
         ServerSocket serverSock;
         try {
             serverSock = new ServerSocket(PORT);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            Logging.logFailure(ex);
             return;
         }
         try (Scanner scanner = new Scanner(System.in)) {
@@ -54,10 +54,10 @@ public class Server {
             for (Socket socket : clientSockets) {
                 socket.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (IOException ex) {
+            Logging.logFailure(ex);
+        } catch (InterruptedException ex) {
+            Logging.logFailure(ex);
         }
     }
 
@@ -69,7 +69,7 @@ public class Server {
                 writer.println(message);
                 writer.flush();
             } catch (Exception ex) {
-                ex.printStackTrace();
+                Logging.logFailure(ex);
             }
         }
     }
@@ -88,10 +88,11 @@ public class Server {
                     Socket clientSocket = serverSock.accept();
                     clientSockets.add(clientSocket);
                     executor.execute(new ClientHandler(clientSocket));
-                    System.out.println("got a connection");
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                if (!ex.getMessage().equals("Socket closed")) {
+                    Logging.logFailure(ex);
+                }
             }
         }
     }
@@ -107,7 +108,6 @@ public class Server {
             String message;
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
                 while ((message = reader.readLine()) != null) {
-                    System.out.println("read " + message);
                     if (message.startsWith("user:")) {
                         message = "Welcome " + message;
                     }
@@ -119,7 +119,9 @@ public class Server {
                     tellEveryone(message);
                 }
             } catch (Exception ex) {
-                ex.printStackTrace();
+                if (!ex.getMessage().equals("Socket closed")) {
+                    Logging.logFailure(ex);
+                }
             }
         }
     }

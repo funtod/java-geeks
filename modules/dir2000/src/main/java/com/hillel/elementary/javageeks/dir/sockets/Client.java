@@ -15,6 +15,9 @@ import java.net.Socket;
 
 
 public class Client {
+  private static final String HOST = "127.0.0.1";
+  private static final int PORT = 5000;
+  private static final String USERNAME = "Anonimous";
   JFrame frame;
   JTextArea incoming;
   JTextField outgoing;
@@ -51,8 +54,8 @@ public class Client {
           if (!sock.isClosed()) {
             sock.close();
           }
-        } catch (IOException argE) {
-          argE.printStackTrace();
+        } catch (IOException ex) {
+          Logging.logFailure(ex);
         }
       }
     });
@@ -60,7 +63,6 @@ public class Client {
     setUpNetworking();
 
     Thread readerThread = new Thread(new IncomingReader());
-    readerThread.setDaemon(true);
     readerThread.start();
 
     frame.setSize(650, 500);
@@ -71,17 +73,15 @@ public class Client {
 
   private void setUpNetworking() {
     try {
-      sock = new Socket("127.0.0.1", 5000);
+      sock = new Socket(HOST, PORT);
       isAlive = true;
-      InputStreamReader streamReader = new InputStreamReader(sock.getInputStream());
-      reader = new BufferedReader(streamReader);
+      reader = new BufferedReader(new InputStreamReader(sock.getInputStream()));
       writer = new PrintWriter(sock.getOutputStream());
-        writer.println("user: Anonimous");
-        writer.flush();
-      System.out.println("networking established");
+      writer.println("user: " + USERNAME);
+      writer.flush();
     } catch (IOException ex) {
-      ex.printStackTrace();
-      throw new IllegalStateException("Couldn't connect to server.");
+      Logging.logFailure(ex);
+      throw new IllegalStateException("Couldn't connect to server.", ex);
     }
   }
 
@@ -89,18 +89,23 @@ public class Client {
     public void actionPerformed(ActionEvent ev) {
       try {
         if (isAlive) {
-          writer.println(outgoing.getText());
+
+          String text = outgoing.getText();
+          if (text.trim().equals("")) {
+            return;
+          }
+          writer.println(text);
           writer.flush();
+
+          outgoing.setText("");
+          outgoing.requestFocus();
         } else {
           JOptionPane.showMessageDialog(frame, "Disconnected");
           return;
         }
-
       } catch (Exception ex) {
-        ex.printStackTrace();
+        Logging.logFailure(ex);
       }
-      outgoing.setText("");
-      outgoing.requestFocus();
     }
   }
 
@@ -109,11 +114,12 @@ public class Client {
       String message;
       try {
         while ((message = reader.readLine()) != null) {
-          System.out.println("client read " + message);
           incoming.append(message + "\n");
         }
       } catch (IOException ex) {
-        ex.printStackTrace();
+        if (!ex.getMessage().equals("Socket closed")) {
+          Logging.logFailure(ex);
+        }
       }
       isAlive = false;
     }

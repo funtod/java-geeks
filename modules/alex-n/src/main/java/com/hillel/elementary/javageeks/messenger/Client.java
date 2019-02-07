@@ -1,5 +1,8 @@
 package com.hillel.elementary.javageeks.messenger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -8,6 +11,7 @@ import java.util.Scanner;
 
 public final class Client {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(Client.class);
     private static boolean running = true;
     private static final int TIMEOUT = 2000;
 
@@ -36,7 +40,9 @@ public final class Client {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                String errorMsg = "Can't read messages from server";
+                LOGGER.error(errorMsg + e);
+                throw new IllegalStateException(errorMsg, e);
             }
         }
     }
@@ -59,7 +65,7 @@ public final class Client {
                 int port = Integer.parseInt(scanner.nextLine());
 
                 socket.connect(new InetSocketAddress(host, port), TIMEOUT);
-                System.out.println("Connected to the: " + host + ":" + port);
+                LOGGER.info("Connected to the: " + host + ":" + port);
                 new Thread(new ChatFeedThread(socket)).start();
 
                 try (PrintWriter writer = new PrintWriter(socket.getOutputStream(), true)) {
@@ -72,11 +78,11 @@ public final class Client {
                             running = !msg.trim().equalsIgnoreCase("bye");
                         }
                     }
-                } catch (IOException e) {
-                    e.printStackTrace();
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                String exceptionMsg = "Can't continue due to IO exception";
+                LOGGER.error(exceptionMsg, e);
+                throw new IllegalStateException(exceptionMsg, e);
             }
         }
     }

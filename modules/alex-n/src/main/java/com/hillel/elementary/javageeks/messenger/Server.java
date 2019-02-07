@@ -1,5 +1,8 @@
 package com.hillel.elementary.javageeks.messenger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -10,6 +13,7 @@ import java.util.Scanner;
 public final class Server {
 
     private static HashMap<String, PrintWriter> userWriters = new HashMap<>();
+    private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
 
     private Server() {
     }
@@ -21,16 +25,17 @@ public final class Server {
                 new Thread(new UserThread(socket)).start();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("Can not open the server socket", e);
         }
     }
 
     private static Integer getPortNumber() {
-        System.out.println("Enter server port number plz: ");
-        Scanner scanner = new Scanner(System.in);
-        Integer port = Integer.parseInt(scanner.next());
-        System.out.println("Starting server at port " + port);
-        return port;
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Enter server port number plz: ");
+            Integer port = Integer.parseInt(scanner.next());
+            LOGGER.info("Starting server at port " + port);
+            return port;
+        }
     }
 
     private static synchronized void msgToAll(String msg) {
@@ -44,7 +49,7 @@ public final class Server {
     private static synchronized void closeUserConnection(String userName) {
         String userDisconnectedMsg = String.format("user %s - disconnected", userName);
         msgToAll(userDisconnectedMsg);
-        System.out.println(userDisconnectedMsg);
+        LOGGER.info(userDisconnectedMsg);
         userWriters.get(userName).close();
         userWriters.remove(userName);
     }
@@ -53,6 +58,7 @@ public final class Server {
     private static class UserThread implements Runnable {
 
         private Socket userSocket;
+        String userName;
 
         UserThread(Socket userSocket) {
             this.userSocket = userSocket;
@@ -64,8 +70,8 @@ public final class Server {
             try (Scanner scanner = new Scanner(userSocket.getInputStream())) {
                 try (PrintWriter writer = new PrintWriter(userSocket.getOutputStream(), true)) {
 
-                    String userName = scanner.nextLine();
-                    System.out.printf("new user: %s connected to the server%n", userName);
+                    userName = scanner.nextLine();
+                    LOGGER.info(String.format("new user: %s connected to the server%n", userName));
                     String welcomingMsg = String.format("[Server]: Hello %s. welcome to the chat.", userName);
                     writer.println(welcomingMsg);
                     userWriters.put(userName, writer);
@@ -85,7 +91,7 @@ public final class Server {
                     }
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                LOGGER.error(String.format("IO Exception with user [%s]:", userName), e);
             }
         }
     }

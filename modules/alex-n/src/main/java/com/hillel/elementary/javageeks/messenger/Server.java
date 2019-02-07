@@ -4,34 +4,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public final class Server {
 
-    private static HashMap<String, Socket> userConnections = new HashMap<>();
+    private static HashMap<String, PrintWriter> userWriters = new HashMap<>();
 
     private Server() {
     }
 
     public static void main(String[] args) {
-
-        boolean running = true;
-        Scanner scanner;
-
         try (ServerSocket serverSocket = new ServerSocket(getPortNumber())) {
-            String userName;
-            while (running) {
+            while (true) {
                 Socket socket = serverSocket.accept();
-                scanner = new Scanner(socket.getInputStream());
-                userName = scanner.nextLine();
-
-                System.out.printf("new user: %s connected to the server%n", userName);
-                String welcomingMsg = String.format("Hello %s. welcome to the chat.", userName);
-                new PrintWriter(socket.getOutputStream(), true).println(welcomingMsg);
-                userConnections.put(userName, socket);
-                new Thread(new UserThread(socket, userName)).start();
+                new Thread(new UserThread(socket)).start();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -46,49 +33,59 @@ public final class Server {
         return port;
     }
 
+    private static synchronized void msgToAll(String msg) {
+        if (msg != null && !msg.isEmpty()) {
+            for (PrintWriter writer : userWriters.values()) {
+                writer.println(msg);
+            }
+        }
+    }
+
+    private static synchronized void closeUserConnection(String userName) {
+        String userDisconnectedMsg = String.format("user %s - disconnected", userName);
+        msgToAll(userDisconnectedMsg);
+        System.out.println(userDisconnectedMsg);
+        userWriters.get(userName).close();
+        userWriters.remove(userName);
+    }
+
 
     private static class UserThread implements Runnable {
 
         private Socket userSocket;
-        private String userName;
 
-        UserThread(Socket userSocket, String userName) {
+        UserThread(Socket userSocket) {
             this.userSocket = userSocket;
-            this.userName = userName;
         }
 
         @Override
         public void run() {
+
             try (Scanner scanner = new Scanner(userSocket.getInputStream())) {
-                boolean running = true;
-                while (running) {
-                    if (scanner.hasNext()) {
-                        String userInput = scanner.nextLine();
-                        String msg = String.format("[%s]: %s", userName, userInput);
-                        msgToAll(msg);
-                        if (userInput.trim().equalsIgnoreCase("bye")) {
-                            closeUserConnection();
-                            running = false;
+                try (PrintWriter writer = new PrintWriter(userSocket.getOutputStream(), true)) {
+
+                    String userName = scanner.nextLine();
+                    System.out.printf("new user: %s connected to the server%n", userName);
+                    String welcomingMsg = String.format("[Server]: Hello %s. welcome to the chat.", userName);
+                    writer.println(welcomingMsg);
+                    userWriters.put(userName, writer);
+
+                    boolean running = true;
+                    while (running) {
+                        if (scanner.hasNext()) {
+                            String userInput = scanner.nextLine();
+                            String msg = String.format("[%s]: %s", userName, userInput);
+                            msgToAll(msg);
+                            if (userInput != null && userInput.trim().equalsIgnoreCase("bye")) {
+                                closeUserConnection(userName);
+                                userSocket.close();
+                                running = false;
+                            }
                         }
                     }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-            }
-        }
-
-        void closeUserConnection() throws IOException {
-            String userDisconnectedMsg = String.format("user %s - disconnected", userName);
-            msgToAll(userDisconnectedMsg);
-            System.out.println(userDisconnectedMsg);
-            userConnections.remove(userName);
-            userSocket.close();
-        }
-
-        void msgToAll(String msg) throws IOException {
-            Collection<Socket> connections = userConnections.values();
-            for (Socket socket : connections) {
-                new PrintWriter(socket.getOutputStream(), true).println(msg);
             }
         }
     }

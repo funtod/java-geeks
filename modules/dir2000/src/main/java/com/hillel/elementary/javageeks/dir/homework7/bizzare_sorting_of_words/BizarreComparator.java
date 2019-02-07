@@ -1,19 +1,20 @@
 package com.hillel.elementary.javageeks.dir.homework7.bizzare_sorting_of_words;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 public class BizarreComparator implements Comparator<String> {
   private static final Pattern PATTERN = Pattern.compile("[aeiouyAEIOUY]");
 
   public static int vowelLettersCount(String word) {
-    Matcher matcher = PATTERN.matcher(word);
-    int counter = 0;
-    while (matcher.find()) {
-      counter++;
-    }
-    return counter;
+    return (int) Arrays.stream(word.split(""))
+            .filter(letter -> PATTERN.matcher(letter).matches())
+            .count();
   }
 
   @Override

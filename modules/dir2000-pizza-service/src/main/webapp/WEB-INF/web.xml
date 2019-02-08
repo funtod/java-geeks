@@ -1,0 +1,11 @@
+<web-app>
+    <servlet>
+        <servlet-name>ServletExample</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.ServletExample</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ServletExample</servlet-name>
+        <url-pattern>/super-path</url-pattern>
+    </servlet-mapping>
+</web-app>

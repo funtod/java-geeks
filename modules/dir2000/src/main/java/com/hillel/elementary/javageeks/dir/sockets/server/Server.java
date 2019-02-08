@@ -1,8 +1,8 @@
-package com.hillel.elementary.javageeks.dir.sockets;
+package com.hillel.elementary.javageeks.dir.sockets.server;
 
-import java.io.BufferedReader;
+import com.hillel.elementary.javageeks.dir.sockets.Logging;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -35,7 +35,7 @@ public class Server {
             return;
         }
         try (Scanner scanner = new Scanner(System.in)) {
-            Thread serverThread = new Thread(new ServerTask(serverSock));
+            Thread serverThread = new Thread(new ServerTask(this, serverSock));
             serverThread.start();
 
             String prompt = "Enter \"shutdown\" to stop the server...";
@@ -70,58 +70,6 @@ public class Server {
                 writer.flush();
             } catch (Exception ex) {
                 Logging.logFailure(ex);
-            }
-        }
-    }
-
-    private class ServerTask implements Runnable {
-        ServerSocket serverSock;
-
-        public ServerTask(ServerSocket serverSock) {
-            this.serverSock = serverSock;
-        }
-
-        @Override
-        public void run() {
-            try {
-                while (true) {
-                    Socket clientSocket = serverSock.accept();
-                    clientSockets.add(clientSocket);
-                    executor.execute(new ClientHandler(clientSocket));
-                }
-            } catch (Exception ex) {
-                if (!ex.getMessage().equals("Socket closed")) {
-                    Logging.logFailure(ex);
-                }
-            }
-        }
-    }
-
-    private class ClientHandler implements Runnable {
-        Socket clientSocket;
-
-        public ClientHandler(Socket argClientSocket) {
-            clientSocket = argClientSocket;
-        }
-
-        public void run() {
-            String message;
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))) {
-                while ((message = reader.readLine()) != null) {
-                    if (message.startsWith("user:")) {
-                        message = "Welcome " + message;
-                    }
-                    if (message.equalsIgnoreCase("bye")) {
-                        clientSocket.close();
-                        clientSockets.remove(clientSocket);
-                        return;
-                    }
-                    tellEveryone(message);
-                }
-            } catch (Exception ex) {
-                if (!ex.getMessage().equals("Socket closed")) {
-                    Logging.logFailure(ex);
-                }
             }
         }
     }

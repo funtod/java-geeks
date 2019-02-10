@@ -1,11 +1,21 @@
 <web-app>
     <servlet>
-        <servlet-name>ServletExample</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.ServletExample</servlet-class>
+        <servlet-name>ShowAllPizzas</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.ShowAllPizzas</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>ServletExample</servlet-name>
-        <url-pattern>/super-path</url-pattern>
+        <servlet-name>ShowAllPizzas</servlet-name>
+        <url-pattern>/show_all_pizzas</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CreateOrder</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CreateOrder</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CreateOrder</servlet-name>
+        <url-pattern>/create_order</url-pattern>
     </servlet-mapping>
 </web-app>

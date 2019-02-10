@@ -4,6 +4,7 @@
     <groupId>com.hillel.elementary.java-geeks</groupId>
     <artifactId>dir2000-pizza-service</artifactId>
     <version>0.0.1</version>
+    <packaging>war</packaging>
 
     <parent>
         <groupId>com.hillel.elementary</groupId>
@@ -47,6 +48,13 @@
             <artifactId>jstl</artifactId>
             <version>${jstl.version}</version>
         </dependency>
+        <!-- JavaServer Pages API 2.3 for tomcat 9
+                <dependency>
+                    <groupId>javax.servlet.jsp</groupId>
+                    <artifactId>javax.servlet.jsp-api</artifactId>
+                    <version>2.3.1</version>
+                    <scope>provided</scope>
+                </dependency> -->
     </dependencies>
 
     <build>

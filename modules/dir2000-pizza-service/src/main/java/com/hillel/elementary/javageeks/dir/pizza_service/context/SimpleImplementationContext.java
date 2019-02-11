@@ -9,11 +9,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SimpleImplementationContext implements Context {
+    private final static Context context = new SimpleImplementationContext(new JavaConfig());
+
     private final Config config;
     private final Map<String, Object> beans = new HashMap<>();
 
-    public SimpleImplementationContext(Config argConfig) {
+    private SimpleImplementationContext(Config argConfig) {
         config = argConfig;
+    }
+
+    public static Context getInstance() {
+        return context;
     }
 
     @Override

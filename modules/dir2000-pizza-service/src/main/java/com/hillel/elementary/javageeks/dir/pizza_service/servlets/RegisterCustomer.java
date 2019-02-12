@@ -18,16 +18,17 @@ public class RegisterCustomer extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
         String customerName = req.getParameter("customerName");
         req.setAttribute("customerName", customerName);
 
         CustomerService customerService = context.getBean("customerService");
         Customer customer = customerService.getByName(customerName);
         if (customer == null) {
-            //customer = customerService.register(new Customer(null, customerName));
-           // HttpSession session = req.getSession();
-            //session.set
-
+            customer = customerService.register(new Customer(null, customerName));
+            HttpSession session = req.getSession();
+            session.setAttribute("customerID", customer.getId());
+            resp.sendRedirect("pages/Orders.jsp");
         } else {
             String errorMessage = "A customer with such name already exists";
             req.setAttribute("errorMessage", errorMessage);

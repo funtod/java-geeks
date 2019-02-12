@@ -3,7 +3,6 @@
         <servlet-name>ShowAllPizzas</servlet-name>
         <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.ShowAllPizzas</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>ShowAllPizzas</servlet-name>
         <url-pattern>/show_all_pizzas</url-pattern>
@@ -13,7 +12,6 @@
         <servlet-name>CreateOrder</servlet-name>
         <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CreateOrder</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>CreateOrder</servlet-name>
         <url-pattern>/create_order</url-pattern>
@@ -23,10 +21,18 @@
         <servlet-name>RegisterCustomer</servlet-name>
         <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.RegisterCustomer</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>RegisterCustomer</servlet-name>
         <url-pattern>/register_customer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 
 </web-app>

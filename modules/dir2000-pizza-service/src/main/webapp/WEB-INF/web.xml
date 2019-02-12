@@ -18,21 +18,21 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>RegisterCustomer</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.RegisterCustomer</servlet-class>
+        <servlet-name>CustomerRegister</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomerRegister</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>RegisterCustomer</servlet-name>
-        <url-pattern>/register_customer</url-pattern>
+        <servlet-name>CustomerRegister</servlet-name>
+        <url-pattern>/customer_register</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>Logout</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.Logout</servlet-class>
+        <servlet-name>CustomerLogout</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomerLogout</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Logout</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <servlet-name>CustomerLogout</servlet-name>
+        <url-pattern>/customer_logout</url-pattern>
     </servlet-mapping>
 
 </web-app>

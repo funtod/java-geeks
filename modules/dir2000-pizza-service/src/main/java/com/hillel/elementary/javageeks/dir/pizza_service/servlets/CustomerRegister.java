@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class RegisterCustomer extends HttpServlet {
+public class CustomerRegister extends HttpServlet {
     private final Context context = SimpleImplementationContext.getInstance();
 
     @Override
@@ -38,7 +38,7 @@ public class RegisterCustomer extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/RegisterCustomer.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/CustomerRegister.jsp");
         requestDispatcher.forward(req, resp);
     }
 }

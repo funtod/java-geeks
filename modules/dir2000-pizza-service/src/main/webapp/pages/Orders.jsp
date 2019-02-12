@@ -12,7 +12,7 @@
         <c:redirect url="/index.jsp" />
     </c:if>
     <h2>Orders</h2>
-    <form action='<c:url value="/logout" />' method="post">
+    <form action='<c:url value="/customer_logout" />' method="post">
         <input type="submit" value="Logout">
     </form>
 </form>

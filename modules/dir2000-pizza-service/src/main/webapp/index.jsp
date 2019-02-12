@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,15 +14,15 @@
 <div class="w3-container">
     <h3>Customers</h3>
     <div class="w3-bar w3-padding-large w3-padding-24">
-        <a href="/pizza_service/register_customer">Register</a><br/>
-        <a href="/pizza_service/login">Login</a>
+        <a href='<c:url value="/register_customer" />'>Register</a><br/>
+        <a href='<c:url value="/login" />'>Login</a>
     </div>
 </div>
 <div class="w3-container">
     <h3>Pizzas</h3>
     <div class="w3-bar w3-padding-large w3-padding-24">
-        <a href="/pizza_service/show_all_pizzas">Show all pizzas</a><br/>
-        <a href="/pizza_service/create_order">Create order</a>
+        <a href='<c:url value="/show_all_pizzas" />'>Show all pizzas</a><br/>
+        <a href='<c:url value="/create_order" />'>Create an order</a>
     </div>
 </div>
 </body>

@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="css/w3.css" type="text/css"/>
 </head>
 <body>
-<a href="/pizza_service">Back to main page..</a>
+<a href='<c:url value="/" />'>Back to main page..</a>
 <br/>
 <br/>
 <div class="w3-responsive">

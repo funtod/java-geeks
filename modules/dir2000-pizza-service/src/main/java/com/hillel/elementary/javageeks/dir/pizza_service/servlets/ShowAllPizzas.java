@@ -15,10 +15,11 @@ import java.io.PrintWriter;
 import java.util.Collection;
 
 public class ShowAllPizzas extends HttpServlet {
+    private final Context context = SimpleImplementationContext.getInstance();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        Context context = SimpleImplementationContext.getInstance();
         PizzaService pizzaService = context.getBean("pizzaService");
         Collection<Pizza> pizzas = pizzaService.getAll();
         req.setAttribute("pizzas", pizzas);

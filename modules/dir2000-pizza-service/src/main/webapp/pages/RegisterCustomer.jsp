@@ -6,14 +6,14 @@
 <link rel="stylesheet" href="css/w3.css" type="text/css"/>
 </head>
 <body>
-<a href="/pizza_service">Back to main page..</a>
+<a href='<c:url value="/" />'>Back to main page..</a>
 <br/>
 <br/>
 <div class="w3-container">
     <form method="post">
         <h2>New customer registration</h2>
         <label>Enter the name:
-            <input type="text" name="name"><br/>
+            <input type="text" name="customerName" value=<c:out value="${requestScope.customerName}"/> required><br/>
         </label>
         <c:if test="${ not empty errorMessage}">
             <div class="w3-panel w3-red">

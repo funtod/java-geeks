@@ -13,6 +13,6 @@
 
 <h3>Customers</h3>
 <a href='<c:url value="/customer_register" />'>Register</a><br/>
-<a href='<c:url value="/login" />'>Login</a>
+<a href='<c:url value="/customer_login" />'>Login</a>
 </body>
 </html>

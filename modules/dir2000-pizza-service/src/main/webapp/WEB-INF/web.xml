@@ -35,4 +35,22 @@
         <url-pattern>/customer_logout</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CustomerLogin</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomerLogin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CustomerLogin</servlet-name>
+        <url-pattern>/customer_login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>OrdersList</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.OrdersList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrdersList</servlet-name>
+        <url-pattern>/orders_list</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -67,4 +67,9 @@ public class SimpleOrderService implements OrderService {
     public Order findById(Long id) {
         return orderRepository.findById(id);
     }
+
+    @Override
+    public Collection<Order> getAllCustomerOrders(Customer customer) {
+        return orderRepository.findAllCustomerOrders(customer);
+    }
 }

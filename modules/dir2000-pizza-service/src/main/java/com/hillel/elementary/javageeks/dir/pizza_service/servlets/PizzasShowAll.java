@@ -23,7 +23,7 @@ public class PizzasShowAll extends HttpServlet {
         PizzaService pizzaService = context.getBean("pizzaService");
         Collection<Pizza> pizzas = pizzaService.getAll();
         req.setAttribute("pizzas", pizzas);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/ShowallPizzas.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/PizzasShowAll.jsp");
         requestDispatcher.forward(req, resp);
     }
 }

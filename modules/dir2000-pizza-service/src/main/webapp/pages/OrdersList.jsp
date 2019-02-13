@@ -12,6 +12,8 @@
 </c:if>
 <h2>Orders</h2>
 <br/>
+Welcome <c:out value="${sessionScope.customerName}" default="Anonimous"/>!
+<br/><br/>
 <a href='<c:url value="/customer_logout" />'>Logout</a>
 </body>
 </html>

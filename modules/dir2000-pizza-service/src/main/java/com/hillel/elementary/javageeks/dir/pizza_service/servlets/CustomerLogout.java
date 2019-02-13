@@ -10,17 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class CustomerLoguot extends HttpServlet {
+public class CustomerLogout extends HttpServlet {
     private final Context context = SimpleImplementationContext.getInstance();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         HttpSession session = req.getSession(false);
         if (session != null) {
             session.invalidate();
         }
-        System.out.println("!!!!!!!!!!!!!!!!!!");
         resp.sendRedirect("index.jsp");
     }
 }

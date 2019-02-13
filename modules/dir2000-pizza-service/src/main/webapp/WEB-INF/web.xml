@@ -1,11 +1,11 @@
 <web-app>
     <servlet>
-        <servlet-name>ShowAllPizzas</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.ShowAllPizzas</servlet-class>
+        <servlet-name>PizzasShowAll</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.PizzasShowAll</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>ShowAllPizzas</servlet-name>
-        <url-pattern>/show_all_pizzas</url-pattern>
+        <servlet-name>PizzasShowAll</servlet-name>
+        <url-pattern>/pizzas_show_all</url-pattern>
     </servlet-mapping>
 
     <servlet>

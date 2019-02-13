@@ -7,14 +7,11 @@
 <body>
 <br/>
 <br/>
-<form method="post">
-    <c:if test="${sessionScope.customerID == null}">
-        <c:redirect url="/index.jsp" />
-    </c:if>
-    <h2>Orders</h2>
-    <form action='<c:url value="/customer_logout" />' method="post">
-        <input type="submit" value="Logout">
-    </form>
-</form>
+<c:if test="${sessionScope.customerID == null}">
+    <c:redirect url="/index.jsp"/>
+</c:if>
+<h2>Orders</h2>
+<br/>
+<a href='<c:url value="/customer_logout" />'>Logout</a>
 </body>
 </html>

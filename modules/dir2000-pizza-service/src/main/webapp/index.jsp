@@ -9,7 +9,7 @@
 <body>
 <h2>Pizza service</h2>
 <h3>Pizzas</h3>
-<a href='<c:url value="/show_all_pizzas" />'>Show all pizzas</a><br/>
+<a href='<c:url value="/pizzas_show_all" />'>Show all pizzas</a><br/>
 
 <h3>Customers</h3>
 <a href='<c:url value="/customer_register" />'>Register</a><br/>

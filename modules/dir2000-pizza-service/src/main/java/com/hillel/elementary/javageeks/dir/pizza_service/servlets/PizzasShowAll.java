@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 
-public class ShowAllPizzas extends HttpServlet {
+public class PizzasShowAll extends HttpServlet {
     private final Context context = SimpleImplementationContext.getInstance();
 
     @Override

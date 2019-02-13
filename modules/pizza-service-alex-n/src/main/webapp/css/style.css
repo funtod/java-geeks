@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(20deg, rgb(39, 84, 158) 0%, rgb(113, 47, 36) 100%) no-repeat;
+    padding: 20px 0;
+    font: 12pt/10pt Century Gothic;
+}
+
+h1 {
+    font:  bold 20px Arial;
+    float: left;
+    margin: 18px 22px 0 88px;
+}

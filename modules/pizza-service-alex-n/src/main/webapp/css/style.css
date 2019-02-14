@@ -3,18 +3,235 @@
     padding: 0;
 }
 
+ul {
+    list-style: none;
+}
+
+p {
+    margin: 2px;
+    font: bold 20px Arial;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.71);
+}
+
 html, body {
     height: 100%;
 }
 
 body {
-    background: linear-gradient(20deg, rgb(39, 84, 158) 0%, rgb(113, 47, 36) 100%) no-repeat;
-    padding: 20px 0;
-    font: 12pt/10pt Century Gothic;
+    background: linear-gradient(20deg, #fab501 79%,
+    rgb(60, 166, 71) 79.1%,
+    rgb(60, 166, 71) 86%,
+    rgb(255, 255, 255) 86.1%,
+    rgb(255, 255, 255) 93%,
+    rgb(233, 60, 80) 93.1%,
+    rgb(233, 60, 80) 100%
+    ) no-repeat fixed;
+    height: 100%;
 }
 
 h1 {
-    font:  bold 20px Arial;
+    text-align: center;
+    width: 100%;
+    font: bold 70px Arial;
+    color: #ffffff;
+    margin: 20px 0 20px 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.71);
+}
+
+h2 {
+    text-align: center;
+    width: 100%;
+    font: bold 25px Arial;
+    color: #ffffff;
+    margin: 20px 0 20px 0;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.71);
+}
+
+nav {
+    color: #ffffff;
+    text-align: center;
+    float: top;
+    font: bold 20px Arial;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+nav li {
+    color: #fff;
+    margin: 10px 10px 0 10px;
+    display: inline;
+}
+
+div {
+    display: inline-block;
+}
+
+form {
+    display: inline;
+}
+
+footer {
+    height: 50px;
+    text-align: center;
+    width: 100%;
+    font: bold 15px Arial;
+    color: #ffffff;
+    padding: 15px;
+    margin: 20px 0 0px 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    background: #eeaa01;
+    display: block;
+    vertical-align: baseline;
+}
+
+.nav-btn {
+    background-color: transparent;
+    border: none;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial, serif;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 1px 1px 2px #000000;
+    backface-visibility: hidden;
+}
+
+.nav-btn:hover {
+    color: #e93c50;
+}
+
+.grid-wrapper {
+    width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+}
+
+.grid-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pizza-img {
     float: left;
-    margin: 18px 22px 0 88px;
+    height: 150px;
+    width: 150px;
+    margin: 5px;
+}
+
+.pizza-div {
+    font: bold 20px Arial;
+    color: #ffffff;
+    margin: 10px;
+    display: table;
+}
+
+.pizza-info {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+/*button*/
+.slide-btn {
+    margin: 2px;
+    text-align: center;
+}
+
+.slide-btn {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    height: 55px;
+    text-align: center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 1px;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.slide-btn:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.slide-btn:focus {
+    outline: none;
+}
+
+.add-btn {
+    background-image: linear-gradient(to right, #e93c50 48%, #ffffff 48.1%, #ffffff 52%, #3ca647 52.1%);
+}
+
+.dlt-btn {
+    background-image: linear-gradient(to right, #e93c50 48%, #ffffff 48.1%, #ffffff 52%, #a72a3c 52.1%);
+}
+
+.create-btn {
+    background-image: linear-gradient(to right, #3ca647 48%, #ffffff 48.1%, #ffffff 52%, #32823c 52.1%);
+}
+
+/*buttons*/
+
+.order-counter {
+    background-color: #e93c50;
+    border-radius: 100%;
+    margin: 2px;
+    padding: 5px;
+}
+
+.order-list {
+    text-align: center;
+    width: 100%;
+    font: bold 15px Arial;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.usr-field {
+    width: 600px;
+    margin: 7px 2px 5px 2px;
+    border: 1px solid #ffffff;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+
+}
+
+.user-data {
+    display: block;
+    width: 600px;
+    height: auto;
+    margin: auto;
+}
+
+.usr-data-btns {
+    display: block;
+    text-align: right;
+    margin: 5px -2px 5px 0px;
+}
+
+.content {
+    display: block;
+    padding: 20px;
+    min-height: 100%;
+    margin: 0 auto -50px;
+}
+
+.push {
+    height: 50px;
 }

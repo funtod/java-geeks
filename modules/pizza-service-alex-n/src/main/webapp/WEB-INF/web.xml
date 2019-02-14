@@ -1,0 +1,18 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+    <servlet>
+        <servlet-name>homePage</servlet-name>
+        <servlet-class>com.hillel.elementary.java_geeks.web.HomePageServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>order</servlet-name>
+        <servlet-class>com.hillel.elementary.java_geeks.web.OrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>homePage</servlet-name>
+        <url-pattern>/index.html</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>order</servlet-name>
+        <url-pattern>/order</url-pattern>
+    </servlet-mapping>
+</web-app>

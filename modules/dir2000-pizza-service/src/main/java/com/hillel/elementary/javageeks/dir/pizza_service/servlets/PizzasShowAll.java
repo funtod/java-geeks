@@ -19,7 +19,6 @@ public class PizzasShowAll extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
         PizzaService pizzaService = context.getBean("pizzaService");
         Collection<Pizza> pizzas = pizzaService.getAll();
         req.setAttribute("pizzas", pizzas);

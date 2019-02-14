@@ -13,33 +13,34 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class CustomerLogin extends HttpServlet {
+public class CustomersRegister extends HttpServlet {
     private final Context context = SimpleImplementationContext.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         String customerName = req.getParameter("customerName");
+        req.setAttribute("customerName", customerName);
 
         CustomerService customerService = context.getBean("customerService");
         Customer customer = customerService.getByName(customerName);
         if (customer == null) {
-            String errorMessage = "A customer with such name doesn't exist";
-            req.setAttribute("customerName", customerName);
-            req.setAttribute("errorMessage", errorMessage);
-            doGet(req, resp);
-        } else {
+            customer = customerService.register(new Customer(null, customerName));
             HttpSession session = req.getSession();
             session.setAttribute("customerID", customer.getId());
             session.setAttribute("customerName", customer.getName());
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/orders_list");
             requestDispatcher.forward(req, resp);
+        } else {
+            String errorMessage = "A customer with such name already exists";
+            req.setAttribute("errorMessage", errorMessage);
+            doGet(req, resp);
         }
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/CustomerLogin.jsp");
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/CustomersRegister.jsp");
         requestDispatcher.forward(req, resp);
     }
 }

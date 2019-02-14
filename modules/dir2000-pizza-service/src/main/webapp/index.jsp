@@ -12,7 +12,7 @@
 <a href='<c:url value="/pizzas_show_all" />'>Show all pizzas</a><br/>
 
 <h3>Customers</h3>
-<a href='<c:url value="/customer_register" />'>Register</a><br/>
-<a href='<c:url value="/customer_login" />'>Login</a>
+<a href='<c:url value="/customers_register" />'>Register</a><br/>
+<a href='<c:url value="/customers_login" />'>Login</a>
 </body>
 </html>

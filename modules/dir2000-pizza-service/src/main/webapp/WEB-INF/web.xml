@@ -9,39 +9,30 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>CreateOrder</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CreateOrder</servlet-class>
+        <servlet-name>CustomersRegister</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomersRegister</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>CreateOrder</servlet-name>
-        <url-pattern>/create_order</url-pattern>
+        <servlet-name>CustomersRegister</servlet-name>
+        <url-pattern>/customers_register</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>CustomerRegister</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomerRegister</servlet-class>
+        <servlet-name>CustomersLogout</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomersLogout</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>CustomerRegister</servlet-name>
-        <url-pattern>/customer_register</url-pattern>
+        <servlet-name>CustomersLogout</servlet-name>
+        <url-pattern>/customers_logout</url-pattern>
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>CustomerLogout</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomerLogout</servlet-class>
+        <servlet-name>CustomersLogin</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomersLogin</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>CustomerLogout</servlet-name>
-        <url-pattern>/customer_logout</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>CustomerLogin</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomerLogin</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CustomerLogin</servlet-name>
-        <url-pattern>/customer_login</url-pattern>
+        <servlet-name>CustomersLogin</servlet-name>
+        <url-pattern>/customers_login</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -53,4 +44,12 @@
         <url-pattern>/orders_list</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>OrdersCreate</servlet-name>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.OrdersCreate</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrdersCreate</servlet-name>
+        <url-pattern>/orders_create</url-pattern>
+    </servlet-mapping>
 </web-app>

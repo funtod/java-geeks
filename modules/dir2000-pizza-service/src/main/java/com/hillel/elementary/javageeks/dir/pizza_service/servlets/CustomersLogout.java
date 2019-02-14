@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class CustomerLogout extends HttpServlet {
+public class CustomersLogout extends HttpServlet {
     private final Context context = SimpleImplementationContext.getInstance();
 
     @Override

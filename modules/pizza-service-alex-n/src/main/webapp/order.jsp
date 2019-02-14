@@ -36,16 +36,6 @@
         </nav>
         <br>
     </header>
-        <%--<c:if test="${count < 1}">--%>
-            <%--<h2>There are no pizza in your order. You can add it on home page.</h2>--%>
-        <%--</c:if>--%>
-        <%--<c:if test="${count > 0}">--%>
-            <%--<c:if test="${count == 1}">--%>
-                <%--<h2>There is ${count} pizza in your order. To continue, enter your name and press "order".</h2>--%>
-            <%--</c:if>--%>
-            <%--<c:if test="${count > 1}">--%>
-                <%--<h2>There are ${count} pizzas in your order. To continue, enter your name and press "order".</h2>--%>
-            <%--</c:if>--%>
     <c:choose>
         <c:when test="${count > 1}">
             <h2>There are ${count} pizzas in your order. To continue, enter your name and press "order".</h2>

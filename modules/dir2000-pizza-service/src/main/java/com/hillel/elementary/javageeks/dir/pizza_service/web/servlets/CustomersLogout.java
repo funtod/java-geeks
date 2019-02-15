@@ -1,4 +1,4 @@
-package com.hillel.elementary.javageeks.dir.pizza_service.servlets;
+package com.hillel.elementary.javageeks.dir.pizza_service.web.servlets;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.context.Context;
 import com.hillel.elementary.javageeks.dir.pizza_service.context.SimpleImplementationContext;

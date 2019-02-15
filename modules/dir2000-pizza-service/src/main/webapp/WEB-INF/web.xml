@@ -1,7 +1,7 @@
 <web-app>
     <servlet>
         <servlet-name>PizzasShowAll</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.PizzasShowAll</servlet-class>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.web.servlets.PizzasShowAll</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PizzasShowAll</servlet-name>
@@ -10,7 +10,7 @@
 
     <servlet>
         <servlet-name>CustomersRegister</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomersRegister</servlet-class>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.web.servlets.CustomersRegister</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CustomersRegister</servlet-name>
@@ -19,7 +19,7 @@
 
     <servlet>
         <servlet-name>CustomersLogout</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomersLogout</servlet-class>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.web.servlets.CustomersLogout</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CustomersLogout</servlet-name>
@@ -28,7 +28,7 @@
 
     <servlet>
         <servlet-name>CustomersLogin</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.CustomersLogin</servlet-class>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.web.servlets.CustomersLogin</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CustomersLogin</servlet-name>
@@ -37,7 +37,7 @@
 
     <servlet>
         <servlet-name>OrdersList</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.OrdersList</servlet-class>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.web.servlets.OrdersList</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>OrdersList</servlet-name>
@@ -46,10 +46,23 @@
 
     <servlet>
         <servlet-name>OrdersCreate</servlet-name>
-        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.servlets.OrdersCreate</servlet-class>
+        <servlet-class>com.hillel.elementary.javageeks.dir.pizza_service.web.servlets.OrdersCreate</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>OrdersCreate</servlet-name>
         <url-pattern>/orders_create</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.hillel.elementary.javageeks.dir.pizza_service.web.filters.LoginFilter</filter-class>
+        <init-param>
+            <param-name>forbiddenPaths</param-name>
+            <param-value>orders_create,orders_list,pages/OrdersCreate.jsp,pages/OrdersList.jsp</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>

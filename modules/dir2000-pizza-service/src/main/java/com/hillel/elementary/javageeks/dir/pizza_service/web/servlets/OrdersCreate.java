@@ -1,4 +1,4 @@
-package com.hillel.elementary.javageeks.dir.pizza_service.servlets;
+package com.hillel.elementary.javageeks.dir.pizza_service.web.servlets;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.context.Context;
 import com.hillel.elementary.javageeks.dir.pizza_service.context.SimpleImplementationContext;
@@ -7,7 +7,6 @@ import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.customer.CustomerService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.order.OrderService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
-import com.hillel.elementary.javageeks.dir.pizza_service.servlets.common.CommonServletActions;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,17 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
-import java.util.Enumeration;
-import java.util.LinkedList;
 
 public class OrdersCreate extends HttpServlet {
     private final Context context = SimpleImplementationContext.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (CommonServletActions.NonAutenticatedRedirected(req, resp)) {
-            return;
-        }
         PizzaService pizzaService = context.getBean("pizzaService");
         Collection<Pizza> pizzas = pizzaService.getAll();
         req.setAttribute("pizzas", pizzas);

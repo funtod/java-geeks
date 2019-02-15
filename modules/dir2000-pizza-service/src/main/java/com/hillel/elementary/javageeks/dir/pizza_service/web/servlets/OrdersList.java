@@ -1,4 +1,4 @@
-package com.hillel.elementary.javageeks.dir.pizza_service.servlets;
+package com.hillel.elementary.javageeks.dir.pizza_service.web.servlets;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.context.Context;
 import com.hillel.elementary.javageeks.dir.pizza_service.context.SimpleImplementationContext;
@@ -6,7 +6,6 @@ import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.customer.CustomerService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.order.OrderService;
-import com.hillel.elementary.javageeks.dir.pizza_service.servlets.common.CommonServletActions;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,9 +21,6 @@ public class OrdersList extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (CommonServletActions.NonAutenticatedRedirected(req, resp)) {
-            return;
-        }
         HttpSession session = req.getSession();
         Long customerID = (Long) session.getAttribute("customerID");
         OrderService orderService = context.getBean("orderService");

@@ -1,4 +1,4 @@
-package com.hillel.elementary.javageeks.dir.pizza_service.servlets;
+package com.hillel.elementary.javageeks.dir.pizza_service.web.servlets;
 
 import com.hillel.elementary.javageeks.dir.pizza_service.context.Context;
 import com.hillel.elementary.javageeks.dir.pizza_service.context.SimpleImplementationContext;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
 
 public class PizzasShowAll extends HttpServlet {

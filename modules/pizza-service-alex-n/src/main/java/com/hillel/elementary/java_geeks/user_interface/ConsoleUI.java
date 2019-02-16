@@ -1,9 +1,11 @@
 package com.hillel.elementary.java_geeks.user_interface;
 
+import com.hillel.elementary.java_geeks.configs.anotations.Component;
 import com.hillel.elementary.java_geeks.utils.Converter;
 
 import java.util.Scanner;
 
+@Component("consoleUI")
 public class ConsoleUI {
 
     private final Scanner scanner = new Scanner(System.in);
@@ -52,31 +54,34 @@ public class ConsoleUI {
         return getIntUserAnswer(0, Integer.MAX_VALUE);
     }
 
-    int[] getPizzaIdsFromUser(int maxId) {
+    Integer[] getPizzaIdsFromUser(int maxId) {
 
-        int[] pizzaIds = new int[0];
+        Integer[] pizzaIds = new Integer[0];
         boolean repeat = true;
 
         while (repeat) {
             display("Enter pizzas id's split by comas:");
             pizzaIds = Converter.convertUserStringToPizzaIds(getStringUserAnswer());
-            for (int i = 0; i < pizzaIds.length; i++) {
-                if (pizzaIds[i] > maxId) {
-                    display("Sorry but there is now pizza with id=" + pizzaIds[i] + " in data base.");
-                    pizzaIds = null;
-                }
-            }
-            if (pizzaIds.length == 0) {
+
+            if (pizzaIds == null || pizzaIds.length == 0) {
                 display("Something is wrong. Try again");
                 repeat = true;
             } else {
-                repeat = false;
+                for (int pizzaId : pizzaIds) {
+                    if (pizzaId > maxId) {
+                        display("Sorry but there is no pizza with id=" + pizzaId + " in data base.");
+                        repeat = true;
+                        break;
+                    } else {
+                        repeat = false;
+                    }
+                }
             }
         }
         return pizzaIds;
     }
 
-    String getStringUserAnswer() {
+    private String getStringUserAnswer() {
 
         boolean repeat = true;
         String userAnswer = null;

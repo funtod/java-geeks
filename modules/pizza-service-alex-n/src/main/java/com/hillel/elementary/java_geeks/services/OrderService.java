@@ -19,5 +19,5 @@ public interface OrderService {
 
     Order saveOrder(Customer customer, Pizza... pizzas);
 
-    Order saveOrder(Customer customer, int... pizzaIds);
+    Order saveOrder(Customer customer, Integer... pizzaIds);
 }

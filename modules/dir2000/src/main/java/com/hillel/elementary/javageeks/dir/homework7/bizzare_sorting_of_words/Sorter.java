@@ -5,7 +5,9 @@
 package com.hillel.elementary.javageeks.dir.homework7.bizzare_sorting_of_words;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.StringTokenizer;
+import java.util.function.IntFunction;
 
 public class Sorter {
   protected Sorter() {
@@ -13,14 +15,10 @@ public class Sorter {
 
   public static String[] sortWords(String source) {
     StringTokenizer tokenizer = new StringTokenizer(source, ".,:-!? \t\n\r\f\"");
-    String[] array = new String[tokenizer.countTokens()];
 
-    int counter = 0;
-    while (tokenizer.hasMoreTokens()) {
-      array[counter++] = tokenizer.nextToken();
-    }
-
-    Arrays.sort(array, new BizarreComparator());
-    return array;
+    return Collections.list(tokenizer).stream()
+            .map(token -> (String) token)
+            .sorted(new BizarreComparator())
+            .toArray(String[]::new);
   }
 }

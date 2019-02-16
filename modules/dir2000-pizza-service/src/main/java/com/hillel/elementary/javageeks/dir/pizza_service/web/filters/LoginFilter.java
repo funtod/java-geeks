@@ -8,6 +8,7 @@ import java.io.IOException;
 
 public class LoginFilter implements Filter {
     private FilterConfig filterConfig = null;
+    private final String errorPagePath = "/pages/error/401.html";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -22,13 +23,13 @@ public class LoginFilter implements Filter {
         boolean loggedIn = session != null && session.getAttribute("customerID") != null;
         if (!loggedIn) {
             String contextPath = request.getContextPath();
-            String loginURI = contextPath + "/index.jsp";
+            String errorURI = contextPath + errorPagePath;
             String forbiddenPaths = filterConfig.getInitParameter("forbiddenPaths");
             String[] paths = forbiddenPaths.split(",");
             for (int i = 0; i < paths.length; i++) {
                 String path = contextPath + "/" + paths[i];
                 if (request.getRequestURI().equals(path)) {
-                    response.sendRedirect(loginURI);
+                    response.sendRedirect(errorURI);
                     return;
                 }
             }

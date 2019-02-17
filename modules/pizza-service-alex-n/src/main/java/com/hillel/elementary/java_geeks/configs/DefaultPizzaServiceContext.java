@@ -25,7 +25,12 @@ public class DefaultPizzaServiceContext implements Context {
 
     public static Context getInstance(Config config) {
         if (context == null) {
-            return new DefaultPizzaServiceContext(config);
+            synchronized (DefaultPizzaServiceContext.class) {
+                if (context == null) {
+                    context = new DefaultPizzaServiceContext(config);
+                }
+                return context;
+            }
         } else {
             return context;
         }
@@ -79,7 +84,7 @@ public class DefaultPizzaServiceContext implements Context {
 
         try {
             return constructor.newInstance(constructorArguments);
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("Can't create instance of bean " + e);
             throw new AppInitialisationException(e.getMessage());
         }

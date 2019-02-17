@@ -1,4 +1,19 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
+
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error.html</location>
+    </error-page>
+    <error-page>
+        <exception-type>javax.servlet.ServletException</exception-type>
+        <location>/error.html</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.html</location>
+    </error-page>
+
+
     <servlet>
         <servlet-name>homePage</servlet-name>
         <servlet-class>com.hillel.elementary.java_geeks.web.HomePageServlet</servlet-class>
@@ -7,6 +22,8 @@
         <servlet-name>order</servlet-name>
         <servlet-class>com.hillel.elementary.java_geeks.web.OrderServlet</servlet-class>
     </servlet>
+
+
     <servlet-mapping>
         <servlet-name>homePage</servlet-name>
         <url-pattern>/index.html</url-pattern>
@@ -15,4 +32,5 @@
         <servlet-name>order</servlet-name>
         <url-pattern>/order</url-pattern>
     </servlet-mapping>
+
 </web-app>

@@ -24,14 +24,16 @@ public class InMemOrderRepository implements OrderRepository {
         if (order == null) {
             throw new NullPointerException();
         }
+        Order orderToSave = null;
         if (order.getId() == null) {
-            Order orderToSave = new Order(++counter, order.getCustomer(), order.getPizzas(), order.getTotal());
-            orders.put(orderToSave.getId(), orderToSave);
-            return orderToSave;
+            orderToSave = new Order(++counter, order.getCustomer(), order.getPizzas(), order.getTotal());
         } else if (orders.get(order.getId()) == null) {
             throw new IllegalArgumentException();
+        } else {
+            orderToSave = new Order(order);
         }
-        return order;
+        orders.put(orderToSave.getId(), orderToSave);
+        return orderToSave;
     }
 
     @Override

@@ -20,18 +20,17 @@ public class CustomersRegister extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         String customerName = req.getParameter("customerName");
-        req.setAttribute("customerName", customerName);
 
         CustomerService customerService = context.getBean("customerService");
         Customer customer = customerService.getByName(customerName);
         if (customer == null) {
             customer = customerService.register(new Customer(null, customerName));
             HttpSession session = req.getSession();
-            session.setAttribute("customerID", customer.getId());
-            session.setAttribute("customerName", customer.getName());
+            session.setAttribute("customer", customer);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/orders_list");
             requestDispatcher.forward(req, resp);
         } else {
+            req.setAttribute("customerName", customerName);
             String errorMessage = "A customer with such name already exists";
             req.setAttribute("errorMessage", errorMessage);
             doGet(req, resp);

@@ -30,8 +30,7 @@ public class CustomersLogin extends HttpServlet {
             doGet(req, resp);
         } else {
             HttpSession session = req.getSession();
-            session.setAttribute("customerID", customer.getId());
-            session.setAttribute("customerName", customer.getName());
+            session.setAttribute("customer", customer);
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/orders_list");
             requestDispatcher.forward(req, resp);
         }

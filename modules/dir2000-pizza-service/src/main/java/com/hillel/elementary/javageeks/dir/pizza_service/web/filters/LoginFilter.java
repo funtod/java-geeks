@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class LoginFilter implements Filter {
     private FilterConfig filterConfig = null;
-    private final String errorPagePath = "/pages/error/401.html";
+    private final String errorPagePath = "/pages/error/401.jsp";
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -20,7 +20,7 @@ public class LoginFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession(false);
-        boolean loggedIn = session != null && session.getAttribute("customerID") != null;
+        boolean loggedIn = session != null && session.getAttribute("customer") != null;
         if (!loggedIn) {
             String contextPath = request.getContextPath();
             String errorURI = contextPath + errorPagePath;
@@ -29,12 +29,14 @@ public class LoginFilter implements Filter {
             for (int i = 0; i < paths.length; i++) {
                 String path = contextPath + "/" + paths[i];
                 if (request.getRequestURI().equals(path)) {
-                    response.sendRedirect(errorURI);
+                    //response.sendRedirect(errorURI);
+                    RequestDispatcher requestDispatcher = req.getRequestDispatcher(errorURI);
+                    request.setAttribute("request_uri", path);
+                    requestDispatcher.forward(request, response);
                     return;
                 }
             }
         }
-
         chain.doFilter(request, response);
     }
 }

@@ -25,6 +25,7 @@ public class Order {
         customer = anotherOrder.customer;
         pizzas = anotherOrder.pizzas;
         total = anotherOrder.total;
+        orderStatus = anotherOrder.orderStatus;
     }
 
     @Override

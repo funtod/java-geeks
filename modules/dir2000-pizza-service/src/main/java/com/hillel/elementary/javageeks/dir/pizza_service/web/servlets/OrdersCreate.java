@@ -4,7 +4,6 @@ import com.hillel.elementary.javageeks.dir.pizza_service.context.Context;
 import com.hillel.elementary.javageeks.dir.pizza_service.context.SimpleImplementationContext;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Pizza;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.customer.CustomerService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.order.OrderService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.pizza.PizzaService;
 
@@ -27,17 +26,13 @@ public class OrdersCreate extends HttpServlet {
         req.setAttribute("pizzas", pizzas);
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/OrdersCreate.jsp");
         requestDispatcher.forward(req, resp);
-
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        Long customerID = (Long) session.getAttribute("customerID");
         OrderService orderService = context.getBean("orderService");
-        CustomerService customerService = context.getBean("customerService");
-        Customer customer = customerService.getById(customerID);
+        Customer customer = (Customer) session.getAttribute("customer");
         String[] values = req.getParameterValues("pizza_id");
         if (values == null || values.length == 0) {
             doGet(req, resp);

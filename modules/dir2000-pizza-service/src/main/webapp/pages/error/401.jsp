@@ -3,10 +3,10 @@
 
 <html>
 <head>
-    <title>404 Not found</title>
+    <title>401 Unauthorized </title>
 </head>
 <body>
-<h2>Sorry, there is not such a page:</h2>
-<c:out value="${requestScope['javax.servlet.error.request_uri']}"/>
+<h2>Sorry, you should login to reach the page:</h2>
+<c:out value="${requestScope['request_uri']}"/>
 </body>
 </html>

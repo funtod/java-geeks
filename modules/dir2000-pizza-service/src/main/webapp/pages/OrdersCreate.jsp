@@ -5,12 +5,10 @@
 <title>Orders</title>
 </head>
 <body>
+<c:import url="/pages/Header.jsp"/>
 <br/>
 <br/>
-<c:if test="${sessionScope.customerID == null}">
-    <c:redirect url="/index.jsp"/>
-</c:if>
-<h2>Create an order, <c:out value="${sessionScope.customerName}" default="Anonimous"/></h2>
+<h2>Create an order, <c:out value="${sessionScope.customer.name}" default="Anonimous"/></h2>
 <br/>
 <br/><br/>
 <form method="post">
@@ -20,8 +18,6 @@
     <input type="submit" value="Create">
 </form>
 <br/><br/>
-
-<form action='<c:url value="/customers_logout" />'><input type="submit" value="Logout">
 </form>
 </body>
 </html>

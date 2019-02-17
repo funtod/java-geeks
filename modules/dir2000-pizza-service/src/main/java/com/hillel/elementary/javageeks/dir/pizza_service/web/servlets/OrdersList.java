@@ -4,7 +4,6 @@ import com.hillel.elementary.javageeks.dir.pizza_service.context.Context;
 import com.hillel.elementary.javageeks.dir.pizza_service.context.SimpleImplementationContext;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Customer;
 import com.hillel.elementary.javageeks.dir.pizza_service.domain.Order;
-import com.hillel.elementary.javageeks.dir.pizza_service.services.customer.CustomerService;
 import com.hillel.elementary.javageeks.dir.pizza_service.services.order.OrderService;
 
 import javax.servlet.RequestDispatcher;
@@ -22,12 +21,12 @@ public class OrdersList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();
-        Long customerID = (Long) session.getAttribute("customerID");
+        Customer customer = (Customer) session.getAttribute("customer");
         OrderService orderService = context.getBean("orderService");
-        CustomerService customerService = context.getBean("customerService");
-        Customer customer = customerService.getById(customerID);
         Collection<Order> orders = orderService.getAllCustomerOrders(customer);
-        req.setAttribute("orders", orders);
+        if (orders != null && orders.size() != 0) {
+            req.setAttribute("orders", orders);
+        }
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("pages/OrdersList.jsp");
         requestDispatcher.forward(req, resp);
     }

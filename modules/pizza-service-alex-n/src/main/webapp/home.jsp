@@ -28,7 +28,6 @@
             </form>
         </c:forEach>
     </div>
-
     <div class="push"></div>
 </div>
 <jsp:include page="footer.jsp"></jsp:include>

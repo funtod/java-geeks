@@ -23,6 +23,14 @@ public class OrderServlet extends HttpServlet {
     private PizzaService pizzaService;
 
     @Override
+    public void init() throws ServletException {
+        Context context = DefaultPizzaServiceContext.getInstance(new PizzaServiceConfig());
+        pizzaService = context.getBean("pizzaService");
+        orderService = context.getBean("orderService");
+    }
+
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Pizza> pizzas = Sessions.getPizzasList(req.getSession(), ATTR_NAME);
         if (pizzas != null) {
@@ -46,13 +54,4 @@ public class OrderServlet extends HttpServlet {
         }
         req.getRequestDispatcher("order.jsp").forward(req, resp);
     }
-
-
-    @Override
-    public void init() throws ServletException {
-        Context context = DefaultPizzaServiceContext.getInstance(new PizzaServiceConfig());
-        pizzaService = context.getBean("pizzaService");
-        orderService = context.getBean("orderService");
-    }
-
 }

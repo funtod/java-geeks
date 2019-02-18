@@ -26,7 +26,6 @@ public class HomePageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        setAttrForRequest(req);
         req.setAttribute("pizzas", pizzaService.getAllPizzas());
         req.getRequestDispatcher("home.jsp").forward(req, resp);
     }
@@ -41,16 +40,8 @@ public class HomePageServlet extends HttpServlet {
                         pizzaService.getPizzaById(Integer.parseInt(pizzaId)));
             }
         }
-        setAttrForRequest(req);
         req.setAttribute("pizzas", pizzaService.getAllPizzas());
         req.getRequestDispatcher("home.jsp").forward(req, resp);
     }
 
-
-    private void setAttrForRequest(HttpServletRequest req) {
-        int counter = Sessions.getSessionOrderPizzasCount(req.getSession(), ATTR_NAME);
-        if (counter > 0) {
-            req.setAttribute("counter", counter);
-        }
-    }
 }

@@ -19,8 +19,7 @@ public final class AppLauncher {
     System.out.println("-===Pizza service===-");
     System.out.println();
 
-    JavaConfig javaConfig = new JavaConfig();
-    Context context = new SimpleImplementationContext(javaConfig);
+    Context context = SimpleImplementationContext.getInstance();
 
     PizzaService pizzaService = context.getBean("pizzaService");
     CustomerService customerService = context.getBean("customerService");

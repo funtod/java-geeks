@@ -5,14 +5,29 @@ import java.util.Objects;
 public class Customer {
     private Long id;
     private String name;
+    private String password;
+    private String phone;
+
+    public Customer(String name) {
+        this.name = name;
+    }
 
     public Customer(Long id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Customer(String name) {
+    public Customer(Long id, String name, String password, String phone) {
+        this.id = id;
         this.name = name;
+        this.password = password;
+        this.phone = phone;
+    }
+
+    public Customer(String name, String password, String phone) {
+        this.name = name;
+        this.password = password;
+        this.phone = phone;
     }
 
     public Long getId() {
@@ -21,6 +36,15 @@ public class Customer {
 
     public String getName() {
         return name;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     @Override

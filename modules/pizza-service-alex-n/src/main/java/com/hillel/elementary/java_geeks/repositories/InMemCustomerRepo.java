@@ -15,7 +15,7 @@ public class InMemCustomerRepo implements CustomerRepo {
 
     @Override
     public Customer save(Customer customer) {
-        Customer savedCustomer = new Customer(counter, customer.getName());
+        Customer savedCustomer = new Customer(counter, customer.getName(), customer.getPassword(), customer.getPhone());
         customers.put(counter, savedCustomer);
         counter++;
         return savedCustomer;
@@ -24,5 +24,15 @@ public class InMemCustomerRepo implements CustomerRepo {
     @Override
     public Collection<Customer> getAll() {
         return customers.values();
+    }
+
+    @Override
+    public Customer getCustomerByName(String name) {
+        for (Customer customer : customers.values()) {
+            if (customer.getName().equals(name)){
+                return customer;
+            }
+        }
+        return null;
     }
 }

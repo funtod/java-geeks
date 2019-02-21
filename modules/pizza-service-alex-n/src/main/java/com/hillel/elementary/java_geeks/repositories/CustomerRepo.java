@@ -9,4 +9,6 @@ public interface CustomerRepo {
     Customer save(Customer customer);
 
     Collection<Customer> getAll();
+
+    Customer getCustomerByName(String name);
 }

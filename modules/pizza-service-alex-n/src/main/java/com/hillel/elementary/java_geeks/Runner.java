@@ -12,7 +12,7 @@ public final class Runner {
 
     public static void main(String[] args) {
 
-        Context context = new DefaultPizzaServiceContext(new PizzaServiceConfig());
+        Context context = DefaultPizzaServiceContext.getInstance(new PizzaServiceConfig());
         Controller controller = context.getBean("controller");
         controller.runUserInterface();
     }

@@ -15,11 +15,25 @@ import java.util.Map;
 public class DefaultPizzaServiceContext implements Context {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DefaultPizzaServiceContext.class);
-    private final Config config;
+    private Config config;
     private Map<String, Object> beans = new HashMap<>();
+    private static Context context;
 
-    public DefaultPizzaServiceContext(Config config) {
+    private DefaultPizzaServiceContext(Config config) {
         this.config = config;
+    }
+
+    public static Context getInstance(Config config) {
+        if (context == null) {
+            synchronized (DefaultPizzaServiceContext.class) {
+                if (context == null) {
+                    context = new DefaultPizzaServiceContext(config);
+                }
+                return context;
+            }
+        } else {
+            return context;
+        }
     }
 
     @Override
@@ -70,7 +84,7 @@ public class DefaultPizzaServiceContext implements Context {
 
         try {
             return constructor.newInstance(constructorArguments);
-        } catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("Can't create instance of bean " + e);
             throw new AppInitialisationException(e.getMessage());
         }

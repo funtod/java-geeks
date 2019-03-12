@@ -4,6 +4,13 @@
     <groupId>com.hillel.elementary.java-geeks</groupId>
     <artifactId>artem</artifactId>
     <version>0.0.1</version>
+    <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>RELEASE</version>
+        </dependency>
+    </dependencies>
 
     <parent>
         <groupId>com.hillel.elementary</groupId>
